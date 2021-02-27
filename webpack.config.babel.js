@@ -67,12 +67,14 @@ export default {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: [
-                require('autoprefixer'),
-                require('postcss-flexbugs-fixes')
-              ],
-              sourceMap: dev
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('autoprefixer'),
+                  require('postcss-flexbugs-fixes')
+                ],
+                sourceMap: dev
+              }
             }
           },
           'sass-loader'

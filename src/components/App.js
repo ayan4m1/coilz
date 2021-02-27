@@ -1,5 +1,21 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
+import Calculator from 'components/Calculator';
+import Home from 'components/Home';
+import Layout from 'components/Layout';
+import Materials from 'components/Materials';
+import Settings from 'components/Settings';
 
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <Layout>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/calculator" component={Calculator} />
+        <Route exact path="/materials" component={Materials} />
+        <Route exact path="/settings" component={Settings} />
+      </Switch>
+    </Layout>
+  );
 }

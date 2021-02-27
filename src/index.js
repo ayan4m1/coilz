@@ -12,7 +12,7 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import './icons.js';
 
 import './index.scss';
-import App from './components/App/App';
+import App from './components/App';
 
 import rootSaga from './sagas';
 import rootReducer from './reducers';

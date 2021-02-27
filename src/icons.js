@@ -1,4 +1,9 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFire,
+  faCalculator,
+  faThermometerFull,
+  faCog
+} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCircle);
+library.add(faFire, faCalculator, faThermometerFull, faCog);
