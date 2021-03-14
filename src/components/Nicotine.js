@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import React, { Fragment, useEffect, useState } from 'react';
-import * as Yup from 'yup';
-
 import { Form, Table, Tabs, Tab } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+import * as Yup from 'yup';
 
 const nicotineStrengths = [48, 72, 100, 250];
 
@@ -63,6 +63,7 @@ export default function Nicotine() {
 
   return (
     <Fragment>
+      <Helmet title="Nicotine Calculator" />
       <h1>
         <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
       </h1>
