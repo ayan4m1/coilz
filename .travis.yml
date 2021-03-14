@@ -1,0 +1,17 @@
+language: node_js
+os: linux
+node_js:
+  - stable
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: "$GITHUB_TOKEN"
+  local_dir: public
+  keep_history: true
+  on:
+    branch: master
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run build
