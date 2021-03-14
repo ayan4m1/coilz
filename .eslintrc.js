@@ -14,8 +14,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
-    'prettier',
-    'prettier/react'
+    'prettier'
   ],
   parser: 'babel-eslint',
   parserOptions: {
