@@ -94,7 +94,9 @@ export default function Nicotine() {
         <Tabs activeKey={mode} onSelect={(newMode) => setMode(newMode)}>
           <Tab eventKey="lifetime" title="Lifetime">
             <Form.Row>
-              <Form.Label for="baseVolume">Nicotine Base Volume</Form.Label>
+              <Form.Label for="baseVolume">
+                Nicotine Base Volume (mL)
+              </Form.Label>
               <Form.Control
                 id="baseVolume"
                 name="baseVolume"
@@ -105,7 +107,7 @@ export default function Nicotine() {
             </Form.Row>
             <Form.Row>
               <Form.Label for="baseConcentration">
-                Nicotine Base Concentration
+                Nicotine Base Concentration (mg/mL)
               </Form.Label>
               <Form.Control
                 id="baseConcentration"
