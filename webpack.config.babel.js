@@ -44,7 +44,6 @@ export default {
   devServer: {
     compress: dev,
     overlay: true,
-    historyApiFallback: true,
     hot: dev,
     port: 9000
   },
