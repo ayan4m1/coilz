@@ -90,7 +90,7 @@ export default function Nicotine() {
             }
           />
         </Form.Row>
-        <h6>You consume {consumption} mg per day.</h6>
+        <h4>You consume {consumption} mg per day.</h4>
         <Tabs activeKey={mode} onSelect={(newMode) => setMode(newMode)}>
           <Tab eventKey="lifetime" title="Lifetime">
             <Form.Row>
@@ -117,8 +117,8 @@ export default function Nicotine() {
                 }
               />
             </Form.Row>
-            <h6>You have {supply} mg of nicotine.</h6>
-            <h6>You have {supplyDuration} days of nicotine.</h6>
+            <h4>You have {supply} mg of nicotine.</h4>
+            <h4>You have {supplyDuration} days of nicotine.</h4>
           </Tab>
           <Tab eventKey="target" title="Target">
             <Form.Check
