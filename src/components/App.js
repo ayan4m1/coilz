@@ -6,6 +6,7 @@ import Home from 'components/Home';
 import Layout from 'components/Layout';
 import Materials from 'components/Materials';
 import Settings from 'components/Settings';
+import Nicotine from 'components/Nicotine';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route exact path="/calculator" component={Calculator} />
         <Route exact path="/materials" component={Materials} />
         <Route exact path="/settings" component={Settings} />
+        <Route exact path="/nicotine" component={Nicotine} />
       </Switch>
     </Layout>
   );

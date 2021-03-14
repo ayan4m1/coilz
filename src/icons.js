@@ -3,7 +3,14 @@ import {
   faFire,
   faCalculator,
   faThermometerFull,
-  faCog
+  faCog,
+  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faFire, faCalculator, faThermometerFull, faCog);
+library.add(
+  faFire,
+  faCalculator,
+  faThermometerFull,
+  faCog,
+  faExclamationTriangle
+);
