@@ -26,6 +26,9 @@ export default function Header() {
           <Nav.Link as={Link} to="/nicotine">
             <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
           </Nav.Link>
+          <Nav.Link as={Link} to="/mech">
+            <FontAwesomeIcon icon="bomb" size="2x" /> Mech
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

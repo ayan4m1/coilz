@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faBomb,
   faFire,
   faCalculator,
   faThermometerFull,
@@ -8,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faBomb,
   faFire,
   faCalculator,
   faThermometerFull,
