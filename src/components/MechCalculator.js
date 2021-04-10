@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React, { Fragment, useCallback, useState } from 'react';
 import { Alert, Card, Form, Row, Col, Badge } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import {
   LineChart,
   ResponsiveContainer,
@@ -12,6 +13,64 @@ import {
   Tooltip,
   ReferenceLine
 } from 'recharts';
+
+const batteries = [
+  {
+    name: 'Sony VTC6',
+    capacity: 3000,
+    currentLimit: 15
+  },
+  {
+    name: 'Samsung 30Q',
+    capacity: 3000,
+    currentLimit: 15
+  },
+  {
+    name: 'LG HG2',
+    capacity: 3000,
+    currentLimit: 20
+  },
+  {
+    name: 'Molicel P26A',
+    capacity: 2600,
+    currentLimit: 25
+  },
+  {
+    name: 'Murata VTC5D',
+    capacity: 2700,
+    currentLimit: 25
+  },
+  {
+    name: 'Sony VTC5A',
+    capacity: 2500,
+    currentLimit: 25
+  },
+  {
+    name: 'Samsung 25R',
+    capacity: 2500,
+    currentLimit: 20
+  },
+  {
+    name: 'Samsung 20S',
+    capacity: 2000,
+    currentLimit: 30
+  },
+  {
+    name: 'Samsung 30T',
+    capacity: 3000,
+    currentLimit: 35
+  },
+  {
+    name: 'Molicel P42A',
+    capacity: 4000,
+    currentLimit: 30
+  },
+  {
+    name: 'Samsung 40T',
+    capacity: 4000,
+    currentLimit: 25
+  }
+];
 
 const getVariant = (current, currentLimit, safetyMargin) => {
   const actualMargin = (currentLimit - current) / currentLimit;
@@ -51,7 +110,7 @@ export default function MechCalculator() {
 
   const [resistance, setResistance] = useState(0.5);
   const [series, setSeries] = useState(1);
-  const [currentLimit, setCurrentLimit] = useState(10);
+  const [currentLimit, setCurrentLimit] = useState(batteries[0].currentLimit);
   const [safetyMargin, setSafetyMargin] = useState(50);
   const handleResistanceChange = useCallback(
     (event) => {
@@ -73,7 +132,13 @@ export default function MechCalculator() {
     (event) => {
       const { value } = event.target;
 
-      setCurrentLimit(parseFloat(value));
+      const battery = batteries.find((batt) => batt.name === value);
+
+      if (!battery) {
+        return;
+      }
+
+      setCurrentLimit(battery.currentLimit);
     },
     [setCurrentLimit]
   );
@@ -109,6 +174,7 @@ export default function MechCalculator() {
 
   return (
     <Fragment>
+      <Helmet title="Mech Calculator" />
       <h1>
         <FontAwesomeIcon icon="bomb" size="2x" /> Mech Calculator
       </h1>
@@ -143,15 +209,19 @@ export default function MechCalculator() {
               />
             </Form.Row>
             <Form.Row>
-              <Form.Label>Current Limit (Amps)</Form.Label>
+              <Form.Label>Battery</Form.Label>
               <Form.Control
-                type="number"
-                min="0"
-                max="100"
-                step="1"
+                as="select"
                 onChange={handleCurrentLimitChange}
                 value={currentLimit}
-              />
+              >
+                {batteries.map((battery) => (
+                  <option key={battery.name} value={battery.name}>
+                    {battery.name} ({battery.capacity} mAh /{' '}
+                    {battery.currentLimit} A)
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Row>
             <Form.Row>
               <Form.Label>Safety Margin (%)</Form.Label>
