@@ -47,8 +47,6 @@ MechTooltip.propTypes = {
 };
 
 export default function MechCalculator() {
-  const chartXRange = [0, 2];
-  const chartYRange = [0, 100];
   const chartData = [];
 
   const [resistance, setResistance] = useState(0.5);
@@ -93,12 +91,14 @@ export default function MechCalculator() {
   const power = voltage * current;
   const headroom = currentLimit - current;
   const calculatedMargin = (headroom / currentLimit) * 100;
-  const marginLimit = currentLimit * (1 - safetyMargin / 100);
+  const marginLimit = currentLimit - currentLimit * (safetyMargin / 100);
 
   const dangerX = voltage / currentLimit;
-  const marginX = voltage / marginLimit;
+  const marginX = marginLimit > 0 ? voltage / marginLimit : 0;
 
-  for (let res = 0.04; res <= 2; res += 0.02) {
+  const chartXRange = [0, Math.max(1, marginX)];
+
+  for (let res = 0.04; res <= chartXRange[1]; res += 0.02) {
     const pointCurrent = voltage / res;
 
     chartData.push({
@@ -215,10 +215,10 @@ export default function MechCalculator() {
               <XAxis
                 dataKey="resistance"
                 type="number"
-                domain={chartXRange}
                 tickCount={40}
+                domain={chartXRange}
               />
-              <YAxis type="number" domain={chartYRange} />
+              <YAxis type="number" />
               <Tooltip
                 content={
                   <MechTooltip
