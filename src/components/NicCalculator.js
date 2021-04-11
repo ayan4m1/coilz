@@ -15,7 +15,7 @@ const FormSchema = Yup.object().shape({
   desiredSupply: Yup.number()
 });
 
-export default function Nicotine() {
+export default function NicCalculator() {
   const [mode, setMode] = useState('lifetime');
   const [units, setUnits] = useState('metric');
 

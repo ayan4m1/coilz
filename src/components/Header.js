@@ -14,8 +14,8 @@ export default function Header() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link as={Link} to="/calculator">
-            <FontAwesomeIcon icon="calculator" size="2x" /> Calculator
+          <Nav.Link as={Link} to="/coils">
+            <FontAwesomeIcon icon="calculator" size="2x" /> Coils
           </Nav.Link>
           <Nav.Link as={Link} to="/materials">
             <FontAwesomeIcon icon="thermometer-full" size="2x" /> Materials
@@ -25,6 +25,9 @@ export default function Header() {
           </Nav.Link>
           <Nav.Link as={Link} to="/nicotine">
             <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
+          </Nav.Link>
+          <Nav.Link as={Link} to="/base">
+            <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
           </Nav.Link>
           <Nav.Link as={Link} to="/mech">
             <FontAwesomeIcon icon="bomb" size="2x" /> Mech

@@ -66,7 +66,7 @@ const coilTypes = {
   CLAPTON: 'Clapton'
 };
 
-export default function Calculator() {
+export default function CoilCalculator() {
   const initialValues = {
     coilType: coilTypes.SINGLE,
     strands: 1,
