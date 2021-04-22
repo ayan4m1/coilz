@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Header() {
   return (
-    <Navbar bg="light" variant="primary" expand="lg" className="mb-4">
+    <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
       <Navbar.Brand>
         <Nav.Item as={Link} to="/">
           <FontAwesomeIcon icon="fire" size="2x" />
