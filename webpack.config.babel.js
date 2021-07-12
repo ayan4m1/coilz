@@ -6,8 +6,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 import CnameWebpackPlugin from 'cname-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin  from 'css-minimizer-webpack-plugin';
 import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -107,7 +107,7 @@ export default {
           ecma: 9
         }
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new CssMinimizerPlugin()
     ]
   }
 };
