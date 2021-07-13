@@ -1,36 +1,41 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const NavItem = ({ to, icon, label }) => (
+  <Nav.Link as={Link} to={to}>
+    <FontAwesomeIcon icon={icon} size="2x" />
+    {Boolean(label) && ` ${label}`}
+  </Nav.Link>
+);
+
+NavItem.propTypes = {
+  to: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string
+};
 
 export default function Header() {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
       <Navbar.Brand>
-        <Nav.Item as={Link} to="/">
-          <FontAwesomeIcon icon="fire" size="2x" />
-        </Nav.Item>
+        <NavItem to="/" icon="fire" />
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link as={Link} to="/coils">
-            <FontAwesomeIcon icon="calculator" size="2x" /> Coils
-          </Nav.Link>
-          <Nav.Link as={Link} to="/materials">
-            <FontAwesomeIcon icon="thermometer-full" size="2x" /> Materials
-          </Nav.Link>
-          <Nav.Link as={Link} to="/settings">
-            <FontAwesomeIcon icon="cog" size="2x" /> Settings
-          </Nav.Link>
-          <Nav.Link as={Link} to="/nicotine">
-            <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
-          </Nav.Link>
-          <Nav.Link as={Link} to="/base">
-            <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
-          </Nav.Link>
-          <Nav.Link as={Link} to="/mech">
-            <FontAwesomeIcon icon="bomb" size="2x" /> Mech
-          </Nav.Link>
+          <NavItem to="/coils" icon="calculator" label="Coils" />
+          <NavItem to="/materials" icon="thermometer-full" label="Materials" />
+          <NavItem to="/settings" icon="cog" label="Settings" />
+          <NavItem
+            to="/nicotine"
+            icon="exclamation-triangle"
+            label="Nicotine"
+          />
+          <NavItem to="/base" icon="clock" label="Base Lifetime" />
+          <NavItem to="/mech" icon="bomb" label="Mech" />
+          <NavItem to="/cost" icon="dollar-sign" label="Cost" />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
