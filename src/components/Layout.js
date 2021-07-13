@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 
 import Header from 'components/Header';

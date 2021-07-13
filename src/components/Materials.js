@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Papa from 'papaparse';
-import React, { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
 import CurveEditor from 'components/CurveEditor';

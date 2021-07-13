@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { Alert, Card, Form, Row, Col, Badge } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import {

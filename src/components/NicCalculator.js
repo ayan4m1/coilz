@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Form, Table, Tabs, Tab } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
