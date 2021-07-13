@@ -8,6 +8,7 @@ import BaseCalculator from 'components/BaseCalculator';
 import CoilCalculator from 'components/CoilCalculator';
 import MechCalculator from 'components/MechCalculator';
 import NicCalculator from 'components/NicCalculator';
+import CostCalculator from 'components/CostCalculator';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route exact path="/nicotine" component={NicCalculator} />
         <Route exact path="/mech" component={MechCalculator} />
         <Route exact path="/base" component={BaseCalculator} />
+        <Route exact path="/cost" component={CostCalculator} />
       </Switch>
     </Layout>
   );
