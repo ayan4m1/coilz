@@ -66,10 +66,11 @@ export default function NicCalculator() {
       <Helmet title="Nicotine Calculator" />
       <h1>
         <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
+        Calculator
       </h1>
       <Form>
         <Form.Row>
-          <Form.Label for="consumedPerDay">mL Consumed Per Day</Form.Label>
+          <Form.Label for="consumedPerDay">Daily Consumption (mL)</Form.Label>
           <Form.Control
             id="consumedPerDay"
             name="consumedPerDay"
@@ -79,7 +80,9 @@ export default function NicCalculator() {
           />
         </Form.Row>
         <Form.Row>
-          <Form.Label for="consumedConcentration">mg/mL Consumed</Form.Label>
+          <Form.Label for="consumedConcentration">
+            Nicotine Concentration (mg/mL)
+          </Form.Label>
           <Form.Control
             id="consumedConcentration"
             name="consumedConcentration"
@@ -91,7 +94,10 @@ export default function NicCalculator() {
             }
           />
         </Form.Row>
-        <h4>You consume {consumption} mg per day.</h4>
+        <h4 className="mt-3">
+          You consume {consumption.toLocaleString()} mg of nicotine per day (
+          {((consumption * 365.25) / 1000).toLocaleString()} g per year).
+        </h4>
         <Tabs activeKey={mode} onSelect={(newMode) => setMode(newMode)}>
           <Tab eventKey="lifetime" title="Lifetime">
             <Form.Row>
@@ -120,8 +126,13 @@ export default function NicCalculator() {
                 }
               />
             </Form.Row>
-            <h4>You have {supply} mg of nicotine.</h4>
-            <h4>You have {supplyDuration} days of nicotine.</h4>
+            <h4 className="mt-3">
+              You have {supply.toLocaleString()} mg of nicotine.
+            </h4>
+            <h4>
+              You have {supplyDuration.toLocaleString()} days (
+              {(supplyDuration / 365.25).toFixed(1)} years) of nicotine.
+            </h4>
           </Tab>
           <Tab eventKey="target" title="Target">
             <Form.Check
