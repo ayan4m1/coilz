@@ -43,7 +43,6 @@ export default {
   entry: './src/index.js',
   devServer: {
     compress: dev,
-    overlay: true,
     hot: dev,
     port: 9000
   },
