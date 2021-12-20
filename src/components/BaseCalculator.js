@@ -111,15 +111,17 @@ export default function BaseCalculator() {
           </Form>
         </Card.Body>
       </Card>
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>
-            <h2>Outputs</h2>
-          </Card.Title>
-          <h4>Your VG will last {Math.round(vgDays)} days.</h4>
-          <h4>Your PG will last {Math.round(pgDays)} days.</h4>
-        </Card.Body>
-      </Card>
+      {!isNaN(vgDays) && !isNaN(pgDays) && (
+        <Card className="mb-4">
+          <Card.Body>
+            <Card.Title>
+              <h2>Outputs</h2>
+            </Card.Title>
+            <h4>Your VG will last {Math.round(vgDays)} days.</h4>
+            <h4>Your PG will last {Math.round(pgDays)} days.</h4>
+          </Card.Body>
+        </Card>
+      )}
     </Fragment>
   );
 }
