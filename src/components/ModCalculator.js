@@ -1,7 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Fragment, useCallback, useState } from 'react';
-import { Alert, Card, Form, Row, Col, Badge } from 'react-bootstrap';
+import {
+  Alert,
+  Card,
+  Form,
+  Row,
+  Col,
+  Badge,
+  InputGroup
+} from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import {
   LineChart,
@@ -84,7 +92,7 @@ const getVariant = (current, currentLimit, safetyMargin) => {
   }
 };
 
-function MechTooltip({ currentLimit, safetyMargin, payload }) {
+function ChartTooltip({ currentLimit, safetyMargin, payload }) {
   if (!payload?.length) {
     return null;
   }
@@ -99,19 +107,31 @@ function MechTooltip({ currentLimit, safetyMargin, payload }) {
   );
 }
 
-MechTooltip.propTypes = {
+ChartTooltip.propTypes = {
   currentLimit: PropTypes.number,
   safetyMargin: PropTypes.number,
   payload: PropTypes.array
 };
 
-export default function MechCalculator() {
-  const chartData = [];
-
+export default function ModCalculator() {
+  const [type, setType] = useState('mechanical');
+  const [efficiency, setEfficiency] = useState(95);
+  const [wattage, setWattage] = useState(0);
   const [resistance, setResistance] = useState(0.5);
   const [series, setSeries] = useState(1);
+  const [batteryIndex, setBatteryIndex] = useState(0);
+  const [capacity, setCapacity] = useState(batteries[0].capacity);
   const [currentLimit, setCurrentLimit] = useState(batteries[0].currentLimit);
   const [safetyMargin, setSafetyMargin] = useState(50);
+
+  const handleTypeChange = useCallback(
+    (event) => {
+      const { value } = event.target;
+
+      setType(value);
+    },
+    [setType]
+  );
   const handleResistanceChange = useCallback(
     (event) => {
       const { value } = event.target;
@@ -132,13 +152,35 @@ export default function MechCalculator() {
     (event) => {
       const { value } = event.target;
 
-      const battery = batteries.find((batt) => batt.name === value);
+      if (value === 'CUSTOM') {
+        return setBatteryIndex(-1);
+      }
 
-      if (!battery) {
+      const index = batteries.findIndex((batt) => batt.name === value);
+
+      if (index === -1) {
         return;
       }
 
-      setCurrentLimit(battery.currentLimit);
+      setBatteryIndex(index);
+      setCapacity(batteries[index].capacity);
+      setCurrentLimit(batteries[index].currentLimit);
+    },
+    [setCurrentLimit]
+  );
+  const handleCustomCapacityChange = useCallback(
+    (event) => {
+      const { value } = event.target;
+
+      setCapacity(parseInt(value, 10));
+    },
+    [setCapacity]
+  );
+  const handleCustomCurrentLimitChange = useCallback(
+    (event) => {
+      const { value } = event.target;
+
+      setCurrentLimit(parseInt(value, 10));
     },
     [setCurrentLimit]
   );
@@ -148,12 +190,33 @@ export default function MechCalculator() {
 
       setSafetyMargin(parseInt(value, 10));
     },
-    [safetyMargin]
+    [setSafetyMargin]
   );
+  const handleEfficiencyChange = useCallback((event) => {
+    const { value } = event.target;
+
+    setEfficiency(parseInt(value, 10));
+  });
+  const handleWattageChange = useCallback((event) => {
+    const { value } = event.target;
+
+    setWattage(parseInt(value, 10));
+  });
 
   const voltage = series * 4.2;
-  const current = voltage / resistance;
-  const power = voltage * current;
+
+  let current = voltage / resistance,
+    power = 0;
+
+  if (type === 'regulated') {
+    power = wattage;
+    current *= 1 + (1 - efficiency / 100);
+  } else {
+    power = voltage * current;
+  }
+
+  const runtime = (capacity / 1000 / current) * 60;
+  const maxPower = currentLimit * voltage;
   const headroom = currentLimit - current;
   const calculatedMargin = (headroom / currentLimit) * 100;
   const marginLimit = currentLimit - currentLimit * (safetyMargin / 100);
@@ -162,6 +225,7 @@ export default function MechCalculator() {
   const marginX = marginLimit > 0 ? voltage / marginLimit : 0;
 
   const chartXRange = [0, Math.max(1, marginX)];
+  const chartData = [];
 
   for (let res = 0.04; res <= chartXRange[1]; res += 0.02) {
     const pointCurrent = voltage / res;
@@ -174,20 +238,58 @@ export default function MechCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Mech Calculator" />
+      <Helmet title="Mod Calculator" />
       <h1>
-        <FontAwesomeIcon icon="bomb" size="2x" /> Mech Calculator
+        <FontAwesomeIcon icon="bomb" size="2x" /> Mod Calculator
       </h1>
       <Card className="my-4">
-        <Card.Header>
+        <Card.Body>
           <Card.Title>
             <h2>Inputs</h2>
           </Card.Title>
-        </Card.Header>
-        <Card.Body>
           <Form>
-            <Form.Row>
-              <Form.Label>Resistance (&#8486;)</Form.Label>
+            <Form.Group>
+              <Form.Label>Mod Type</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={handleTypeChange}
+                value={type}
+              >
+                <option value="regulated">Regulated</option>
+                <option value="mechanical">Mechanical</option>
+              </Form.Control>
+            </Form.Group>
+            {type === 'regulated' && (
+              <Fragment>
+                <Form.Group>
+                  <Form.Label>Regulator Efficiency</Form.Label>
+                  <Form.Range
+                    min="75"
+                    max="95"
+                    step="5"
+                    onChange={handleEfficiencyChange}
+                    value={efficiency}
+                  />
+                  <InputGroup>
+                    <Form.Control disabled value={efficiency} />
+                    <InputGroup.Text>%</InputGroup.Text>
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Mod Wattage</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="5"
+                    max="2000"
+                    step="0.1"
+                    onChange={handleWattageChange}
+                    value={wattage}
+                  />
+                </Form.Group>
+              </Fragment>
+            )}
+            <Form.Group>
+              <Form.Label>Coil Resistance (&#8486;)</Form.Label>
               <Form.Control
                 type="number"
                 min="0.01"
@@ -196,8 +298,8 @@ export default function MechCalculator() {
                 onChange={handleResistanceChange}
                 value={resistance}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label># Cells in Series</Form.Label>
               <Form.Control
                 type="number"
@@ -207,13 +309,15 @@ export default function MechCalculator() {
                 onChange={handleSeriesChange}
                 value={series}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label>Battery</Form.Label>
               <Form.Control
                 as="select"
                 onChange={handleCurrentLimitChange}
-                value={currentLimit}
+                value={
+                  batteryIndex === -1 ? 'CUSTOM' : batteries[batteryIndex].name
+                }
               >
                 {batteries.map((battery) => (
                   <option key={battery.name} value={battery.name}>
@@ -221,9 +325,35 @@ export default function MechCalculator() {
                     {battery.currentLimit} A)
                   </option>
                 ))}
+                <option value="CUSTOM">Custom...</option>
               </Form.Control>
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            {batteryIndex === -1 && (
+              <Fragment>
+                <h3>Custom Battery</h3>
+                <Form.Group>
+                  <Form.Label>Capacity (mAh)</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="0"
+                    max="50000"
+                    step="50"
+                    onChange={handleCustomCapacityChange}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Current Limit (A)</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    onChange={handleCustomCurrentLimitChange}
+                  />
+                </Form.Group>
+              </Fragment>
+            )}
+            <Form.Group>
               <Form.Label>Safety Margin (%)</Form.Label>
               <Form.Control
                 type="number"
@@ -233,17 +363,15 @@ export default function MechCalculator() {
                 onChange={handleSafetyMarginChange}
                 value={safetyMargin}
               />
-            </Form.Row>
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
       <Card className="mb-4">
-        <Card.Header>
+        <Card.Body>
           <Card.Title>
             <h2>Outputs</h2>
           </Card.Title>
-        </Card.Header>
-        <Card.Body>
           <Row>
             <Col xs={3}>Voltage</Col>
             <Col xs={9}>{voltage.toFixed(1)} V</Col>
@@ -253,18 +381,24 @@ export default function MechCalculator() {
             <Col xs={9}>{current.toFixed(2)} A</Col>
           </Row>
           <Row>
+            <Col xs={3}>Runtime</Col>
+            <Col xs={9}>{Math.round(runtime)} min</Col>
+          </Row>
+          <Row>
             <Col xs={3}>Power</Col>
             <Col xs={9}>
-              <Badge
-                variant={getVariant(current, currentLimit, safetyMargin / 100)}
-              >
-                {power.toFixed(2)} W
+              <Badge bg={getVariant(current, currentLimit, safetyMargin / 100)}>
+                {power.toFixed(2)} / {maxPower.toFixed(2)} W
               </Badge>
             </Col>
           </Row>
           <Row>
             <Col xs={3}>Headroom</Col>
-            <Col xs={9}>{headroom.toFixed(2)} A</Col>
+            <Col xs={9}>
+              <Badge bg={headroom > 0 ? 'success' : 'danger'}>
+                {headroom.toFixed(2)} A
+              </Badge>
+            </Col>
           </Row>
           <Row>
             <Col xs={3}>Calculated Safety Margin</Col>
@@ -273,12 +407,10 @@ export default function MechCalculator() {
         </Card.Body>
       </Card>
       <Card className="mb-4">
-        <Card.Header>
+        <Card.Body>
           <Card.Title>
             <h2>Chart</h2>
           </Card.Title>
-        </Card.Header>
-        <Card.Body>
           <ResponsiveContainer height={400} width="100%">
             <LineChart data={chartData}>
               <CartesianGrid />
@@ -291,7 +423,7 @@ export default function MechCalculator() {
               <YAxis type="number" />
               <Tooltip
                 content={
-                  <MechTooltip
+                  <ChartTooltip
                     currentLimit={currentLimit}
                     safetyMargin={safetyMargin / 100}
                   />

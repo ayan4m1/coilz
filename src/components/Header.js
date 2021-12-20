@@ -27,15 +27,14 @@ export default function Header() {
         <Nav>
           <NavItem to="/coils" icon="calculator" label="Coils" />
           <NavItem to="/materials" icon="thermometer-full" label="Materials" />
-          <NavItem to="/settings" icon="cog" label="Settings" />
           <NavItem
             to="/nicotine"
             icon="exclamation-triangle"
             label="Nicotine"
           />
-          <NavItem to="/base" icon="clock" label="Base Lifetime" />
-          <NavItem to="/mech" icon="bomb" label="Mech" />
           <NavItem to="/cost" icon="dollar-sign" label="Cost" />
+          <NavItem to="/base" icon="clock" label="Base" />
+          <NavItem to="/mod" icon="bomb" label="Mod" />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

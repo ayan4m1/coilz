@@ -41,14 +41,12 @@ export default function BaseCalculator() {
         <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
       </h1>
       <Card className="my-4">
-        <Card.Header>
+        <Card.Body>
           <Card.Title>
             <h2>Inputs</h2>
           </Card.Title>
-        </Card.Header>
-        <Card.Body>
           <Form>
-            <Form.Row>
+            <Form.Group>
               <Form.Label htmlFor="consumedPerDay">
                 mL Consumed Per Day
               </Form.Label>
@@ -60,8 +58,8 @@ export default function BaseCalculator() {
                 onChange={handleChange}
                 error={touched.consumedPerDay && Boolean(errors.consumedPerDay)}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label htmlFor="vgRatio">VG %</Form.Label>
               <Form.Control
                 id="vgRatio"
@@ -73,8 +71,8 @@ export default function BaseCalculator() {
                 onChange={handleChange}
                 error={touched.vgRatio && Boolean(errors.vgRatio)}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label htmlFor="pgRatio">PG %</Form.Label>
               <Form.Control
                 id="pgRatio"
@@ -85,8 +83,8 @@ export default function BaseCalculator() {
                 value={100 - values.vgRatio}
                 onChange={handleChange}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label htmlFor="vgVolume">VG Volume (mL)</Form.Label>
               <Form.Control
                 id="vgVolume"
@@ -97,8 +95,8 @@ export default function BaseCalculator() {
                 onChange={handleChange}
                 error={touched.vgVolume && Boolean(errors.vgVolume)}
               />
-            </Form.Row>
-            <Form.Row>
+            </Form.Group>
+            <Form.Group>
               <Form.Label htmlFor="pgVolume">PG Volume (mL)</Form.Label>
               <Form.Control
                 id="pgVolume"
@@ -109,19 +107,17 @@ export default function BaseCalculator() {
                 onChange={handleChange}
                 error={touched.pgVolume && Boolean(errors.pgVolume)}
               />
-            </Form.Row>
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
       <Card className="mb-4">
-        <Card.Header>
+        <Card.Body>
           <Card.Title>
             <h2>Outputs</h2>
           </Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <p>Your VG will last {Math.round(vgDays)} days.</p>
-          <p>Your PG will last {Math.round(pgDays)} days.</p>
+          <h4>Your VG will last {Math.round(vgDays)} days.</h4>
+          <h4>Your PG will last {Math.round(pgDays)} days.</h4>
         </Card.Body>
       </Card>
     </Fragment>

@@ -47,12 +47,12 @@ export default function Materials() {
         <FontAwesomeIcon icon="thermometer-full" size="2x" /> Materials
       </h1>
       <Form>
-        <Form.Row>
+        <Form.Group>
           <input type="file" onChange={handleFileChange} />
-        </Form.Row>
-        <Form.Row>
+        </Form.Group>
+        <Form.Group>
           <Button onClick={handleImportClick}>Import</Button>
-        </Form.Row>
+        </Form.Group>
       </Form>
       <CurveEditor points={points} />
     </Fragment>
