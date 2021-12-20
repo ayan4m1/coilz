@@ -1,8 +1,7 @@
-import { lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import Layout from 'components/Layout';
-import { Suspense } from 'react';
 
 const Home = lazy(() =>
   import(/* webpackChunkName: "core" */ 'components/Home')
@@ -14,35 +13,35 @@ const Settings = lazy(() =>
   import(/* webpackChunkName: "core" */ 'components/Settings')
 );
 const BaseCalculator = lazy(() =>
-  import(/* webpackChunkName: "calc" */ 'components/BaseCalculator')
+  import(/* webpackChunkName: "base" */ 'components/BaseCalculator')
 );
 const CoilCalculator = lazy(() =>
-  import(/* webpackChunkName: "calc" */ 'components/CoilCalculator')
+  import(/* webpackChunkName: "coil" */ 'components/CoilCalculator')
 );
-const MechCalculator = lazy(() =>
-  import(/* webpackChunkName: "calc" */ 'components/MechCalculator')
+const ModCalculator = lazy(() =>
+  import(/* webpackChunkName: "mod" */ 'components/ModCalculator')
 );
 const NicCalculator = lazy(() =>
-  import(/* webpackChunkName: "calc" */ 'components/NicCalculator')
+  import(/* webpackChunkName: "nic" */ 'components/NicCalculator')
 );
 const CostCalculator = lazy(() =>
-  import(/* webpackChunkName: "calc" */ 'components/CostCalculator')
+  import(/* webpackChunkName: "cost" */ 'components/CostCalculator')
 );
 
 export default function App() {
   return (
     <Layout>
       <Suspense fallback={<h1>Loading...</h1>}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/materials" component={Materials} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/coils" component={CoilCalculator} />
-          <Route exact path="/nicotine" component={NicCalculator} />
-          <Route exact path="/mech" component={MechCalculator} />
-          <Route exact path="/base" component={BaseCalculator} />
-          <Route exact path="/cost" component={CostCalculator} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/materials" element={<Materials />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/coils" element={<CoilCalculator />} />
+          <Route path="/nicotine" element={<NicCalculator />} />
+          <Route path="/mod" element={<ModCalculator />} />
+          <Route path="/base" element={<BaseCalculator />} />
+          <Route path="/cost" element={<CostCalculator />} />
+        </Routes>
       </Suspense>
     </Layout>
   );
