@@ -175,7 +175,7 @@ export default function CoilCalculator() {
   return (
     <Fragment>
       <h1>
-        <FontAwesomeIcon icon="calculator" size="2x" /> Calculator
+        <FontAwesomeIcon icon="calculator" size="2x" /> Coil Calculator
       </h1>
       <h2>Input</h2>
       <Row>
@@ -241,12 +241,8 @@ export default function CoilCalculator() {
                     />
                   </Form.Group>
                 )}
-                <Form.Group>
-                  <Button
-                    type="submit"
-                    variant="success"
-                    disabled={isValidating}
-                  >
+                <Form.Group className="my-3">
+                  <Button type="submit" disabled={isValidating}>
                     Update
                   </Button>
                 </Form.Group>

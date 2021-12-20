@@ -50,7 +50,7 @@ export default function Materials() {
         <Form.Group>
           <input type="file" onChange={handleFileChange} />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="my-3">
           <Button onClick={handleImportClick}>Import</Button>
         </Form.Group>
       </Form>
