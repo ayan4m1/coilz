@@ -1,4 +1,3 @@
-import webpack from 'webpack';
 import { resolve } from 'path';
 import HtmlPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
@@ -22,7 +21,7 @@ const plugins = [
     files: '**/*.scss',
     failOnError: true,
     quiet: false,
-    syntax: 'scss'
+    customSyntax: 'postcss-scss'
   }),
   new MiniCSSExtractPlugin({
     filename: '[name].css'
@@ -32,10 +31,6 @@ const plugins = [
   }),
   new ESLintPlugin()
 ];
-
-if (dev) {
-  plugins.push(new webpack.HotModuleReplacementPlugin());
-}
 
 export default {
   mode: dev ? 'development' : 'production',
