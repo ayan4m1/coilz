@@ -224,7 +224,7 @@ export default function ModCalculator() {
   const dangerX = voltage / currentLimit;
   const marginX = marginLimit > 0 ? voltage / marginLimit : 0;
 
-  const chartXRange = [0, Math.max(1, marginX)];
+  const chartXRange = [0.04, Math.max(1, marginX)];
   const chartData = [];
 
   for (let res = 0.04; res <= chartXRange[1]; res += 0.02) {
