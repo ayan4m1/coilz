@@ -19,7 +19,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ReferenceLine
+  ReferenceLine,
+  Text
 } from 'recharts';
 
 const batteries = [
@@ -111,6 +112,21 @@ ChartTooltip.propTypes = {
   currentLimit: PropTypes.number,
   safetyMargin: PropTypes.number,
   payload: PropTypes.array
+};
+
+function ChartLabel({ x, y, angle = 0, label }) {
+  return (
+    <Text x={0} y={0} dx={x} dy={y} transform={`rotate(${angle})`}>
+      {label}
+    </Text>
+  );
+}
+
+ChartLabel.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  angle: PropTypes.number,
+  label: PropTypes.string.isRequired
 };
 
 export default function ModCalculator() {
@@ -412,15 +428,26 @@ export default function ModCalculator() {
             <h2>Chart</h2>
           </Card.Title>
           <ResponsiveContainer height={400} width="100%">
-            <LineChart data={chartData}>
+            <LineChart data={chartData} margin={{ bottom: 10 }}>
               <CartesianGrid />
               <XAxis
+                label={
+                  <ChartLabel
+                    x={-350}
+                    y={30}
+                    angle={-90}
+                    label="Current (Amp)"
+                  />
+                }
                 dataKey="resistance"
                 type="number"
                 tickCount={40}
                 domain={chartXRange}
               />
-              <YAxis type="number" />
+              <YAxis
+                type="number"
+                label={<ChartLabel x={70} y={394} label="Resistance (Ohm)" />}
+              />
               <Tooltip
                 content={
                   <ChartTooltip
