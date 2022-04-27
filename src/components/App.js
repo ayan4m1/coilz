@@ -27,6 +27,9 @@ const NicCalculator = lazy(() =>
 const CostCalculator = lazy(() =>
   import(/* webpackChunkName: "cost" */ 'components/CostCalculator')
 );
+const WiringCalculator = lazy(() =>
+  import(/* webpackChunkName: "wiring" */ 'components/WiringCalculator')
+);
 
 export default function App() {
   return (
@@ -41,6 +44,7 @@ export default function App() {
           <Route path="/mod" element={<ModCalculator />} />
           <Route path="/base" element={<BaseCalculator />} />
           <Route path="/cost" element={<CostCalculator />} />
+          <Route path="/wiring" element={<WiringCalculator />} />
         </Routes>
       </Suspense>
     </Layout>

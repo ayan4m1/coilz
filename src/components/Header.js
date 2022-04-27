@@ -35,6 +35,7 @@ export default function Header() {
           <NavItem to="/cost" icon="dollar-sign" label="Cost" />
           <NavItem to="/base" icon="clock" label="Base" />
           <NavItem to="/mod" icon="bomb" label="Mod" />
+          <NavItem to="/wiring" icon="network-wired" label="Wiring" />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
