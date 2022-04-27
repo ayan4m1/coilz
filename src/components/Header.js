@@ -37,6 +37,15 @@ export default function Header() {
           <NavItem to="/mod" icon="bomb" label="Mod" />
           <NavItem to="/wiring" icon="network-wired" label="Wiring" />
         </Nav>
+        <Nav className="ms-auto me-2">
+          <Nav.Link
+            href="https://paypal.me/ayan4m1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FontAwesomeIcon icon="heart" /> Donate
+          </Nav.Link>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
   );

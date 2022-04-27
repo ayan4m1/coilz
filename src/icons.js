@@ -7,8 +7,9 @@ import {
   faDollarSign,
   faExclamationTriangle,
   faFire,
-  faThermometerFull,
-  faNetworkWired
+  faHeart,
+  faNetworkWired,
+  faThermometerFull
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -19,6 +20,7 @@ library.add(
   faDollarSign,
   faExclamationTriangle,
   faFire,
-  faThermometerFull,
-  faNetworkWired
+  faHeart,
+  faNetworkWired,
+  faThermometerFull
 );
