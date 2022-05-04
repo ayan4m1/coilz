@@ -13,14 +13,15 @@ const FormSchema = Yup.object().shape({
 });
 
 export default function BaseCalculator() {
+  const initialValues = {
+    consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
+    vgRatio: localStorage.getItem('vgRatio') || 80,
+    pgRatio: 100 - localStorage.getItem('vgRatio') || 20,
+    vgVolume: 0,
+    pgVolume: 0
+  };
   const { handleChange, values, touched, errors } = useFormik({
-    initialValues: {
-      consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
-      vgRatio: localStorage.getItem('vgRatio') || 80,
-      pgRatio: 100 - localStorage.getItem('vgRatio') || 20,
-      vgVolume: 0,
-      pgVolume: 0
-    },
+    initialValues,
     validationSchema: FormSchema
   });
 
