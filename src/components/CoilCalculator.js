@@ -251,7 +251,7 @@ export default function CoilCalculator() {
           </Formik>
         </Col>
         <Col md={6}>
-          <h2>Output</h2>
+          <h2>Outputs</h2>
           {coil && (
             <Card>
               <Card.Body>

@@ -38,89 +38,98 @@ export default function BaseCalculator() {
   return (
     <Fragment>
       <Helmet title="Base Calculator" />
-      <h1>
+      <h1 className="my-4">
         <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
       </h1>
-      <Card className="my-4">
-        <Card.Body>
-          <Card.Title>
-            <h2>Inputs</h2>
-          </Card.Title>
-          <Form>
-            <Form.Group>
-              <Form.Label htmlFor="consumedPerDay">
-                mL Consumed Per Day
-              </Form.Label>
-              <Form.Control
-                id="consumedPerDay"
-                name="consumedPerDay"
-                type="number"
-                value={values.consumedPerDay}
-                onChange={handleChange}
-                error={touched.consumedPerDay && Boolean(errors.consumedPerDay)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="vgRatio">VG %</Form.Label>
-              <Form.Control
-                id="vgRatio"
-                name="vgRatio"
-                type="number"
-                min={0}
-                max={100}
-                value={values.vgRatio}
-                onChange={handleChange}
-                error={touched.vgRatio && Boolean(errors.vgRatio)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="pgRatio">PG %</Form.Label>
-              <Form.Control
-                id="pgRatio"
-                name="pgRatio"
-                type="number"
-                min={0}
-                max={100}
-                value={100 - values.vgRatio}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="vgVolume">VG Volume (mL)</Form.Label>
-              <Form.Control
-                id="vgVolume"
-                name="vgVolume"
-                type="number"
-                min={0}
-                value={values.vgVolume}
-                onChange={handleChange}
-                error={touched.vgVolume && Boolean(errors.vgVolume)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="pgVolume">PG Volume (mL)</Form.Label>
-              <Form.Control
-                id="pgVolume"
-                name="pgVolume"
-                type="number"
-                min={0}
-                value={values.pgVolume}
-                onChange={handleChange}
-                error={touched.pgVolume && Boolean(errors.pgVolume)}
-              />
-            </Form.Group>
-          </Form>
-        </Card.Body>
+      <Card body>
+        <Card.Title>
+          <h2>Inputs</h2>
+        </Card.Title>
+        <Form>
+          <Form.Group>
+            <Form.Label htmlFor="consumedPerDay">
+              mL Consumed Per Day
+            </Form.Label>
+            <Form.Control
+              name="consumedPerDay"
+              type="number"
+              value={values.consumedPerDay}
+              onChange={handleChange}
+              isInvalid={
+                touched.consumedPerDay && Boolean(errors.consumedPerDay)
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.consumedPerDay}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="vgRatio">VG %</Form.Label>
+            <Form.Control
+              name="vgRatio"
+              type="number"
+              min={0}
+              max={100}
+              value={values.vgRatio}
+              onChange={handleChange}
+              isInvalid={touched.vgRatio && Boolean(errors.vgRatio)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.vgRatio}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="pgRatio">PG %</Form.Label>
+            <Form.Control
+              name="pgRatio"
+              type="number"
+              min={0}
+              max={100}
+              value={100 - values.vgRatio}
+              onChange={handleChange}
+              isInvalid={touched.pgRatio && Boolean(errors.pgRatio)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.pgRatio}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="vgVolume">VG Volume (mL)</Form.Label>
+            <Form.Control
+              name="vgVolume"
+              type="number"
+              min={0}
+              value={values.vgVolume}
+              onChange={handleChange}
+              isInvalid={touched.vgVolume && Boolean(errors.vgVolume)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.vgVolume}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="pgVolume">PG Volume (mL)</Form.Label>
+            <Form.Control
+              name="pgVolume"
+              type="number"
+              min={0}
+              value={values.pgVolume}
+              onChange={handleChange}
+              isInvalid={touched.pgVolume && Boolean(errors.pgVolume)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.pgVolume}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Form>
       </Card>
       {!isNaN(vgDays) && !isNaN(pgDays) && (
-        <Card className="mb-4">
-          <Card.Body>
-            <Card.Title>
-              <h2>Outputs</h2>
-            </Card.Title>
-            <h4>Your VG will last {Math.round(vgDays)} days.</h4>
-            <h4>Your PG will last {Math.round(pgDays)} days.</h4>
-          </Card.Body>
+        <Card body className="my-4">
+          <Card.Title>
+            <h2>Outputs</h2>
+          </Card.Title>
+          <h4>Your VG will last {Math.round(vgDays)} days.</h4>
+          <h4>Your PG will last {Math.round(pgDays)} days.</h4>
         </Card>
       )}
     </Fragment>

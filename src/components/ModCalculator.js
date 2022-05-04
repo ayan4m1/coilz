@@ -258,217 +258,202 @@ export default function ModCalculator() {
       <h1>
         <FontAwesomeIcon icon="bomb" size="2x" /> Mod Calculator
       </h1>
-      <Card className="my-4">
-        <Card.Body>
-          <Card.Title>
-            <h2>Inputs</h2>
-          </Card.Title>
-          <Form>
-            <Form.Group>
-              <Form.Label>Mod Type</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={handleTypeChange}
-                value={type}
-              >
-                <option value="regulated">Regulated</option>
-                <option value="mechanical">Mechanical</option>
-              </Form.Control>
-            </Form.Group>
-            {type === 'regulated' && (
-              <Fragment>
-                <Form.Group>
-                  <Form.Label>Regulator Efficiency</Form.Label>
-                  <Form.Range
-                    min="75"
-                    max="95"
-                    step="5"
-                    onChange={handleEfficiencyChange}
-                    value={efficiency}
-                  />
-                  <InputGroup>
-                    <Form.Control disabled value={efficiency} />
-                    <InputGroup.Text>%</InputGroup.Text>
-                  </InputGroup>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Mod Wattage</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="5"
-                    max="2000"
-                    step="0.1"
-                    onChange={handleWattageChange}
-                    value={wattage}
-                  />
-                </Form.Group>
-              </Fragment>
-            )}
-            <Form.Group>
-              <Form.Label>Coil Resistance (&#8486;)</Form.Label>
-              <Form.Control
-                type="number"
-                min="0.01"
-                max="10"
-                step="0.05"
-                onChange={handleResistanceChange}
-                value={resistance}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label># Cells in Series</Form.Label>
-              <Form.Control
-                type="number"
-                min="1"
-                max="6"
-                step="1"
-                onChange={handleSeriesChange}
-                value={series}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Battery</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={handleCurrentLimitChange}
-                value={
-                  batteryIndex === -1 ? 'CUSTOM' : batteries[batteryIndex].name
-                }
-              >
-                {batteries.map((battery) => (
-                  <option key={battery.name} value={battery.name}>
-                    {battery.name} ({battery.capacity} mAh /{' '}
-                    {battery.currentLimit} A)
-                  </option>
-                ))}
-                <option value="CUSTOM">Custom...</option>
-              </Form.Control>
-            </Form.Group>
-            {batteryIndex === -1 && (
-              <Fragment>
-                <h3>Custom Battery</h3>
-                <Form.Group>
-                  <Form.Label>Capacity (mAh)</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="0"
-                    max="50000"
-                    step="50"
-                    onChange={handleCustomCapacityChange}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Current Limit (A)</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="0"
-                    max="100"
-                    step="1"
-                    onChange={handleCustomCurrentLimitChange}
-                  />
-                </Form.Group>
-              </Fragment>
-            )}
-            <Form.Group>
-              <Form.Label>Safety Margin (%)</Form.Label>
-              <Form.Control
-                type="number"
-                min="0"
-                max="100"
-                step="1"
-                onChange={handleSafetyMarginChange}
-                value={safetyMargin}
-              />
-            </Form.Group>
-          </Form>
-        </Card.Body>
+      <Card body className="my-4">
+        <Card.Title>
+          <h2>Inputs</h2>
+        </Card.Title>
+        <Form>
+          <Form.Group>
+            <Form.Label>Mod Type</Form.Label>
+            <Form.Control as="select" onChange={handleTypeChange} value={type}>
+              <option value="regulated">Regulated</option>
+              <option value="mechanical">Mechanical</option>
+            </Form.Control>
+          </Form.Group>
+          {type === 'regulated' && (
+            <Fragment>
+              <Form.Group>
+                <Form.Label>Regulator Efficiency</Form.Label>
+                <Form.Range
+                  min="75"
+                  max="95"
+                  step="5"
+                  onChange={handleEfficiencyChange}
+                  value={efficiency}
+                />
+                <InputGroup>
+                  <Form.Control disabled value={efficiency} />
+                  <InputGroup.Text>%</InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Mod Wattage</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="5"
+                  max="2000"
+                  step="0.1"
+                  onChange={handleWattageChange}
+                  value={wattage}
+                />
+              </Form.Group>
+            </Fragment>
+          )}
+          <Form.Group>
+            <Form.Label>Coil Resistance (&#8486;)</Form.Label>
+            <Form.Control
+              type="number"
+              min="0.01"
+              max="10"
+              step="0.05"
+              onChange={handleResistanceChange}
+              value={resistance}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label># Cells in Series</Form.Label>
+            <Form.Control
+              type="number"
+              min="1"
+              max="6"
+              step="1"
+              onChange={handleSeriesChange}
+              value={series}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Battery</Form.Label>
+            <Form.Control
+              as="select"
+              onChange={handleCurrentLimitChange}
+              value={
+                batteryIndex === -1 ? 'CUSTOM' : batteries[batteryIndex].name
+              }
+            >
+              {batteries.map((battery) => (
+                <option key={battery.name} value={battery.name}>
+                  {battery.name} ({battery.capacity} mAh /{' '}
+                  {battery.currentLimit} A)
+                </option>
+              ))}
+              <option value="CUSTOM">Custom...</option>
+            </Form.Control>
+          </Form.Group>
+          {batteryIndex === -1 && (
+            <Fragment>
+              <h3>Custom Battery</h3>
+              <Form.Group>
+                <Form.Label>Capacity (mAh)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  max="50000"
+                  step="50"
+                  onChange={handleCustomCapacityChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Current Limit (A)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  onChange={handleCustomCurrentLimitChange}
+                />
+              </Form.Group>
+            </Fragment>
+          )}
+          <Form.Group>
+            <Form.Label>Safety Margin (%)</Form.Label>
+            <Form.Control
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              onChange={handleSafetyMarginChange}
+              value={safetyMargin}
+            />
+          </Form.Group>
+        </Form>
       </Card>
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>
-            <h2>Outputs</h2>
-          </Card.Title>
-          <Row>
-            <Col xs={3}>Voltage</Col>
-            <Col xs={9}>{voltage.toFixed(1)} V</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Current</Col>
-            <Col xs={9}>{current.toFixed(2)} A</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Runtime</Col>
-            <Col xs={9}>{Math.round(runtime)} min</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Power</Col>
-            <Col xs={9}>
-              <Badge bg={getVariant(current, currentLimit, safetyMargin / 100)}>
-                {power.toFixed(2)} / {maxPower.toFixed(2)} W
-              </Badge>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Headroom</Col>
-            <Col xs={9}>
-              <Badge bg={headroom > 0 ? 'success' : 'danger'}>
-                {headroom.toFixed(2)} A
-              </Badge>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Calculated Safety Margin</Col>
-            <Col xs={9}>{calculatedMargin.toFixed(2)} %</Col>
-          </Row>
-        </Card.Body>
+      <Card body className="mb-4">
+        <Card.Title>
+          <h2>Outputs</h2>
+        </Card.Title>
+        <Row>
+          <Col xs={3}>Voltage</Col>
+          <Col xs={9}>{voltage.toFixed(1)} V</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Current</Col>
+          <Col xs={9}>{current.toFixed(2)} A</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Runtime</Col>
+          <Col xs={9}>{Math.round(runtime)} min</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Power</Col>
+          <Col xs={9}>
+            <Badge bg={getVariant(current, currentLimit, safetyMargin / 100)}>
+              {power.toFixed(2)} / {maxPower.toFixed(2)} W
+            </Badge>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Headroom</Col>
+          <Col xs={9}>
+            <Badge bg={headroom > 0 ? 'success' : 'danger'}>
+              {headroom.toFixed(2)} A
+            </Badge>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Calculated Safety Margin</Col>
+          <Col xs={9}>{calculatedMargin.toFixed(2)} %</Col>
+        </Row>
       </Card>
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>
-            <h2>Chart</h2>
-          </Card.Title>
-          <ResponsiveContainer height={400} width="100%">
-            <LineChart data={chartData} margin={{ bottom: 10 }}>
-              <CartesianGrid />
-              <XAxis
-                label={
-                  <ChartLabel
-                    x={-350}
-                    y={30}
-                    angle={-90}
-                    label="Current (Amp)"
-                  />
-                }
-                dataKey="resistance"
-                type="number"
-                tickCount={40}
-                domain={chartXRange}
-              />
-              <YAxis
-                type="number"
-                label={<ChartLabel x={70} y={394} label="Resistance (Ohm)" />}
-              />
-              <Tooltip
-                content={
-                  <ChartTooltip
-                    currentLimit={currentLimit}
-                    safetyMargin={safetyMargin / 100}
-                  />
-                }
-              />
-              <ReferenceLine x={dangerX} stroke="#FF0303" />
-              <ReferenceLine x={marginX} stroke="#FFBF00" />
-              <ReferenceLine x={resistance} stroke="#007BFF" />
-              <Line
-                type="monotone"
-                dataKey="current"
-                dot={false}
-                strokeWidth={2}
-                stroke="#A12300"
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </Card.Body>
+      <Card body className="mb-4">
+        <Card.Title>
+          <h2>Chart</h2>
+        </Card.Title>
+        <ResponsiveContainer height={400} width="100%">
+          <LineChart data={chartData} margin={{ bottom: 10 }}>
+            <CartesianGrid />
+            <XAxis
+              label={
+                <ChartLabel x={-350} y={30} angle={-90} label="Current (Amp)" />
+              }
+              dataKey="resistance"
+              type="number"
+              tickCount={40}
+              domain={chartXRange}
+            />
+            <YAxis
+              type="number"
+              label={<ChartLabel x={70} y={394} label="Resistance (Ohm)" />}
+            />
+            <Tooltip
+              content={
+                <ChartTooltip
+                  currentLimit={currentLimit}
+                  safetyMargin={safetyMargin / 100}
+                />
+              }
+            />
+            <ReferenceLine x={dangerX} stroke="#FF0303" />
+            <ReferenceLine x={marginX} stroke="#FFBF00" />
+            <ReferenceLine x={resistance} stroke="#007BFF" />
+            <Line
+              type="monotone"
+              dataKey="current"
+              dot={false}
+              strokeWidth={2}
+              stroke="#A12300"
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </Card>
     </Fragment>
   );
