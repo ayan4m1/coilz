@@ -25,16 +25,6 @@ import {
 
 const batteries = [
   {
-    name: 'Sony VTC6',
-    capacity: 3000,
-    currentLimit: 15
-  },
-  {
-    name: 'Samsung 30Q',
-    capacity: 3000,
-    currentLimit: 15
-  },
-  {
     name: 'LG HG2',
     capacity: 3000,
     currentLimit: 20
@@ -42,12 +32,22 @@ const batteries = [
   {
     name: 'Molicel P26A',
     capacity: 2600,
-    currentLimit: 25
+    currentLimit: 35
   },
   {
-    name: 'Murata VTC5D',
-    capacity: 2700,
-    currentLimit: 25
+    name: 'Molicel P28A',
+    capacity: 2800,
+    currentLimit: 35
+  },
+  {
+    name: 'Molicel P42A',
+    capacity: 4000,
+    currentLimit: 30
+  },
+  {
+    name: 'Sony VTC5',
+    capacity: 2600,
+    currentLimit: 20
   },
   {
     name: 'Sony VTC5A',
@@ -55,9 +55,14 @@ const batteries = [
     currentLimit: 25
   },
   {
-    name: 'Samsung 25R',
-    capacity: 2500,
-    currentLimit: 20
+    name: 'Sony VTC5D',
+    capacity: 2700,
+    currentLimit: 25
+  },
+  {
+    name: 'Sony VTC6',
+    capacity: 3000,
+    currentLimit: 15
   },
   {
     name: 'Samsung 20S',
@@ -65,14 +70,19 @@ const batteries = [
     currentLimit: 30
   },
   {
+    name: 'Samsung 25R',
+    capacity: 2500,
+    currentLimit: 20
+  },
+  {
     name: 'Samsung 30T',
     capacity: 3000,
     currentLimit: 35
   },
   {
-    name: 'Molicel P42A',
-    capacity: 4000,
-    currentLimit: 30
+    name: 'Samsung 30Q',
+    capacity: 3000,
+    currentLimit: 15
   },
   {
     name: 'Samsung 40T',
