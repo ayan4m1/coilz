@@ -253,35 +253,33 @@ export default function CoilCalculator() {
         <Col md={6}>
           <h2>Outputs</h2>
           {coil && (
-            <Card>
-              <Card.Body>
-                <dl>
-                  <dt>Wire Diameter</dt>
-                  <dd>{coil.wireDiameter.toFixed(3)} mm</dd>
-                  <dt>Inner Diameter</dt>
-                  <dd>{coil.innerDiameter.toFixed(2)} mm</dd>
-                  <dt>Outer Diameter</dt>
-                  <dd>{coil.outerDiameter.toFixed(2)} mm</dd>
-                  <dt>Length</dt>
-                  <dd>{coil.length.toFixed(2)} mm</dd>
-                  <dt>Surface Area</dt>
-                  <dd>
-                    {coil.surfaceArea.toFixed(2)} mm<sup>2</sup>
-                  </dd>
-                  <dt>Cross Section Area</dt>
-                  <dd>
-                    {coil.crossSectionArea.toFixed(2)} mm<sup>2</sup>
-                  </dd>
-                  <dt>Ohms per meter</dt>
-                  <dd>
-                    {coil.resistivityPerUnitLength.toFixed(2)} Ohms/m<sup></sup>
-                  </dd>
-                  <dt>Resistance</dt>
-                  <dd>
-                    {coil.resistance.toFixed(3)} Ohms<sup></sup>
-                  </dd>
-                </dl>
-              </Card.Body>
+            <Card body>
+              <dl>
+                <dt>Wire Diameter</dt>
+                <dd>{coil.wireDiameter.toFixed(3)} mm</dd>
+                <dt>Inner Diameter</dt>
+                <dd>{coil.innerDiameter.toFixed(2)} mm</dd>
+                <dt>Outer Diameter</dt>
+                <dd>{coil.outerDiameter.toFixed(2)} mm</dd>
+                <dt>Length</dt>
+                <dd>{coil.length.toFixed(2)} mm</dd>
+                <dt>Surface Area</dt>
+                <dd>
+                  {coil.surfaceArea.toFixed(2)} mm<sup>2</sup>
+                </dd>
+                <dt>Cross Section Area</dt>
+                <dd>
+                  {coil.crossSectionArea.toFixed(2)} mm<sup>2</sup>
+                </dd>
+                <dt>Ohms per meter</dt>
+                <dd>
+                  {coil.resistivityPerUnitLength.toFixed(2)} Ohms/m<sup></sup>
+                </dd>
+                <dt>Resistance</dt>
+                <dd>
+                  {coil.resistance.toFixed(3)} Ohms<sup></sup>
+                </dd>
+              </dl>
             </Card>
           )}
         </Col>
