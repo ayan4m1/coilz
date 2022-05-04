@@ -1,15 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Fragment, useCallback, useState } from 'react';
-import {
-  Alert,
-  Card,
-  Form,
-  Row,
-  Col,
-  Badge,
-  InputGroup
-} from 'react-bootstrap';
+import { Alert, Card, Form, Badge, InputGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import {
   LineChart,
@@ -22,6 +14,7 @@ import {
   ReferenceLine,
   Text
 } from 'recharts';
+import ResultsCard from './ResultsCard';
 
 const batteries = [
   {
@@ -262,6 +255,28 @@ export default function ModCalculator() {
     });
   }
 
+  const results = [
+    ['Voltage', `${voltage.toFixed(1)} V`],
+    ['Current', `${current.toFixed(2)} A`],
+    ['Runtime', `${Math.round(runtime)} min`],
+    [
+      'Power',
+      <Badge
+        key="power"
+        bg={getVariant(current, currentLimit, safetyMargin / 100)}
+      >
+        {power.toFixed(2)} / {maxPower.toFixed(2)} W
+      </Badge>
+    ],
+    [
+      'Headroom',
+      <Badge key="headroom" bg={headroom > 0 ? 'success' : 'danger'}>
+        {headroom.toFixed(2)} A
+      </Badge>
+    ],
+    ['Safety Margin', `${calculatedMargin.toFixed(2)} %`]
+  ];
+
   return (
     <Fragment>
       <Helmet title="Mod Calculator" />
@@ -387,43 +402,7 @@ export default function ModCalculator() {
           </Form.Group>
         </Form>
       </Card>
-      <Card body className="mb-4">
-        <Card.Title>
-          <h2>Outputs</h2>
-        </Card.Title>
-        <Row>
-          <Col xs={3}>Voltage</Col>
-          <Col xs={9}>{voltage.toFixed(1)} V</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Current</Col>
-          <Col xs={9}>{current.toFixed(2)} A</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Runtime</Col>
-          <Col xs={9}>{Math.round(runtime)} min</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Power</Col>
-          <Col xs={9}>
-            <Badge bg={getVariant(current, currentLimit, safetyMargin / 100)}>
-              {power.toFixed(2)} / {maxPower.toFixed(2)} W
-            </Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Headroom</Col>
-          <Col xs={9}>
-            <Badge bg={headroom > 0 ? 'success' : 'danger'}>
-              {headroom.toFixed(2)} A
-            </Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Calculated Safety Margin</Col>
-          <Col xs={9}>{calculatedMargin.toFixed(2)} %</Col>
-        </Row>
-      </Card>
+      <ResultsCard results={results} />
       <Card body className="mb-4">
         <Card.Title>
           <h2>Chart</h2>

@@ -5,6 +5,8 @@ import { Card, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
+import ResultsCard from 'components/ResultsCard';
+
 const FormSchema = Yup.object().shape({
   consumedPerDay: Yup.number(),
   vgRatio: Yup.number().min(0).max(100),
@@ -16,7 +18,7 @@ export default function BaseCalculator() {
   const initialValues = {
     consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
     vgRatio: localStorage.getItem('vgRatio') || 80,
-    pgRatio: 100 - localStorage.getItem('vgRatio') || 20,
+    pgRatio: 100 - (localStorage.getItem('vgRatio') || 20),
     vgVolume: 0,
     pgVolume: 0
   };
@@ -124,13 +126,10 @@ export default function BaseCalculator() {
         </Form>
       </Card>
       {!isNaN(vgDays) && !isNaN(pgDays) && (
-        <Card body className="my-4">
-          <Card.Title>
-            <h2>Outputs</h2>
-          </Card.Title>
+        <ResultsCard>
           <h4>Your VG will last {Math.round(vgDays)} days.</h4>
           <h4>Your PG will last {Math.round(pgDays)} days.</h4>
-        </Card>
+        </ResultsCard>
       )}
     </Fragment>
   );

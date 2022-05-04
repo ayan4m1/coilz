@@ -5,6 +5,8 @@ import { Card, Form, Table, Tabs, Tab } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
+import ResultsCard from 'components/ResultsCard';
+
 const nicotineStrengths = [48, 72, 100, 250];
 
 const FormSchema = Yup.object().shape({
@@ -74,11 +76,8 @@ export default function NicCalculator() {
         </Card.Title>
         <Form>
           <Form.Group>
-            <Form.Label htmlFor="consumedPerDay">
-              Daily Consumption (mL)
-            </Form.Label>
+            <Form.Label>Daily Consumption (mL)</Form.Label>
             <Form.Control
-              id="consumedPerDay"
               name="consumedPerDay"
               value={values.consumedPerDay}
               onChange={handleChange}
@@ -86,11 +85,8 @@ export default function NicCalculator() {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label htmlFor="consumedConcentration">
-              Nicotine Concentration (mg/mL)
-            </Form.Label>
+            <Form.Label>Nicotine Concentration (mg/mL)</Form.Label>
             <Form.Control
-              id="consumedConcentration"
               name="consumedConcentration"
               value={values.consumedConcentration}
               onChange={handleChange}
@@ -107,11 +103,8 @@ export default function NicCalculator() {
           <Tabs activeKey={mode} onSelect={(newMode) => setMode(newMode)}>
             <Tab eventKey="lifetime" title="Lifetime">
               <Form.Group>
-                <Form.Label htmlFor="baseVolume">
-                  Nicotine Base Volume (mL)
-                </Form.Label>
+                <Form.Label>Nicotine Base Volume (mL)</Form.Label>
                 <Form.Control
-                  id="baseVolume"
                   name="baseVolume"
                   value={values.baseVolume}
                   onChange={handleChange}
@@ -119,11 +112,8 @@ export default function NicCalculator() {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label htmlFor="baseConcentration">
-                  Nicotine Base Concentration (mg/mL)
-                </Form.Label>
+                <Form.Label>Nicotine Base Concentration (mg/mL)</Form.Label>
                 <Form.Control
-                  id="baseConcentration"
                   name="baseConcentration"
                   value={values.baseConcentration}
                   onChange={handleChange}
@@ -148,9 +138,7 @@ export default function NicCalculator() {
                 onChange={() => setUnits('imperial')}
               />
               <Form.Group>
-                <Form.Label htmlFor="desiredSupply">
-                  Desired Supply (Days)
-                </Form.Label>
+                <Form.Label>Desired Supply (Days)</Form.Label>
                 <Form.Control
                   name="desiredSupply"
                   value={values.desiredSupply}
@@ -162,10 +150,7 @@ export default function NicCalculator() {
           </Tabs>
         </Form>
       </Card>
-      <Card body>
-        <Card.Title>
-          <h2>Outputs</h2>
-        </Card.Title>
+      <ResultsCard>
         {mode === 'lifetime' && (
           <Fragment>
             <h4>You have {supply.toLocaleString()} mg of nicotine.</h4>
@@ -193,7 +178,7 @@ export default function NicCalculator() {
             </tbody>
           </Table>
         )}
-      </Card>
+      </ResultsCard>
     </Fragment>
   );
 }

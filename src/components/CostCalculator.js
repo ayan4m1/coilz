@@ -1,11 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useCallback, useState } from 'react';
 import { Fragment } from 'react';
-import { Card, Form, InputGroup, Row, Col, Button } from 'react-bootstrap';
+import { Card, Form, InputGroup, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 
+import ResultsCard from 'components/ResultsCard';
+
 export default function CostCalculator() {
-  const [costs, setCosts] = useState(null);
+  const [results, setResults] = useState(null);
   const initialValues = {
     totalVolume: 1000,
     nicotineStrengthDesired: 6,
@@ -50,15 +53,16 @@ export default function CostCalculator() {
       const flavorCost = flavorPct * totalVolume * (flavorPrice / flavorVolume);
       const cost = nicotineCost + vgCost + pgCost + flavorCost;
 
-      setCosts({
-        nicotine: nicotineCost,
-        vg: vgCost,
-        pg: pgCost,
-        flavor: flavorCost,
-        total: cost
-      });
+      setResults([
+        ['Nic Cost', `$${nicotineCost.toFixed(2)}`],
+        ['VG Cost', `$${vgCost.toFixed(2)}`],
+        ['PG Cost', `$${pgCost.toFixed(2)}`],
+        ['Flavor Cost', `$${flavorCost.toFixed(2)}`],
+        ['Total Cost', `$${cost.toFixed(2)}`],
+        ['Cost per mL', `$${(cost / totalVolume).toFixed(2)}`]
+      ]);
     },
-    [setCosts]
+    [setResults]
   );
   const { handleChange, handleSubmit, values } = useFormik({
     initialValues,
@@ -68,7 +72,10 @@ export default function CostCalculator() {
   return (
     <Fragment>
       <Helmet title="Cost Calculator" />
-      <Card body>
+      <h1>
+        <FontAwesomeIcon icon="dollar-sign" size="2x" /> Cost Calculator
+      </h1>
+      <Card body className="my-4">
         <Card.Title>Inputs</Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
@@ -266,35 +273,7 @@ export default function CostCalculator() {
           </Form.Group>
         </Form>
       </Card>
-      {Boolean(costs) && (
-        <Card body className="my-4">
-          <Card.Title>Outputs</Card.Title>
-          <Row>
-            <Col xs={3}>Nic Cost</Col>
-            <Col xs={9}>${costs.nicotine.toFixed(2)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>VG Cost</Col>
-            <Col xs={9}>${costs.vg.toFixed(2)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>PG Cost</Col>
-            <Col xs={9}>${costs.pg.toFixed(2)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Flavor Cost</Col>
-            <Col xs={9}>${costs.flavor.toFixed(2)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Total Cost</Col>
-            <Col xs={9}>${costs.total.toFixed(2)}</Col>
-          </Row>
-          <Row>
-            <Col xs={3}>Cost per mL</Col>
-            <Col xs={9}>${(costs.total / values.totalVolume).toFixed(2)}</Col>
-          </Row>
-        </Card>
-      )}
+      <ResultsCard results={results} />
     </Fragment>
   );
 }
