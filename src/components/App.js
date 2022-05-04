@@ -7,10 +7,10 @@ const Home = lazy(() =>
   import(/* webpackChunkName: "core" */ 'components/Home')
 );
 const Materials = lazy(() =>
-  import(/* webpackChunkName: "core" */ 'components/Materials')
+  import(/* webpackChunkName: "materials" */ 'components/Materials')
 );
 const Settings = lazy(() =>
-  import(/* webpackChunkName: "core" */ 'components/Settings')
+  import(/* webpackChunkName: "settings" */ 'components/Settings')
 );
 const BaseCalculator = lazy(() =>
   import(/* webpackChunkName: "base" */ 'components/BaseCalculator')
