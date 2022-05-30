@@ -3,6 +3,8 @@ import { Fragment, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Card, Button, Row, Col } from 'react-bootstrap';
 
+import { materials } from 'utils';
+
 const awg2mm = (n) => 0.127 * Math.pow(92, (36 - n) / 39);
 // const crossSectionalArea = (d) => (Math.PI / 4) * Math.pow(d, 2);
 const wrapSpacing = 0.05;
@@ -22,44 +24,6 @@ const calculateCoilLength = (
 
   return coilLength;
 };
-
-const materials = [
-  {
-    id: 'ka1',
-    name: 'Kanthal A1',
-    resistivity: 1.45,
-    heatCapacity: 0.46,
-    density: 7.1
-  },
-  {
-    id: 'ss316l',
-    name: 'SS 316L',
-    resistivity: 0.75,
-    heatCapacity: 0.5,
-    density: 8
-  },
-  {
-    id: 'n80',
-    name: 'Nichrome N80 (A)',
-    resistivity: 1.09,
-    heatCapacity: 0.447,
-    density: 8.31
-  },
-  {
-    id: 'n90',
-    name: 'Nichrome N90',
-    resistivity: 0.75,
-    heatCapacity: 0.44,
-    density: 8.7
-  },
-  {
-    id: 'ss430',
-    name: 'SS 430',
-    resistivity: 0.6,
-    heatCapacity: 0.46,
-    density: 7.74
-  }
-];
 
 const coilTypes = {
   SINGLE: 'Single',

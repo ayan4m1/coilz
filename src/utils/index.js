@@ -15,6 +15,47 @@ export const readFile = async (file) =>
     reader.readAsText(file);
   });
 
+export const materials = [
+  {
+    id: 'ka1',
+    name: 'Kanthal A1',
+    resistivity: 1.45,
+    heatCapacity: 0.46,
+    density: 7.1
+  },
+  {
+    id: 'ss316l',
+    name: 'SS 316L',
+    resistivity: 0.75,
+    heatCapacity: 0.5,
+    density: 8
+  },
+  {
+    id: 'n80',
+    name: 'Nichrome N80 (A)',
+    resistivity: 1.09,
+    heatCapacity: 0.447,
+    density: 8.31
+  },
+  {
+    id: 'n90',
+    name: 'Nichrome N90',
+    resistivity: 0.75,
+    heatCapacity: 0.44,
+    density: 8.7
+  },
+  {
+    id: 'ss430',
+    name: 'SS 430',
+    resistivity: 0.6,
+    heatCapacity: 0.46,
+    density: 7.74
+  }
+];
+
+export const getMaterial = (id) =>
+  materials.find((material) => material.id === id);
+
 export const wires = [
   { gauge: 40, diameter: 0.0799, ampacity: 3.44 },
   { gauge: 38, diameter: 0.101, ampacity: 2.16 },
