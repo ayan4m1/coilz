@@ -1,8 +1,9 @@
 import { useFormik } from 'formik';
-import { Fragment } from 'react';
-import { Card, Form } from 'react-bootstrap';
 import Helmet from 'react-helmet';
+import { Container, Card, Form, Row, Col } from 'react-bootstrap';
+
 import { wires } from 'utils';
+import ResultsCard from './ResultsCard';
 
 const copperDensity = 8.96;
 const copperHeatCapacity = 0.385;
@@ -40,62 +41,71 @@ export default function WiringCalculator() {
   }
 
   return (
-    <Fragment>
+    <Container fluid>
       <Helmet title="Wiring Size Calculator" />
       <h1>Wiring Size Calculator</h1>
-      <Form>
-        <Form.Group>
-          <Form.Label>Wire Length (m)</Form.Label>
-          <Form.Control
-            type="number"
-            min="0"
-            name="wireLength"
-            value={values.wireLength}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Max. Voltage Drop (V)</Form.Label>
-          <Form.Control
-            type="number"
-            min="0"
-            name="maxVoltageDrop"
-            value={values.maxVoltageDrop}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Max. Temp Rise (&deg;C)</Form.Label>
-          <Form.Control
-            type="number"
-            min="0"
-            name="maxTempRise"
-            value={values.maxTempRise}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Max. Current (A)</Form.Label>
-          <Form.Control
-            type="number"
-            min="0"
-            name="maxCurrent"
-            value={values.maxCurrent}
-            onChange={handleChange}
-          />
-        </Form.Group>
-      </Form>
-      {!isNaN(wireGauge) && (
-        <Card body className="my-4">
-          <Card.Title>Results</Card.Title>
-          <p>
-            You should use {wireGauge} AWG wire, which will cause a drop of{' '}
-            {voltageDrop.toFixed(2)} volts and heat to roughly{' '}
-            {(standardTemperature + tempRise).toFixed(2)} &deg;C under a{' '}
-            {values.maxCurrent} amp load.
-          </p>
-        </Card>
-      )}
-    </Fragment>
+      <Row>
+        <Col xs={12} md={6}>
+          <Card body>
+            <Card.Title>Inputs</Card.Title>
+            <Form>
+              <Form.Group>
+                <Form.Label>Wire Length (m)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  name="wireLength"
+                  value={values.wireLength}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Max. Voltage Drop (V)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  name="maxVoltageDrop"
+                  value={values.maxVoltageDrop}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Max. Temp Rise (&deg;C)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  name="maxTempRise"
+                  value={values.maxTempRise}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Max. Current (A)</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  name="maxCurrent"
+                  value={values.maxCurrent}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Form>
+          </Card>
+        </Col>
+        <Col xs={12} sm={6}>
+          {!isNaN(wireGauge) && (
+            <ResultsCard>
+              <p>
+                You should use <strong>{wireGauge}</strong> AWG wire, which will
+                cause a drop of <strong>{voltageDrop.toFixed(2)}</strong> volts
+                and heat to roughly{' '}
+                <strong>{(standardTemperature + tempRise).toFixed(2)}</strong>{' '}
+                &deg;C under a {values.maxCurrent} amp load.
+              </p>
+            </ResultsCard>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 }

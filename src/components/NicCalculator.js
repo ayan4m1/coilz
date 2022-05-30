@@ -1,7 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { Fragment, useEffect, useState } from 'react';
-import { Card, Form, Table, Tabs, Tab } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import {
+  Card,
+  Form,
+  Table,
+  Tabs,
+  Tab,
+  InputGroup,
+  Row,
+  Col,
+  Container
+} from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
@@ -64,121 +74,147 @@ export default function NicCalculator() {
   }, [values]);
 
   return (
-    <Fragment>
+    <Container fluid>
       <Helmet title="Nicotine Calculator" />
       <h1>
         <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
         Calculator
       </h1>
-      <Card body className="my-4">
-        <Card.Title>
-          <h2>Inputs</h2>
-        </Card.Title>
-        <Form>
-          <Form.Group>
-            <Form.Label>Daily Consumption (mL)</Form.Label>
-            <Form.Control
-              name="consumedPerDay"
-              value={values.consumedPerDay}
-              onChange={handleChange}
-              error={touched.consumedPerDay && Boolean(errors.consumedPerDay)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Nicotine Concentration (mg/mL)</Form.Label>
-            <Form.Control
-              name="consumedConcentration"
-              value={values.consumedConcentration}
-              onChange={handleChange}
-              error={
-                touched.consumedConcentration &&
-                Boolean(errors.consumedConcentration)
-              }
-            />
-          </Form.Group>
-          <h4 className="my-4">
-            You consume {consumption.toLocaleString()} mg of nicotine per day (
-            {((consumption * 365.25) / 1000).toLocaleString()} g per year).
-          </h4>
-          <Tabs activeKey={mode} onSelect={(newMode) => setMode(newMode)}>
-            <Tab eventKey="lifetime" title="Lifetime">
+      <Row>
+        <Col xs={12} sm={6}>
+          <Card body>
+            <Card.Title>Inputs</Card.Title>
+            <Form>
               <Form.Group>
-                <Form.Label>Nicotine Base Volume (mL)</Form.Label>
-                <Form.Control
-                  name="baseVolume"
-                  value={values.baseVolume}
-                  onChange={handleChange}
-                  error={touched.baseVolume && Boolean(errors.baseVolume)}
-                />
+                <Form.Label>Daily Consumption</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="consumedPerDay"
+                    value={values.consumedPerDay}
+                    onChange={handleChange}
+                    error={
+                      touched.consumedPerDay && Boolean(errors.consumedPerDay)
+                    }
+                  />
+                  <InputGroup.Text>mL</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Nicotine Base Concentration (mg/mL)</Form.Label>
-                <Form.Control
-                  name="baseConcentration"
-                  value={values.baseConcentration}
-                  onChange={handleChange}
-                  error={
-                    touched.baseConcentration &&
-                    Boolean(errors.baseConcentration)
-                  }
-                />
+                <Form.Label>Nicotine Concentration</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="consumedConcentration"
+                    value={values.consumedConcentration}
+                    onChange={handleChange}
+                    error={
+                      touched.consumedConcentration &&
+                      Boolean(errors.consumedConcentration)
+                    }
+                  />
+                  <InputGroup.Text>mg/mL</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
-            </Tab>
-            <Tab eventKey="target" title="Target">
-              <Form.Check
-                type="radio"
-                label="Metric"
-                checked={units === 'metric'}
-                onChange={() => setUnits('metric')}
-              />
-              <Form.Check
-                type="radio"
-                label="Imperial"
-                checked={units === 'imperial'}
-                onChange={() => setUnits('imperial')}
-              />
-              <Form.Group>
-                <Form.Label>Desired Supply (Days)</Form.Label>
-                <Form.Control
-                  name="desiredSupply"
-                  value={values.desiredSupply}
-                  onChange={handleChange}
-                  error={touched.desiredSupply && Boolean(errors.desiredSupply)}
-                />
-              </Form.Group>
-            </Tab>
-          </Tabs>
-        </Form>
-      </Card>
-      <ResultsCard>
-        {mode === 'lifetime' && (
-          <Fragment>
-            <h4>You have {supply.toLocaleString()} mg of nicotine.</h4>
-            <h4>
-              You have {supplyDuration.toLocaleString()} days (
-              {(supplyDuration / 365.25).toFixed(1)} years) of nicotine.
-            </h4>
-          </Fragment>
-        )}
-        {mode === 'target' && (
-          <Table>
-            <thead>
-              <tr>
-                <th>Strength (mg/mL)</th>
-                <th>Volume ({units === 'metric' ? 'mL' : 'oz'})</th>
-              </tr>
-            </thead>
-            <tbody>
-              {targetVolumes.map(({ strength, volume }) => (
-                <tr key={strength}>
-                  <td>{strength}</td>
-                  <td>{volume.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </ResultsCard>
-    </Fragment>
+              <Tabs
+                className="my-3"
+                activeKey={mode}
+                onSelect={(newMode) => setMode(newMode)}
+              >
+                <Tab eventKey="lifetime" title="Lifetime">
+                  <Form.Group>
+                    <Form.Label>Nicotine Base Volume</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        name="baseVolume"
+                        value={values.baseVolume}
+                        onChange={handleChange}
+                        error={touched.baseVolume && Boolean(errors.baseVolume)}
+                      />
+                      <InputGroup.Text>mL</InputGroup.Text>
+                    </InputGroup>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Nicotine Base Concentration</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        name="baseConcentration"
+                        value={values.baseConcentration}
+                        onChange={handleChange}
+                        error={
+                          touched.baseConcentration &&
+                          Boolean(errors.baseConcentration)
+                        }
+                      />
+                      <InputGroup.Text>mg/mL</InputGroup.Text>
+                    </InputGroup>
+                  </Form.Group>
+                </Tab>
+                <Tab eventKey="target" title="Target">
+                  <Form.Check
+                    type="radio"
+                    label="Metric"
+                    checked={units === 'metric'}
+                    onChange={() => setUnits('metric')}
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Imperial"
+                    checked={units === 'imperial'}
+                    onChange={() => setUnits('imperial')}
+                  />
+                  <Form.Group>
+                    <Form.Label>Desired Supply (Days)</Form.Label>
+                    <Form.Control
+                      name="desiredSupply"
+                      value={values.desiredSupply}
+                      onChange={handleChange}
+                      error={
+                        touched.desiredSupply && Boolean(errors.desiredSupply)
+                      }
+                    />
+                  </Form.Group>
+                </Tab>
+              </Tabs>
+            </Form>
+          </Card>
+        </Col>
+        <Col xs={12} sm={6}>
+          <ResultsCard>
+            <p>
+              You consume <strong>{consumption.toLocaleString()}</strong> mg of
+              nicotine per day (
+              <strong>
+                {((consumption * 365.25) / 1000).toLocaleString()}
+              </strong>{' '}
+              g per year).
+            </p>
+            {mode === 'lifetime' && (
+              <p>
+                You have <strong>{supplyDuration.toLocaleString()}</strong> days
+                (<strong>{(supplyDuration / 365.25).toFixed(1)}</strong> years)
+                of nicotine.
+              </p>
+            )}
+            {mode === 'target' && (
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Strength (mg/mL)</th>
+                    <th>Volume ({units === 'metric' ? 'mL' : 'oz'})</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {targetVolumes.map(({ strength, volume }) => (
+                    <tr key={strength}>
+                      <td>{strength}</td>
+                      <td>{volume.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            )}
+          </ResultsCard>
+        </Col>
+      </Row>
+    </Container>
   );
 }

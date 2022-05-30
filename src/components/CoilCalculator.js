@@ -177,83 +177,93 @@ export default function CoilCalculator() {
       <h1>
         <FontAwesomeIcon icon="calculator" size="2x" /> Coil Calculator
       </h1>
-      <h2>Input</h2>
       <Row>
         <Col md={6}>
-          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ isValidating, values }) => (
-              <FormikForm>
-                <Field name="coilType">
-                  {({ field }) => (
-                    <Form.Group>
-                      <Form.Label>Coil Type</Form.Label>
-                      <Form.Control as="select" {...field}>
-                        {Object.entries(coilTypes).map(([key, value]) => (
-                          <option key={key} value={value}>
-                            {value}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </Form.Group>
-                  )}
-                </Field>
-                <Field name="material">
-                  {({ field }) => (
-                    <Form.Group>
-                      <Form.Label>Material</Form.Label>
-                      <Form.Control as="select" {...field}>
-                        {materials.map((material) => (
-                          <option key={material.id} value={material.id}>
-                            {material.name}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </Form.Group>
-                  )}
-                </Field>
-                <Form.Group>
-                  <Form.Label>Parallel Strands</Form.Label>
-                  <Form.Control as={Field} type="number" name="strands" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Wraps</Form.Label>
-                  <Form.Control as={Field} type="number" name="wraps" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Inner diameter</Form.Label>
-                  <Form.Control as={Field} type="number" name="innerDiameter" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Leg length</Form.Label>
-                  <Form.Control as={Field} type="number" name="legLength" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Core wire gauge (AWG)</Form.Label>
-                  <Form.Control as={Field} type="number" name="coreWireGauge" />
-                </Form.Group>
-                {values.coilType === coilTypes.CLAPTON && (
+          <Card body>
+            <Card.Title>Inputs</Card.Title>
+            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+              {({ isValidating, values }) => (
+                <FormikForm>
+                  <Field name="coilType">
+                    {({ field }) => (
+                      <Form.Group>
+                        <Form.Label>Coil Type</Form.Label>
+                        <Form.Control as="select" {...field}>
+                          {Object.entries(coilTypes).map(([key, value]) => (
+                            <option key={key} value={value}>
+                              {value}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Form.Group>
+                    )}
+                  </Field>
+                  <Field name="material">
+                    {({ field }) => (
+                      <Form.Group>
+                        <Form.Label>Material</Form.Label>
+                        <Form.Control as="select" {...field}>
+                          {materials.map((material) => (
+                            <option key={material.id} value={material.id}>
+                              {material.name}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Form.Group>
+                    )}
+                  </Field>
                   <Form.Group>
-                    <Form.Label>Clapton wire gauge (AWG)</Form.Label>
+                    <Form.Label>Parallel Strands</Form.Label>
+                    <Form.Control as={Field} type="number" name="strands" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Wraps</Form.Label>
+                    <Form.Control as={Field} type="number" name="wraps" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Inner diameter</Form.Label>
                     <Form.Control
                       as={Field}
                       type="number"
-                      name="claptonWireGauge"
+                      name="innerDiameter"
                     />
                   </Form.Group>
-                )}
-                <Form.Group className="my-3">
-                  <Button type="submit" disabled={isValidating}>
-                    Update
-                  </Button>
-                </Form.Group>
-              </FormikForm>
-            )}
-          </Formik>
+                  <Form.Group>
+                    <Form.Label>Leg length</Form.Label>
+                    <Form.Control as={Field} type="number" name="legLength" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Core wire gauge (AWG)</Form.Label>
+                    <Form.Control
+                      as={Field}
+                      type="number"
+                      name="coreWireGauge"
+                    />
+                  </Form.Group>
+                  {values.coilType === coilTypes.CLAPTON && (
+                    <Form.Group>
+                      <Form.Label>Clapton wire gauge (AWG)</Form.Label>
+                      <Form.Control
+                        as={Field}
+                        type="number"
+                        name="claptonWireGauge"
+                      />
+                    </Form.Group>
+                  )}
+                  <Form.Group className="my-2">
+                    <Button type="submit" disabled={isValidating}>
+                      Calculate
+                    </Button>
+                  </Form.Group>
+                </FormikForm>
+              )}
+            </Formik>
+          </Card>
         </Col>
         <Col md={6}>
-          <h2>Outputs</h2>
           {coil && (
             <Card body>
+              <Card.Title>Outputs</Card.Title>
               <dl>
                 <dt>Wire Diameter</dt>
                 <dd>{coil.wireDiameter.toFixed(3)} mm</dd>

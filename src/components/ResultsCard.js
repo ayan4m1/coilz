@@ -7,13 +7,15 @@ export default function ResultsCard({ title = 'Outputs', results, children }) {
   }
 
   return (
-    <Card body className="my-4">
+    <Card body>
       <Card.Title>{title}</Card.Title>
       <Container fluid>
         {results?.length > 0 &&
           results.map(([name, content]) => (
             <Row key={name}>
-              <Col xs={3}>{name}</Col>
+              <Col xs={3}>
+                <strong>{name}</strong>
+              </Col>
               <Col xs={9}>{content}</Col>
             </Row>
           ))}

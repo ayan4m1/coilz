@@ -284,9 +284,7 @@ export default function ModCalculator() {
         <FontAwesomeIcon icon="bomb" size="2x" /> Mod Calculator
       </h1>
       <Card body className="my-4">
-        <Card.Title>
-          <h2>Inputs</h2>
-        </Card.Title>
+        <Card.Title>Inputs</Card.Title>
         <Form>
           <Form.Group>
             <Form.Label>Mod Type</Form.Label>
@@ -404,9 +402,7 @@ export default function ModCalculator() {
       </Card>
       <ResultsCard results={results} />
       <Card body className="mb-4">
-        <Card.Title>
-          <h2>Chart</h2>
-        </Card.Title>
+        <Card.Title>Chart</Card.Title>
         <ResponsiveContainer height={400} width="100%">
           <LineChart data={chartData} margin={{ bottom: 10 }}>
             <CartesianGrid />
