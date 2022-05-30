@@ -1,19 +1,57 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 import './icons.js';
-
 import './index.scss';
-import App from './components/App';
+
+import Layout from 'components/Layout';
+
+const Home = lazy(() =>
+  import(/* webpackChunkName: "core" */ 'components/Home')
+);
+const Materials = lazy(() =>
+  import(/* webpackChunkName: "materials" */ 'components/Materials')
+);
+const Settings = lazy(() =>
+  import(/* webpackChunkName: "settings" */ 'components/Settings')
+);
+const BaseCalculator = lazy(() =>
+  import(/* webpackChunkName: "base" */ 'components/BaseCalculator')
+);
+const CoilCalculator = lazy(() =>
+  import(/* webpackChunkName: "coil" */ 'components/CoilCalculator')
+);
+const ModCalculator = lazy(() =>
+  import(/* webpackChunkName: "mod" */ 'components/ModCalculator')
+);
+const NicCalculator = lazy(() =>
+  import(/* webpackChunkName: "nic" */ 'components/NicCalculator')
+);
+const CostCalculator = lazy(() =>
+  import(/* webpackChunkName: "cost" */ 'components/CostCalculator')
+);
+const WiringCalculator = lazy(() =>
+  import(/* webpackChunkName: "wiring" */ 'components/WiringCalculator')
+);
 
 ReactDOM.render(
   <Router>
-    <App />
+    <Layout>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/materials" element={<Materials />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/coils" element={<CoilCalculator />} />
+          <Route path="/nicotine" element={<NicCalculator />} />
+          <Route path="/mod" element={<ModCalculator />} />
+          <Route path="/base" element={<BaseCalculator />} />
+          <Route path="/cost" element={<CostCalculator />} />
+          <Route path="/wiring" element={<WiringCalculator />} />
+        </Routes>
+      </Suspense>
+    </Layout>
   </Router>,
   document.getElementById('root')
 );
-
-export default App;
