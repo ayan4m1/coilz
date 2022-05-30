@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const NavItem = ({ to, icon, label, tooltip }) =>
   tooltip ? (
     <OverlayTrigger
-      trigger="hover"
+      trigger="focus"
       placement="bottom"
       overlay={(props) => <Tooltip {...props}>{tooltip}</Tooltip>}
     >
