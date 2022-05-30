@@ -18,7 +18,7 @@ export default function BaseCalculator() {
   const initialValues = {
     consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
     vgRatio: localStorage.getItem('vgRatio') || 80,
-    pgRatio: 100 - (localStorage.getItem('vgRatio') || 20),
+    pgRatio: 100 - (localStorage.getItem('vgRatio') || 80),
     vgVolume: 0,
     pgVolume: 0
   };
