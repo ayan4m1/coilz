@@ -6,6 +6,7 @@ import './icons.js';
 import './index.scss';
 
 import Layout from 'components/Layout';
+import SuspenseFallback from 'components/SuspenseFallback.js';
 
 const Home = lazy(() =>
   import(/* webpackChunkName: "core" */ 'components/Home')
@@ -34,21 +35,25 @@ const CostCalculator = lazy(() =>
 const WiringCalculator = lazy(() =>
   import(/* webpackChunkName: "wiring" */ 'components/WiringCalculator')
 );
+const SpoolCalculator = lazy(() =>
+  import(/* webpackChunkName: "spool" */ 'components/SpoolCalculator')
+);
 
 ReactDOM.render(
   <Router>
     <Layout>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<SuspenseFallback />}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/materials" element={<Materials />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/coils" element={<CoilCalculator />} />
-          <Route path="/nicotine" element={<NicCalculator />} />
-          <Route path="/mod" element={<ModCalculator />} />
-          <Route path="/base" element={<BaseCalculator />} />
-          <Route path="/cost" element={<CostCalculator />} />
-          <Route path="/wiring" element={<WiringCalculator />} />
+          <Route element={<Home />} index />
+          <Route element={<Materials />} path="/materials" />
+          <Route element={<Settings />} path="/settings" />
+          <Route element={<CoilCalculator />} path="/coils" />
+          <Route element={<NicCalculator />} path="/nicotine" />
+          <Route element={<ModCalculator />} path="/mod" />
+          <Route element={<BaseCalculator />} path="/base" />
+          <Route element={<CostCalculator />} path="/cost" />
+          <Route element={<WiringCalculator />} path="/wiring" />
+          <Route element={<SpoolCalculator />} path="/spool" />
         </Routes>
       </Suspense>
     </Layout>

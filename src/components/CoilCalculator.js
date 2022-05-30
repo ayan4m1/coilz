@@ -214,30 +214,30 @@ export default function CoilCalculator() {
                   </Field>
                   <Form.Group>
                     <Form.Label>Parallel Strands</Form.Label>
-                    <Form.Control as={Field} type="number" name="strands" />
+                    <Form.Control as={Field} name="strands" type="number" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Wraps</Form.Label>
-                    <Form.Control as={Field} type="number" name="wraps" />
+                    <Form.Control as={Field} name="wraps" type="number" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Inner diameter</Form.Label>
                     <Form.Control
                       as={Field}
-                      type="number"
                       name="innerDiameter"
+                      type="number"
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Leg length</Form.Label>
-                    <Form.Control as={Field} type="number" name="legLength" />
+                    <Form.Control as={Field} name="legLength" type="number" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Core wire gauge (AWG)</Form.Label>
                     <Form.Control
                       as={Field}
-                      type="number"
                       name="coreWireGauge"
+                      type="number"
                     />
                   </Form.Group>
                   {values.coilType === coilTypes.CLAPTON && (
@@ -245,13 +245,13 @@ export default function CoilCalculator() {
                       <Form.Label>Clapton wire gauge (AWG)</Form.Label>
                       <Form.Control
                         as={Field}
-                        type="number"
                         name="claptonWireGauge"
+                        type="number"
                       />
                     </Form.Group>
                   )}
                   <Form.Group className="my-2">
-                    <Button type="submit" disabled={isValidating}>
+                    <Button disabled={isValidating} type="submit">
                       Calculate
                     </Button>
                   </Form.Group>

@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import Helmet from 'react-helmet';
 import { Container, Card, Form, Row, Col } from 'react-bootstrap';
@@ -43,56 +44,59 @@ export default function WiringCalculator() {
   return (
     <Container fluid>
       <Helmet title="Wiring Size Calculator" />
-      <h1>Wiring Size Calculator</h1>
+      <h1>
+        <FontAwesomeIcon icon="network-wired" size="2x" /> Wiring Size
+        Calculator
+      </h1>
       <Row>
-        <Col xs={12} md={6}>
+        <Col md={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
             <Form>
               <Form.Group>
                 <Form.Label>Wire Length (m)</Form.Label>
                 <Form.Control
-                  type="number"
                   min="0"
                   name="wireLength"
-                  value={values.wireLength}
                   onChange={handleChange}
+                  type="number"
+                  value={values.wireLength}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Max. Voltage Drop (V)</Form.Label>
                 <Form.Control
-                  type="number"
                   min="0"
                   name="maxVoltageDrop"
-                  value={values.maxVoltageDrop}
                   onChange={handleChange}
+                  type="number"
+                  value={values.maxVoltageDrop}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Max. Temp Rise (&deg;C)</Form.Label>
                 <Form.Control
-                  type="number"
                   min="0"
                   name="maxTempRise"
-                  value={values.maxTempRise}
                   onChange={handleChange}
+                  type="number"
+                  value={values.maxTempRise}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Max. Current (A)</Form.Label>
                 <Form.Control
-                  type="number"
                   min="0"
                   name="maxCurrent"
-                  value={values.maxCurrent}
                   onChange={handleChange}
+                  type="number"
+                  value={values.maxCurrent}
                 />
               </Form.Group>
             </Form>
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           {!isNaN(wireGauge) && (
             <ResultsCard>
               <p>

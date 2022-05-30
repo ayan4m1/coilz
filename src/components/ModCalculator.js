@@ -119,7 +119,7 @@ ChartTooltip.propTypes = {
 
 function ChartLabel({ x, y, angle = 0, label }) {
   return (
-    <Text x={0} y={0} dx={x} dy={y} transform={`rotate(${angle})`}>
+    <Text dx={x} dy={y} transform={`rotate(${angle})`} x={0} y={0}>
       {label}
     </Text>
   );
@@ -262,15 +262,15 @@ export default function ModCalculator() {
     [
       'Power',
       <Badge
-        key="power"
         bg={getVariant(current, currentLimit, safetyMargin / 100)}
+        key="power"
       >
         {power.toFixed(2)} / {maxPower.toFixed(2)} W
       </Badge>
     ],
     [
       'Headroom',
-      <Badge key="headroom" bg={headroom > 0 ? 'success' : 'danger'}>
+      <Badge bg={headroom > 0 ? 'success' : 'danger'} key="headroom">
         {headroom.toFixed(2)} A
       </Badge>
     ],
@@ -283,7 +283,7 @@ export default function ModCalculator() {
       <h1>
         <FontAwesomeIcon icon="bomb" size="2x" /> Mod Calculator
       </h1>
-      <Card body className="my-4">
+      <Card body className="mb-4">
         <Card.Title>Inputs</Card.Title>
         <Form>
           <Form.Group>
@@ -298,10 +298,10 @@ export default function ModCalculator() {
               <Form.Group>
                 <Form.Label>Regulator Efficiency</Form.Label>
                 <Form.Range
-                  min="75"
                   max="95"
-                  step="5"
+                  min="75"
                   onChange={handleEfficiencyChange}
+                  step="5"
                   value={efficiency}
                 />
                 <InputGroup>
@@ -312,11 +312,11 @@ export default function ModCalculator() {
               <Form.Group>
                 <Form.Label>Mod Wattage</Form.Label>
                 <Form.Control
-                  type="number"
-                  min="5"
                   max="2000"
-                  step="0.1"
+                  min="5"
                   onChange={handleWattageChange}
+                  step="0.1"
+                  type="number"
                   value={wattage}
                 />
               </Form.Group>
@@ -325,22 +325,22 @@ export default function ModCalculator() {
           <Form.Group>
             <Form.Label>Coil Resistance (&#8486;)</Form.Label>
             <Form.Control
-              type="number"
-              min="0.01"
               max="10"
-              step="0.05"
+              min="0.01"
               onChange={handleResistanceChange}
+              step="0.05"
+              type="number"
               value={resistance}
             />
           </Form.Group>
           <Form.Group>
             <Form.Label># Cells in Series</Form.Label>
             <Form.Control
-              type="number"
-              min="1"
               max="6"
-              step="1"
+              min="1"
               onChange={handleSeriesChange}
+              step="1"
+              type="number"
               value={series}
             />
           </Form.Group>
@@ -368,21 +368,21 @@ export default function ModCalculator() {
               <Form.Group>
                 <Form.Label>Capacity (mAh)</Form.Label>
                 <Form.Control
-                  type="number"
-                  min="0"
                   max="50000"
-                  step="50"
+                  min="0"
                   onChange={handleCustomCapacityChange}
+                  step="50"
+                  type="number"
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Current Limit (A)</Form.Label>
                 <Form.Control
-                  type="number"
-                  min="0"
                   max="100"
-                  step="1"
+                  min="0"
                   onChange={handleCustomCurrentLimitChange}
+                  step="1"
+                  type="number"
                 />
               </Form.Group>
             </Fragment>
@@ -390,34 +390,34 @@ export default function ModCalculator() {
           <Form.Group>
             <Form.Label>Safety Margin (%)</Form.Label>
             <Form.Control
-              type="number"
-              min="0"
               max="100"
-              step="1"
+              min="0"
               onChange={handleSafetyMarginChange}
+              step="1"
+              type="number"
               value={safetyMargin}
             />
           </Form.Group>
         </Form>
       </Card>
       <ResultsCard results={results} />
-      <Card body className="mb-4">
+      <Card body className="my-4">
         <Card.Title>Chart</Card.Title>
         <ResponsiveContainer height={400} width="100%">
           <LineChart data={chartData} margin={{ bottom: 10 }}>
             <CartesianGrid />
             <XAxis
-              label={
-                <ChartLabel x={-350} y={30} angle={-90} label="Current (Amp)" />
-              }
               dataKey="resistance"
-              type="number"
-              tickCount={40}
               domain={chartXRange}
+              label={
+                <ChartLabel angle={-90} label="Current (Amp)" x={-350} y={30} />
+              }
+              tickCount={40}
+              type="number"
             />
             <YAxis
+              label={<ChartLabel label="Resistance (Ohm)" x={70} y={394} />}
               type="number"
-              label={<ChartLabel x={70} y={394} label="Resistance (Ohm)" />}
             />
             <Tooltip
               content={
@@ -427,15 +427,15 @@ export default function ModCalculator() {
                 />
               }
             />
-            <ReferenceLine x={dangerX} stroke="#FF0303" />
-            <ReferenceLine x={marginX} stroke="#FFBF00" />
-            <ReferenceLine x={resistance} stroke="#007BFF" />
+            <ReferenceLine stroke="#FF0303" x={dangerX} />
+            <ReferenceLine stroke="#FFBF00" x={marginX} />
+            <ReferenceLine stroke="#007BFF" x={resistance} />
             <Line
-              type="monotone"
               dataKey="current"
               dot={false}
-              strokeWidth={2}
               stroke="#A12300"
+              strokeWidth={2}
+              type="monotone"
             />
           </LineChart>
         </ResponsiveContainer>

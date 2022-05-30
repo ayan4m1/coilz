@@ -83,7 +83,7 @@ export default function CostCalculator() {
         <FontAwesomeIcon icon="dollar-sign" size="2x" /> Cost Calculator
       </h1>
       <Row>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
             <Form onSubmit={handleSubmit}>
@@ -91,9 +91,9 @@ export default function CostCalculator() {
                 <Form.Label>Desired Volume</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     name="totalVolume"
                     onChange={handleChange}
+                    type="number"
                     value={values.totalVolume}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
@@ -103,9 +103,9 @@ export default function CostCalculator() {
                 <Form.Label>Desired VG</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     name="vgRatio"
                     onChange={handleChange}
+                    type="number"
                     value={values.vgRatio}
                   />
                   <InputGroup.Text>%</InputGroup.Text>
@@ -115,9 +115,9 @@ export default function CostCalculator() {
                 <Form.Label>Total Flavor</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     name="flavorPercent"
                     onChange={handleChange}
+                    type="number"
                     value={values.flavorPercent}
                   />
                   <InputGroup.Text>%</InputGroup.Text>
@@ -127,9 +127,9 @@ export default function CostCalculator() {
                 <Form.Label>Base Nicotine Strength</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     name="nicotineStrengthBase"
                     onChange={handleChange}
+                    type="number"
                     value={values.nicotineStrengthBase}
                   />
                   <InputGroup.Text>mg/mL</InputGroup.Text>
@@ -139,9 +139,9 @@ export default function CostCalculator() {
                 <Form.Label>Desired Nicotine Strength</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     name="nicotineStrengthDesired"
                     onChange={handleChange}
+                    type="number"
                     value={values.nicotineStrengthDesired}
                   />
                   <InputGroup.Text>mg/mL</InputGroup.Text>
@@ -152,25 +152,25 @@ export default function CostCalculator() {
                 <InputGroup>
                   <InputGroup.Text>$</InputGroup.Text>
                   <Form.Control
-                    type="text"
                     name="nicotinePrice"
                     onChange={handleChange}
+                    type="text"
                     value={values.nicotinePrice}
                   />
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="text"
                     name="nicotineVolume"
                     onChange={handleChange}
+                    type="text"
                     value={values.nicotineVolume}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     readOnly
+                    type="number"
                     value={
                       values.nicotineVolume > 0
                         ? values.nicotinePrice / values.nicotineVolume
@@ -185,25 +185,25 @@ export default function CostCalculator() {
                 <InputGroup>
                   <InputGroup.Text>$</InputGroup.Text>
                   <Form.Control
-                    type="text"
                     name="pgPrice"
                     onChange={handleChange}
+                    type="text"
                     value={values.pgPrice}
                   />
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="text"
                     name="pgVolume"
                     onChange={handleChange}
+                    type="text"
                     value={values.pgVolume}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     readOnly
+                    type="number"
                     value={
                       values.pgVolume > 0 ? values.pgPrice / values.pgVolume : 0
                     }
@@ -216,25 +216,25 @@ export default function CostCalculator() {
                 <InputGroup>
                   <InputGroup.Text>$</InputGroup.Text>
                   <Form.Control
-                    type="text"
                     name="vgPrice"
                     onChange={handleChange}
+                    type="text"
                     value={values.vgPrice}
                   />
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="text"
                     name="vgVolume"
                     onChange={handleChange}
+                    type="text"
                     value={values.vgVolume}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     readOnly
+                    type="number"
                     value={
                       values.vgVolume > 0 ? values.vgPrice / values.vgVolume : 0
                     }
@@ -247,25 +247,25 @@ export default function CostCalculator() {
                 <InputGroup>
                   <InputGroup.Text>$</InputGroup.Text>
                   <Form.Control
-                    type="text"
                     name="flavorPrice"
                     onChange={handleChange}
+                    type="text"
                     value={values.flavorPrice}
                   />
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="text"
                     name="flavorVolume"
                     onChange={handleChange}
+                    type="text"
                     value={values.flavorVolume}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
                 </InputGroup>
                 <InputGroup>
                   <Form.Control
-                    type="number"
                     readOnly
+                    type="number"
                     value={
                       values.flavorVolume > 0
                         ? values.flavorPrice / values.flavorVolume
@@ -276,14 +276,14 @@ export default function CostCalculator() {
                 </InputGroup>
               </Form.Group>
               <Form.Group>
-                <Button variant="primary" type="submit" className="mt-2">
+                <Button className="mt-2" type="submit" variant="primary">
                   Calculate
                 </Button>
               </Form.Group>
             </Form>
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           <ResultsCard results={results} />
         </Col>
       </Row>

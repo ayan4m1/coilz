@@ -81,7 +81,7 @@ export default function NicCalculator() {
         Calculator
       </h1>
       <Row>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
             <Form>
@@ -89,12 +89,12 @@ export default function NicCalculator() {
                 <Form.Label>Daily Consumption</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="consumedPerDay"
-                    value={values.consumedPerDay}
-                    onChange={handleChange}
                     error={
                       touched.consumedPerDay && Boolean(errors.consumedPerDay)
                     }
+                    name="consumedPerDay"
+                    onChange={handleChange}
+                    value={values.consumedPerDay}
                   />
                   <InputGroup.Text>mL</InputGroup.Text>
                 </InputGroup>
@@ -103,20 +103,20 @@ export default function NicCalculator() {
                 <Form.Label>Nicotine Concentration</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="consumedConcentration"
-                    value={values.consumedConcentration}
-                    onChange={handleChange}
                     error={
                       touched.consumedConcentration &&
                       Boolean(errors.consumedConcentration)
                     }
+                    name="consumedConcentration"
+                    onChange={handleChange}
+                    value={values.consumedConcentration}
                   />
                   <InputGroup.Text>mg/mL</InputGroup.Text>
                 </InputGroup>
               </Form.Group>
               <Tabs
-                className="my-3"
                 activeKey={mode}
+                className="my-3"
                 onSelect={(newMode) => setMode(newMode)}
               >
                 <Tab eventKey="lifetime" title="Lifetime">
@@ -124,10 +124,10 @@ export default function NicCalculator() {
                     <Form.Label>Nicotine Base Volume</Form.Label>
                     <InputGroup>
                       <Form.Control
-                        name="baseVolume"
-                        value={values.baseVolume}
-                        onChange={handleChange}
                         error={touched.baseVolume && Boolean(errors.baseVolume)}
+                        name="baseVolume"
+                        onChange={handleChange}
+                        value={values.baseVolume}
                       />
                       <InputGroup.Text>mL</InputGroup.Text>
                     </InputGroup>
@@ -136,13 +136,13 @@ export default function NicCalculator() {
                     <Form.Label>Nicotine Base Concentration</Form.Label>
                     <InputGroup>
                       <Form.Control
-                        name="baseConcentration"
-                        value={values.baseConcentration}
-                        onChange={handleChange}
                         error={
                           touched.baseConcentration &&
                           Boolean(errors.baseConcentration)
                         }
+                        name="baseConcentration"
+                        onChange={handleChange}
+                        value={values.baseConcentration}
                       />
                       <InputGroup.Text>mg/mL</InputGroup.Text>
                     </InputGroup>
@@ -150,26 +150,26 @@ export default function NicCalculator() {
                 </Tab>
                 <Tab eventKey="target" title="Target">
                   <Form.Check
-                    type="radio"
-                    label="Metric"
                     checked={units === 'metric'}
+                    label="Metric"
                     onChange={() => setUnits('metric')}
+                    type="radio"
                   />
                   <Form.Check
-                    type="radio"
-                    label="Imperial"
                     checked={units === 'imperial'}
+                    label="Imperial"
                     onChange={() => setUnits('imperial')}
+                    type="radio"
                   />
                   <Form.Group>
                     <Form.Label>Desired Supply (Days)</Form.Label>
                     <Form.Control
-                      name="desiredSupply"
-                      value={values.desiredSupply}
-                      onChange={handleChange}
                       error={
                         touched.desiredSupply && Boolean(errors.desiredSupply)
                       }
+                      name="desiredSupply"
+                      onChange={handleChange}
+                      value={values.desiredSupply}
                     />
                   </Form.Group>
                 </Tab>
@@ -177,7 +177,7 @@ export default function NicCalculator() {
             </Form>
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           <ResultsCard>
             <p>
               You consume <strong>{consumption.toLocaleString()}</strong> mg of

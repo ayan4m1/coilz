@@ -9,6 +9,7 @@ import {
   faFire,
   faHeart,
   faNetworkWired,
+  faRuler,
   faThermometerFull
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,5 +23,6 @@ library.add(
   faFire,
   faHeart,
   faNetworkWired,
-  faThermometerFull
+  faThermometerFull,
+  faRuler
 );

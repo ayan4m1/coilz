@@ -44,20 +44,20 @@ export default function BaseCalculator() {
         <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
       </h1>
       <Row>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
             <Form>
               <Form.Group>
                 <Form.Label>mL Consumed Per Day</Form.Label>
                 <Form.Control
-                  name="consumedPerDay"
-                  type="number"
-                  value={values.consumedPerDay}
-                  onChange={handleChange}
                   isInvalid={
                     touched.consumedPerDay && Boolean(errors.consumedPerDay)
                   }
+                  name="consumedPerDay"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.consumedPerDay}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.consumedPerDay}
@@ -66,13 +66,13 @@ export default function BaseCalculator() {
               <Form.Group>
                 <Form.Label>VG %</Form.Label>
                 <Form.Control
-                  name="vgRatio"
-                  type="number"
-                  min={0}
-                  max={100}
-                  value={values.vgRatio}
-                  onChange={handleChange}
                   isInvalid={touched.vgRatio && Boolean(errors.vgRatio)}
+                  max={100}
+                  min={0}
+                  name="vgRatio"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.vgRatio}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.vgRatio}
@@ -81,13 +81,13 @@ export default function BaseCalculator() {
               <Form.Group>
                 <Form.Label>PG %</Form.Label>
                 <Form.Control
-                  name="pgRatio"
-                  type="number"
-                  min={0}
-                  max={100}
-                  value={100 - values.vgRatio}
-                  onChange={handleChange}
                   isInvalid={touched.pgRatio && Boolean(errors.pgRatio)}
+                  max={100}
+                  min={0}
+                  name="pgRatio"
+                  onChange={handleChange}
+                  type="number"
+                  value={100 - values.vgRatio}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.pgRatio}
@@ -96,12 +96,12 @@ export default function BaseCalculator() {
               <Form.Group>
                 <Form.Label>VG Volume (mL)</Form.Label>
                 <Form.Control
-                  name="vgVolume"
-                  type="number"
-                  min={0}
-                  value={values.vgVolume}
-                  onChange={handleChange}
                   isInvalid={touched.vgVolume && Boolean(errors.vgVolume)}
+                  min={0}
+                  name="vgVolume"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.vgVolume}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.vgVolume}
@@ -110,12 +110,12 @@ export default function BaseCalculator() {
               <Form.Group>
                 <Form.Label>PG Volume (mL)</Form.Label>
                 <Form.Control
-                  name="pgVolume"
-                  type="number"
-                  min={0}
-                  value={values.pgVolume}
-                  onChange={handleChange}
                   isInvalid={touched.pgVolume && Boolean(errors.pgVolume)}
+                  min={0}
+                  name="pgVolume"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.pgVolume}
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.pgVolume}
@@ -124,7 +124,7 @@ export default function BaseCalculator() {
             </Form>
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col sm={6} xs={12}>
           {!isNaN(vgDays) && !isNaN(pgDays) && (
             <ResultsCard>
               <p>

@@ -16,13 +16,13 @@ export default function CurveEditor({ points }) {
   const chartYRange = [0.7, 1.4];
 
   return (
-    <LineChart width={chartWidth} height={chartHeight} data={points}>
+    <LineChart data={points} height={chartHeight} width={chartWidth}>
       <CartesianGrid />
-      <XAxis dataKey="temp" type="number" domain={chartXRange} />
-      <YAxis type="number" domain={chartYRange} />
+      <XAxis dataKey="temp" domain={chartXRange} type="number" />
+      <YAxis domain={chartYRange} type="number" />
       <Tooltip />
       <Legend />
-      <Line type="linear" dataKey="tcr" />
+      <Line dataKey="tcr" type="linear" />
     </LineChart>
   );
 }
