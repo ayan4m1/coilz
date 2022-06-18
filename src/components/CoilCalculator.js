@@ -1,7 +1,8 @@
-import { Formik, Form as FormikForm, Field } from 'formik';
-import { Fragment, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Form, Card, Button, Row, Col } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import { Fragment, useCallback, useState } from 'react';
+import { Form, Card, Button, Row, Col, InputGroup } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 
 import { materials } from 'utils';
 
@@ -31,22 +32,33 @@ const coilTypes = {
 };
 
 export default function CoilCalculator() {
-  const initialValues = {
-    coilType: coilTypes.SINGLE,
-    strands: 1,
-    wraps: 5,
-    coreWireGauge: 30,
-    claptonWireGauge: 40,
-    innerDiameter: 3,
-    legLength: 5,
-    material: 'ss316l'
-  };
-
   const [coil, setCoil] = useState();
+  const { isValidating, handleChange, handleSubmit, values } = useFormik({
+    initialValues: {
+      coilType: coilTypes.SINGLE,
+      strands: 1,
+      wraps: 5,
+      coreWireGauge: 30,
+      claptonWireGauge: 40,
+      innerDiameter: 3,
+      legLength: 5,
+      material: 'ss316l'
+    },
+    validate: useCallback(({ strands, wraps }) => {
+      const result = {};
 
-  const handleSubmit = useCallback(
-    (values) => {
-      const {
+      if (strands < 1) {
+        result.strands = 'Strands cannot be less than one.';
+      }
+
+      if (wraps < 1) {
+        result.wraps = 'Wraps cannot be less than one.';
+      }
+
+      return result;
+    }, []),
+    onSubmit: useCallback(
+      ({
         coilType,
         strands,
         wraps,
@@ -55,176 +67,204 @@ export default function CoilCalculator() {
         coreWireGauge,
         claptonWireGauge,
         material
-      } = values;
+      }) => {
+        let coreDiameter = awg2mm(coreWireGauge);
+        const claptonDiameter = awg2mm(claptonWireGauge);
 
-      let coreDiameter = awg2mm(coreWireGauge);
-      const claptonDiameter = awg2mm(claptonWireGauge);
+        if (coilType === coilTypes.CLAPTON) {
+          coreDiameter += 2 * claptonDiameter;
+        }
 
-      if (coilType === coilTypes.CLAPTON) {
-        coreDiameter += 2 * claptonDiameter;
-      }
+        const outerDiameter = parseFloat(
+          (innerDiameter + 2 * coreDiameter).toFixed(2)
+        );
+        const coilLength = calculateCoilLength(
+          outerDiameter,
+          coreDiameter,
+          strands,
+          wraps,
+          legLength
+        );
 
-      const outerDiameter = parseFloat(
-        (innerDiameter + 2 * coreDiameter).toFixed(2)
-      );
-      const coilLength = calculateCoilLength(
-        outerDiameter,
-        coreDiameter,
-        strands,
-        wraps,
-        legLength
-      );
+        let crossSectionArea;
 
-      let crossSectionArea;
+        switch (coilType) {
+          case coilTypes.SINGLE:
+            crossSectionArea =
+              Math.PI * Math.pow(coreDiameter / 2, 2) * strands;
+            break;
+          case coilTypes.CLAPTON:
+            crossSectionArea =
+              Math.PI * Math.pow(coreDiameter / 2, 2) * strands +
+              Math.PI * Math.pow(claptonDiameter / 2, 2);
+            break;
+          default:
+            crossSectionArea = 0;
+            break;
+        }
 
-      switch (coilType) {
-        case coilTypes.SINGLE:
-          crossSectionArea = Math.PI * Math.pow(coreDiameter / 2, 2) * strands;
-          break;
-        case coilTypes.CLAPTON:
-          crossSectionArea =
-            Math.PI * Math.pow(coreDiameter / 2, 2) * strands +
-            Math.PI * Math.pow(claptonDiameter / 2, 2);
-          break;
-        default:
-          crossSectionArea = 0;
-          break;
-      }
+        let surfaceArea = Math.PI * coilLength * coreDiameter;
 
-      let surfaceArea = Math.PI * coilLength * coreDiameter;
+        if (coilType === coilTypes.CLAPTON) {
+          const claptonWraps = coilLength / (1 / coreDiameter);
 
-      if (coilType === coilTypes.CLAPTON) {
-        const claptonWraps = coilLength / (1 / coreDiameter);
+          surfaceArea +=
+            Math.PI *
+            calculateCoilLength(
+              coreDiameter,
+              claptonDiameter,
+              1,
+              claptonWraps,
+              0
+            ) *
+            claptonDiameter;
+        }
 
-        surfaceArea +=
-          Math.PI *
-          calculateCoilLength(
-            coreDiameter,
-            claptonDiameter,
-            1,
-            claptonWraps,
-            0
-          ) *
-          claptonDiameter;
-      }
+        const matchedMaterial = materials.find((mat) => material === mat.id);
+        const resistivityPerUnitLength =
+          matchedMaterial.resistivity / crossSectionArea;
+        const resistance = (resistivityPerUnitLength * coilLength) / 1e3;
 
-      const matchedMaterial = materials.find((mat) => material === mat.id);
-      const resistivityPerUnitLength =
-        matchedMaterial.resistivity / crossSectionArea;
-      const resistance = (resistivityPerUnitLength * coilLength) / 1e3;
+        // eslint-disable-next-line
+        console.dir(coreDiameter);
+        // eslint-disable-next-line
+        console.dir(innerDiameter);
+        // eslint-disable-next-line
+        console.dir(outerDiameter);
+        // eslint-disable-next-line
+        console.dir(coilLength);
 
-      // eslint-disable-next-line
-      console.dir(coreDiameter);
-      // eslint-disable-next-line
-      console.dir(innerDiameter);
-      // eslint-disable-next-line
-      console.dir(outerDiameter);
-      // eslint-disable-next-line
-      console.dir(coilLength);
-
-      setCoil({
-        wireDiameter: coreDiameter,
-        innerDiameter,
-        outerDiameter,
-        length: coilLength,
-        crossSectionArea,
-        surfaceArea,
-        resistivityPerUnitLength,
-        resistance
-      });
-    },
-    [setCoil]
-  );
+        setCoil({
+          wireDiameter: coreDiameter,
+          innerDiameter,
+          outerDiameter,
+          length: coilLength,
+          crossSectionArea,
+          surfaceArea,
+          resistivityPerUnitLength,
+          resistance
+        });
+      },
+      [setCoil]
+    )
+  });
 
   return (
     <Fragment>
+      <Helmet title="Coil Calculator" />
       <h1>
         <FontAwesomeIcon icon="calculator" size="2x" /> Coil Calculator
       </h1>
       <Row>
-        <Col md={6}>
+        <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-              {({ isValidating, values }) => (
-                <FormikForm>
-                  <Field name="coilType">
-                    {({ field }) => (
-                      <Form.Group>
-                        <Form.Label>Coil Type</Form.Label>
-                        <Form.Control as="select" {...field}>
-                          {Object.entries(coilTypes).map(([key, value]) => (
-                            <option key={key} value={value}>
-                              {value}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Form.Group>
-                    )}
-                  </Field>
-                  <Field name="material">
-                    {({ field }) => (
-                      <Form.Group>
-                        <Form.Label>Material</Form.Label>
-                        <Form.Control as="select" {...field}>
-                          {materials.map((material) => (
-                            <option key={material.id} value={material.id}>
-                              {material.name}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Form.Group>
-                    )}
-                  </Field>
-                  <Form.Group>
-                    <Form.Label>Parallel Strands</Form.Label>
-                    <Form.Control as={Field} name="strands" type="number" />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Wraps</Form.Label>
-                    <Form.Control as={Field} name="wraps" type="number" />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Inner diameter</Form.Label>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label>Coil Type</Form.Label>
+                <Form.Select
+                  name="coilType"
+                  onChange={handleChange}
+                  value={values.coilType}
+                >
+                  {Object.entries(coilTypes).map(([key, value]) => (
+                    <option key={key} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Material</Form.Label>
+                <Form.Select
+                  name="material"
+                  onChaneg={handleChange}
+                  value={values.material}
+                >
+                  {materials.map((material) => (
+                    <option key={material.id} value={material.id}>
+                      {material.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Parallel Strands</Form.Label>
+                <Form.Control
+                  name="strands"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.strands}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Wraps</Form.Label>
+                <Form.Control
+                  name="wraps"
+                  onChange={handleChange}
+                  type="number"
+                  value={values.wraps}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Inner diameter</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="innerDiameter"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.innerDiameter}
+                  />
+                  <InputGroup.Text>mm</InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Leg length</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="legLength"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.legLength}
+                  />
+                  <InputGroup.Text>mm</InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Core wire gauge</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="coreWireGauge"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.coreWireGauge}
+                  />
+                  <InputGroup.Text>AWG</InputGroup.Text>
+                </InputGroup>
+              </Form.Group>
+              {values.coilType === coilTypes.CLAPTON && (
+                <Form.Group>
+                  <Form.Label>Clapton wire gauge</Form.Label>
+                  <InputGroup>
                     <Form.Control
-                      as={Field}
-                      name="innerDiameter"
+                      name="claptonWireGauge"
+                      onChange={handleChange}
                       type="number"
+                      value={values.claptonWireGauge}
                     />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Leg length</Form.Label>
-                    <Form.Control as={Field} name="legLength" type="number" />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Core wire gauge (AWG)</Form.Label>
-                    <Form.Control
-                      as={Field}
-                      name="coreWireGauge"
-                      type="number"
-                    />
-                  </Form.Group>
-                  {values.coilType === coilTypes.CLAPTON && (
-                    <Form.Group>
-                      <Form.Label>Clapton wire gauge (AWG)</Form.Label>
-                      <Form.Control
-                        as={Field}
-                        name="claptonWireGauge"
-                        type="number"
-                      />
-                    </Form.Group>
-                  )}
-                  <Form.Group className="my-2">
-                    <Button disabled={isValidating} type="submit">
-                      Calculate
-                    </Button>
-                  </Form.Group>
-                </FormikForm>
+                    <InputGroup.Text>AWG</InputGroup.Text>
+                  </InputGroup>
+                </Form.Group>
               )}
-            </Formik>
+              <Form.Group>
+                <Button className="mt-2" disabled={isValidating} type="submit">
+                  Calculate
+                </Button>
+              </Form.Group>
+            </Form>
           </Card>
         </Col>
-        <Col md={6}>
+        <Col sm={6} xs={12}>
           {coil && (
             <Card body>
               <Card.Title>Outputs</Card.Title>
