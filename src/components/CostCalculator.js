@@ -16,24 +16,24 @@ import ResultsCard from 'components/ResultsCard';
 
 export default function CostCalculator() {
   const [results, setResults] = useState(null);
-  const initialValues = {
-    totalVolume: 1000,
-    nicotineStrengthDesired: 6,
-    nicotineStrengthBase: 250,
-    nicotinePrice: 80,
-    nicotineVolume: 125,
-    vgPrice: 25,
-    vgVolume: 3785,
-    pgPrice: 35,
-    pgVolume: 3785,
-    flavorPrice: 5,
-    flavorVolume: 15,
-    flavorPercent: 10,
-    vgRatio: 50
-  };
-  const onSubmit = useCallback(
-    (values) => {
-      const {
+  const { handleChange, handleSubmit, values } = useFormik({
+    initialValues: {
+      totalVolume: 1000,
+      nicotineStrengthDesired: 6,
+      nicotineStrengthBase: 250,
+      nicotinePrice: 80,
+      nicotineVolume: 125,
+      vgPrice: 25,
+      vgVolume: 3785,
+      pgPrice: 35,
+      pgVolume: 3785,
+      flavorPrice: 5,
+      flavorVolume: 15,
+      flavorPercent: 10,
+      vgRatio: 50
+    },
+    onSubmit: useCallback(
+      ({
         totalVolume,
         nicotineStrengthBase,
         nicotineStrengthDesired,
@@ -47,33 +47,30 @@ export default function CostCalculator() {
         flavorVolume,
         flavorPercent,
         vgRatio
-      } = values;
+      }) => {
+        const nicotinePct = nicotineStrengthDesired / nicotineStrengthBase;
+        const nicotineCost =
+          nicotinePct * totalVolume * (nicotinePrice / nicotineVolume);
+        const vgPct = vgRatio / 1e2;
+        const vgCost = vgPct * totalVolume * (vgPrice / vgVolume);
+        const pgPct = 1 - vgPct;
+        const pgCost = pgPct * totalVolume * (pgPrice / pgVolume);
+        const flavorPct = flavorPercent / 1e2;
+        const flavorCost =
+          flavorPct * totalVolume * (flavorPrice / flavorVolume);
+        const cost = nicotineCost + vgCost + pgCost + flavorCost;
 
-      const nicotinePct = nicotineStrengthDesired / nicotineStrengthBase;
-      const nicotineCost =
-        nicotinePct * totalVolume * (nicotinePrice / nicotineVolume);
-      const vgPct = vgRatio / 1e2;
-      const vgCost = vgPct * totalVolume * (vgPrice / vgVolume);
-      const pgPct = 1 - vgPct;
-      const pgCost = pgPct * totalVolume * (pgPrice / pgVolume);
-      const flavorPct = flavorPercent / 1e2;
-      const flavorCost = flavorPct * totalVolume * (flavorPrice / flavorVolume);
-      const cost = nicotineCost + vgCost + pgCost + flavorCost;
-
-      setResults([
-        ['Nic Cost', `$${nicotineCost.toFixed(2)}`],
-        ['VG Cost', `$${vgCost.toFixed(2)}`],
-        ['PG Cost', `$${pgCost.toFixed(2)}`],
-        ['Flavor Cost', `$${flavorCost.toFixed(2)}`],
-        ['Total Cost', `$${cost.toFixed(2)}`],
-        ['Cost per mL', `$${(cost / totalVolume).toFixed(2)}`]
-      ]);
-    },
-    [setResults]
-  );
-  const { handleChange, handleSubmit, values } = useFormik({
-    initialValues,
-    onSubmit
+        setResults([
+          ['Nic Cost', `$${nicotineCost.toFixed(2)}`],
+          ['VG Cost', `$${vgCost.toFixed(2)}`],
+          ['PG Cost', `$${pgCost.toFixed(2)}`],
+          ['Flavor Cost', `$${flavorCost.toFixed(2)}`],
+          ['Total Cost', `$${cost.toFixed(2)}`],
+          ['Cost per mL', `$${(cost / totalVolume).toFixed(2)}`]
+        ]);
+      },
+      [setResults]
+    )
   });
 
   return (
