@@ -1,4 +1,5 @@
-import { Container, Row, Col, Card, Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Container, Row, Col, Card, Form, InputGroup } from 'react-bootstrap';
 import Helmet from 'react-helmet';
 
 import ResultsCard from 'components/ResultsCard';
@@ -32,8 +33,10 @@ export default function SpoolCalculator() {
 
   return (
     <Container fluid>
-      <Helmet title="Spool Calculator" />
-      <h1>Spool Calculator</h1>
+      <Helmet title="Remaining Spool Calculator" />
+      <h1>
+        <FontAwesomeIcon icon="ruler" size="2x" /> Remaining Spool Calculator
+      </h1>
       <Row>
         <Col sm={6} xs={12}>
           <Card body>
@@ -56,37 +59,46 @@ export default function SpoolCalculator() {
                 </Form.Select>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Gauge</Form.Label>
-                <Form.Control
-                  max="40"
-                  min="8"
-                  name="gauge"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  step="2"
-                  type="number"
-                  value={values.gauge}
-                />
+                <Form.Label>Wire Gauge</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    max="40"
+                    min="8"
+                    name="gauge"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    step="2"
+                    type="number"
+                    value={values.gauge}
+                  />
+                  <InputGroup.Text>AWG</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Empty Spool Mass</Form.Label>
-                <Form.Control
-                  name="emptyMass"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="number"
-                  value={values.emptyMass}
-                />
+                <InputGroup>
+                  <Form.Control
+                    name="emptyMass"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="number"
+                    value={values.emptyMass}
+                  />
+                  <InputGroup.Text>g</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Current Spool Mass</Form.Label>
-                <Form.Control
-                  name="currentMass"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="number"
-                  value={values.currentMass}
-                />
+                <InputGroup>
+                  <Form.Control
+                    name="currentMass"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="number"
+                    value={values.currentMass}
+                  />
+                  <InputGroup.Text>g</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
             </Form>
           </Card>
