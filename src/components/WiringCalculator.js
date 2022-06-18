@@ -1,7 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import Helmet from 'react-helmet';
-import { Container, Card, Form, Row, Col } from 'react-bootstrap';
+import {
+  Container,
+  Card,
+  Form,
+  Row,
+  Col,
+  InputGroup,
+  Alert
+} from 'react-bootstrap';
 
 import { wires } from 'utils';
 import ResultsCard from './ResultsCard';
@@ -53,44 +61,56 @@ export default function WiringCalculator() {
             <Card.Title>Inputs</Card.Title>
             <Form>
               <Form.Group>
-                <Form.Label>Wire Length (m)</Form.Label>
-                <Form.Control
-                  min="0"
-                  name="wireLength"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.wireLength}
-                />
+                <Form.Label>Wire Length</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    min="0"
+                    name="wireLength"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.wireLength}
+                  />
+                  <InputGroup.Text>m</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Max. Voltage Drop (V)</Form.Label>
-                <Form.Control
-                  min="0"
-                  name="maxVoltageDrop"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.maxVoltageDrop}
-                />
+                <Form.Label>Max. Voltage Drop</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    min="0"
+                    name="maxVoltageDrop"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.maxVoltageDrop}
+                  />
+                  <InputGroup.Text>V</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Max. Temp Rise (&deg;C)</Form.Label>
-                <Form.Control
-                  min="0"
-                  name="maxTempRise"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.maxTempRise}
-                />
+                <Form.Label>Max. Temp Rise</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    min="0"
+                    name="maxTempRise"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.maxTempRise}
+                  />
+                  <InputGroup.Text>&deg;C</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Max. Current (A)</Form.Label>
-                <Form.Control
-                  min="0"
-                  name="maxCurrent"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.maxCurrent}
-                />
+                <Form.Label>Max. Current</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    min="0"
+                    name="maxCurrent"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.maxCurrent}
+                  />
+                  <InputGroup.Text>A</InputGroup.Text>
+                </InputGroup>
               </Form.Group>
             </Form>
           </Card>
@@ -98,6 +118,10 @@ export default function WiringCalculator() {
         <Col sm={6} xs={12}>
           {!isNaN(wireGauge) && (
             <ResultsCard>
+              <Alert variant="warning">
+                <FontAwesomeIcon icon="exclamation-triangle" /> Temperature and
+                voltage drop estimates are <em>best-case assumptions</em>.
+              </Alert>
               <p>
                 You should use <strong>{wireGauge}</strong> AWG wire, which will
                 cause a drop of <strong>{voltageDrop.toFixed(2)}</strong> volts
