@@ -5,6 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 
 import CurveEditor from 'components/CurveEditor';
 import { readFile } from 'utils';
+import { Helmet } from 'react-helmet';
 
 export default function Materials() {
   const [csvData, setCsvData] = useState(null);
@@ -43,8 +44,9 @@ export default function Materials() {
 
   return (
     <Fragment>
+      <Helmet title="Material Editor" />
       <h1>
-        <FontAwesomeIcon icon="thermometer-full" size="2x" /> Materials
+        <FontAwesomeIcon icon="thermometer-full" size="2x" /> Material Editor
       </h1>
       <Form>
         <Form.Group>

@@ -11,8 +11,8 @@ import SuspenseFallback from 'components/SuspenseFallback.js';
 const Home = lazy(() =>
   import(/* webpackChunkName: "core" */ 'components/Home')
 );
-const Materials = lazy(() =>
-  import(/* webpackChunkName: "materials" */ 'components/Materials')
+const MaterialEditor = lazy(() =>
+  import(/* webpackChunkName: "material" */ 'components/MaterialEditor')
 );
 const Settings = lazy(() =>
   import(/* webpackChunkName: "settings" */ 'components/Settings')
@@ -45,7 +45,7 @@ ReactDOM.render(
       <Suspense fallback={<SuspenseFallback />}>
         <Routes>
           <Route element={<Home />} index />
-          <Route element={<Materials />} path="/materials" />
+          <Route element={<MaterialEditor />} path="/materials" />
           <Route element={<Settings />} path="/settings" />
           <Route element={<CoilCalculator />} path="/coils" />
           <Route element={<NicCalculator />} path="/nicotine" />
