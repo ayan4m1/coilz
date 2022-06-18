@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import { Card, Container, Form, Row, Col } from 'react-bootstrap';
+import { Card, Container, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
@@ -39,9 +39,9 @@ export default function BaseCalculator() {
 
   return (
     <Container fluid>
-      <Helmet title="Base Calculator" />
+      <Helmet title="Base Lifetime Calculator" />
       <h1>
-        <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime
+        <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime Calculator
       </h1>
       <Row>
         <Col sm={6} xs={12}>
@@ -49,74 +49,89 @@ export default function BaseCalculator() {
             <Card.Title>Inputs</Card.Title>
             <Form>
               <Form.Group>
-                <Form.Label>mL Consumed Per Day</Form.Label>
-                <Form.Control
-                  isInvalid={
-                    touched.consumedPerDay && Boolean(errors.consumedPerDay)
-                  }
-                  name="consumedPerDay"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.consumedPerDay}
-                />
+                <Form.Label>Daily Consumption</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    isInvalid={
+                      touched.consumedPerDay && Boolean(errors.consumedPerDay)
+                    }
+                    name="consumedPerDay"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.consumedPerDay}
+                  />
+                  <InputGroup.Text>mL</InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.consumedPerDay}
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
-                <Form.Label>VG %</Form.Label>
-                <Form.Control
-                  isInvalid={touched.vgRatio && Boolean(errors.vgRatio)}
-                  max={100}
-                  min={0}
-                  name="vgRatio"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.vgRatio}
-                />
+                <Form.Label>VG</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    isInvalid={touched.vgRatio && Boolean(errors.vgRatio)}
+                    max={100}
+                    min={0}
+                    name="vgRatio"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.vgRatio}
+                  />
+                  <InputGroup.Text>%</InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.vgRatio}
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
-                <Form.Label>PG %</Form.Label>
-                <Form.Control
-                  isInvalid={touched.pgRatio && Boolean(errors.pgRatio)}
-                  max={100}
-                  min={0}
-                  name="pgRatio"
-                  onChange={handleChange}
-                  type="number"
-                  value={100 - values.vgRatio}
-                />
+                <Form.Label>PG</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    isInvalid={touched.pgRatio && Boolean(errors.pgRatio)}
+                    max={100}
+                    min={0}
+                    name="pgRatio"
+                    onChange={handleChange}
+                    type="number"
+                    value={100 - values.vgRatio}
+                  />
+                  <InputGroup.Text>%</InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.pgRatio}
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
-                <Form.Label>VG Volume (mL)</Form.Label>
-                <Form.Control
-                  isInvalid={touched.vgVolume && Boolean(errors.vgVolume)}
-                  min={0}
-                  name="vgVolume"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.vgVolume}
-                />
+                <Form.Label>VG Volume</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    isInvalid={touched.vgVolume && Boolean(errors.vgVolume)}
+                    min={0}
+                    name="vgVolume"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.vgVolume}
+                  />
+                  <InputGroup.Text>mL</InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.vgVolume}
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
-                <Form.Label>PG Volume (mL)</Form.Label>
-                <Form.Control
-                  isInvalid={touched.pgVolume && Boolean(errors.pgVolume)}
-                  min={0}
-                  name="pgVolume"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.pgVolume}
-                />
+                <Form.Label>PG Volume</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    isInvalid={touched.pgVolume && Boolean(errors.pgVolume)}
+                    min={0}
+                    name="pgVolume"
+                    onChange={handleChange}
+                    type="number"
+                    value={values.pgVolume}
+                  />
+                  <InputGroup.Text>mL</InputGroup.Text>
+                </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.pgVolume}
                 </Form.Control.Feedback>
