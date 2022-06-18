@@ -12,14 +12,13 @@ const puffTime = 3.5;
 const standardTemperature = 20;
 
 export default function WiringCalculator() {
-  const initialValues = {
-    wireLength: 0.1,
-    maxVoltageDrop: 0.25,
-    maxTempRise: 50,
-    maxCurrent: 30
-  };
   const { values, handleChange } = useFormik({
-    initialValues
+    initialValues: {
+      wireLength: 0.1,
+      maxVoltageDrop: 0.25,
+      maxTempRise: 50,
+      maxCurrent: 30
+    }
   });
 
   let wireGauge = NaN,
