@@ -25,7 +25,7 @@ const FormSchema = Yup.object().shape({
 
 export default function SpoolCalculator() {
   const [results, setResults] = useState(null);
-  const { values, handleChange, handleBlur } = useFormik({
+  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
       material: null,
       gauge: 28,
@@ -69,7 +69,7 @@ export default function SpoolCalculator() {
         <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Material</Form.Label>
                 <Form.Select
