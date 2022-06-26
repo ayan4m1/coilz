@@ -5,6 +5,7 @@ import { Form, Card, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 
 import { materials } from 'utils';
+import ResultsCard from 'components/ResultsCard';
 
 const awg2mm = (n) => 0.127 * Math.pow(92, (36 - n) / 39);
 // const crossSectionalArea = (d) => (Math.PI / 4) * Math.pow(d, 2);
@@ -32,7 +33,7 @@ const coilTypes = {
 };
 
 export default function CoilCalculator() {
-  const [coil, setCoil] = useState();
+  const [results, setResults] = useState(null);
   const { isValidating, handleChange, handleSubmit, values } = useFormik({
     initialValues: {
       coilType: coilTypes.SINGLE,
@@ -134,18 +135,28 @@ export default function CoilCalculator() {
         // eslint-disable-next-line
         console.dir(coilLength);
 
-        setCoil({
-          wireDiameter: coreDiameter,
-          innerDiameter,
-          outerDiameter,
-          length: coilLength,
-          crossSectionArea,
-          surfaceArea,
-          resistivityPerUnitLength,
-          resistance
-        });
+        setResults([
+          ['Wire Diameter', `${coreDiameter.toFixed(3)} mm`],
+          ['Inner Diameter', `${innerDiameter.toFixed(2)} mm`],
+          ['Outer Diameter', `${outerDiameter.toFixed(2)} mm`],
+          ['Length', `${length.toFixed(2)} mm`],
+          [
+            'Surface Area',
+            <span key="surfaceArea">
+              {surfaceArea.toFixed(2)} mm<sup>2</sup>
+            </span>
+          ],
+          [
+            'Cross Section Area',
+            <span key="crossSectionArea">
+              {crossSectionArea.toFixed(2)} mm<sup>2</sup>
+            </span>
+          ],
+          ['Ohms per meter', `${resistivityPerUnitLength.toFixed(2)} Ohms/m`],
+          ['Resistance', `${resistance.toFixed(2)} Ohms`]
+        ]);
       },
-      [setCoil]
+      [setResults]
     )
   });
 
@@ -265,37 +276,7 @@ export default function CoilCalculator() {
           </Card>
         </Col>
         <Col sm={6} xs={12}>
-          {coil && (
-            <Card body>
-              <Card.Title>Outputs</Card.Title>
-              <dl>
-                <dt>Wire Diameter</dt>
-                <dd>{coil.wireDiameter.toFixed(3)} mm</dd>
-                <dt>Inner Diameter</dt>
-                <dd>{coil.innerDiameter.toFixed(2)} mm</dd>
-                <dt>Outer Diameter</dt>
-                <dd>{coil.outerDiameter.toFixed(2)} mm</dd>
-                <dt>Length</dt>
-                <dd>{coil.length.toFixed(2)} mm</dd>
-                <dt>Surface Area</dt>
-                <dd>
-                  {coil.surfaceArea.toFixed(2)} mm<sup>2</sup>
-                </dd>
-                <dt>Cross Section Area</dt>
-                <dd>
-                  {coil.crossSectionArea.toFixed(2)} mm<sup>2</sup>
-                </dd>
-                <dt>Ohms per meter</dt>
-                <dd>
-                  {coil.resistivityPerUnitLength.toFixed(2)} Ohms/m<sup></sup>
-                </dd>
-                <dt>Resistance</dt>
-                <dd>
-                  {coil.resistance.toFixed(3)} Ohms<sup></sup>
-                </dd>
-              </dl>
-            </Card>
-          )}
+          {Boolean(results) && <ResultsCard results={results} />}
         </Col>
       </Row>
     </Fragment>

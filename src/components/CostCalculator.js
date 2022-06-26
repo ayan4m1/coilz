@@ -11,8 +11,25 @@ import {
   Col
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
+
+const FormSchema = Yup.object().shape({
+  totalVolume: Yup.number().required().positive(),
+  nicotineStrengthDesired: Yup.number().required(),
+  nicotineStrengthBase: Yup.number().required().positive(),
+  nicotinePrice: Yup.number().required(),
+  nicotineVolume: Yup.number().required(),
+  vgPrice: Yup.number().required(),
+  vgVolume: Yup.number().required(),
+  pgPrice: Yup.number().required(),
+  pgVolume: Yup.number().required(),
+  flavorPrice: Yup.number().required(),
+  flavorVolume: Yup.number().required(),
+  flavorPercent: Yup.number().required(),
+  vgRatio: Yup.number().required().min(0).max(100)
+});
 
 export default function CostCalculator() {
   const [results, setResults] = useState(null);
@@ -32,6 +49,7 @@ export default function CostCalculator() {
       flavorPercent: 10,
       vgRatio: 50
     },
+    validationSchema: FormSchema,
     onSubmit: useCallback(
       ({
         totalVolume,
@@ -48,9 +66,15 @@ export default function CostCalculator() {
         flavorPercent,
         vgRatio
       }) => {
-        const nicotinePct = nicotineStrengthDesired / nicotineStrengthBase;
-        const nicotineCost =
-          nicotinePct * totalVolume * (nicotinePrice / nicotineVolume);
+        let nicotinePct = 0,
+          nicotineCost = 0;
+
+        if (nicotineStrengthBase > 0 && nicotineVolume > 0) {
+          nicotinePct = nicotineStrengthDesired / nicotineStrengthBase;
+          nicotineCost =
+            nicotinePct * totalVolume * (nicotinePrice / nicotineVolume);
+        }
+
         const vgPct = vgRatio / 1e2;
         const vgCost = vgPct * totalVolume * (vgPrice / vgVolume);
         const pgPct = 1 - vgPct;

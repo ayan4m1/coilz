@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
+import { useState, useCallback } from 'react';
 import Helmet from 'react-helmet';
 import {
   Container,
@@ -8,12 +9,12 @@ import {
   Row,
   Col,
   InputGroup,
-  Alert
+  Alert,
+  Button
 } from 'react-bootstrap';
 
 import { wires } from 'utils';
 import ResultsCard from './ResultsCard';
-import { useCallback } from 'react';
 
 const copperDensity = 8.96;
 const copperHeatCapacity = 0.385;
@@ -21,7 +22,8 @@ const puffTime = 3.5;
 const standardTemperature = 20;
 
 export default function WiringCalculator() {
-  const { errors, values, handleChange } = useFormik({
+  const [results, setResults] = useState(null);
+  const { errors, values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       wireLength: 0.1,
       maxVoltageDrop: 0.25,
@@ -55,33 +57,39 @@ export default function WiringCalculator() {
         return result;
       },
       []
+    ),
+    onSubmit: useCallback(
+      ({ wireLength, maxVoltageDrop, maxTempRise, maxCurrent }) => {
+        let wireGauge = NaN,
+          voltageDrop = 0,
+          tempRise = 0;
+
+        for (const { gauge, diameter, ampacity } of wires) {
+          voltageDrop = maxCurrent * (2 * wireLength * ampacity);
+          const wastePower = voltageDrop * maxCurrent;
+          const wasteEnergy = wastePower / puffTime;
+          const wireVolume = Math.PI * Math.pow(diameter / 2, 2) * wireLength;
+          const wireMass = copperDensity * wireVolume;
+
+          tempRise = wasteEnergy / (copperHeatCapacity * wireMass);
+
+          if (voltageDrop < maxVoltageDrop && tempRise < maxTempRise) {
+            wireGauge = gauge;
+            break;
+          }
+        }
+
+        if (!isNaN(wireGauge)) {
+          setResults({
+            wireGauge,
+            voltageDrop,
+            tempRise
+          });
+        }
+      },
+      [setResults]
     )
   });
-
-  let wireGauge = NaN,
-    voltageDrop = 0,
-    tempRise = 0;
-
-  if (!Object.values(errors).length) {
-    for (const { gauge, diameter, ampacity } of wires) {
-      voltageDrop = values.maxCurrent * (2 * values.wireLength * ampacity);
-      const wastePower = voltageDrop * values.maxCurrent;
-      const wasteEnergy = wastePower / puffTime;
-      const wireVolume =
-        Math.PI * Math.pow(diameter / 2, 2) * values.wireLength;
-      const wireMass = copperDensity * wireVolume;
-
-      tempRise = wasteEnergy / (copperHeatCapacity * wireMass);
-
-      if (
-        voltageDrop < values.maxVoltageDrop &&
-        tempRise < values.maxTempRise
-      ) {
-        wireGauge = gauge;
-        break;
-      }
-    }
-  }
 
   return (
     <Container fluid>
@@ -94,7 +102,7 @@ export default function WiringCalculator() {
         <Col md={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Wire Length</Form.Label>
                 <InputGroup>
@@ -163,22 +171,29 @@ export default function WiringCalculator() {
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
+              <Form.Group>
+                <Button className="mt-2" type="submit">
+                  Calculate
+                </Button>
+              </Form.Group>
             </Form>
           </Card>
         </Col>
         <Col sm={6} xs={12}>
-          {!isNaN(wireGauge) && (
+          {Boolean(results) && (
             <ResultsCard>
               <Alert variant="warning">
                 <FontAwesomeIcon icon="exclamation-triangle" /> Temperature and
                 voltage drop estimates are <em>best-case assumptions</em>.
               </Alert>
               <p>
-                You should use <strong>{wireGauge}</strong> AWG wire, which will
-                cause a drop of <strong>{voltageDrop.toFixed(2)}</strong> volts
-                and heat from <strong>{standardTemperature}</strong> &deg;C to
-                roughly{' '}
-                <strong>{(standardTemperature + tempRise).toFixed(2)}</strong>{' '}
+                You should use <strong>{results.wireGauge}</strong> AWG wire,
+                which will cause a drop of{' '}
+                <strong>{results.voltageDrop.toFixed(2)}</strong> volts and heat
+                from <strong>{standardTemperature}</strong> &deg;C to roughly{' '}
+                <strong>
+                  {(standardTemperature + results.tempRise).toFixed(2)}
+                </strong>{' '}
                 &deg;C under a <strong>{values.maxCurrent}</strong> amp load for{' '}
                 <strong>{puffTime}</strong> seconds.
               </p>

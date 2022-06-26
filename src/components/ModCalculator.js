@@ -24,6 +24,8 @@ import {
   ReferenceLine,
   Text
 } from 'recharts';
+import * as Yup from 'yup';
+
 import ResultsCard from './ResultsCard';
 
 const batteries = [
@@ -142,6 +144,15 @@ ChartLabel.propTypes = {
   label: PropTypes.string.isRequired
 };
 
+const FormSchema = Yup.object().shape({
+  type: Yup.string().required(),
+  efficiency: Yup.number().min(0).max(100),
+  wattage: Yup.number().min(0),
+  resistance: Yup.number().required().min(0),
+  series: Yup.number().required().min(1),
+  safetyMargin: Yup.number().required().min(0)
+});
+
 export default function ModCalculator() {
   const [chartData, setChartData] = useState(null);
   const [results, setResults] = useState(null);
@@ -157,6 +168,7 @@ export default function ModCalculator() {
       customCurrentLimit: batteries[0].currentLimit,
       safetyMargin: 50
     },
+    validationSchema: FormSchema,
     onSubmit: useCallback(
       ({
         type,

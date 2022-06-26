@@ -8,22 +8,21 @@ import * as Yup from 'yup';
 import ResultsCard from 'components/ResultsCard';
 
 const FormSchema = Yup.object().shape({
-  consumedPerDay: Yup.number(),
-  vgRatio: Yup.number().min(0).max(100),
-  vgVolume: Yup.number().min(0),
-  pgVolume: Yup.number().min(0)
+  consumedPerDay: Yup.number().required(),
+  vgRatio: Yup.number().required().min(0).max(100),
+  vgVolume: Yup.number().required().positive(),
+  pgVolume: Yup.number().required().positive()
 });
 
 export default function BaseCalculator() {
-  const initialValues = {
-    consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
-    vgRatio: localStorage.getItem('vgRatio') || 80,
-    pgRatio: 100 - (localStorage.getItem('vgRatio') || 80),
-    vgVolume: 0,
-    pgVolume: 0
-  };
   const { handleChange, values, touched, errors } = useFormik({
-    initialValues,
+    initialValues: {
+      consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
+      vgRatio: localStorage.getItem('vgRatio') || 80,
+      pgRatio: 100 - (localStorage.getItem('vgRatio') || 80),
+      vgVolume: 0,
+      pgVolume: 0
+    },
     validationSchema: FormSchema
   });
 

@@ -1,35 +1,63 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Row, Col, Card, Form, InputGroup } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import { useCallback, useState } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  InputGroup,
+  Button
+} from 'react-bootstrap';
 import Helmet from 'react-helmet';
+import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
-import { useFormik } from 'formik';
 import { getMaterial, getWire, materials } from 'utils';
 
+const FormSchema = Yup.object().shape({
+  material: Yup.string().required(),
+  gauge: Yup.number().min(8).max(40),
+  emptyMass: Yup.number().min(0),
+  currentMass: Yup.number().min(0)
+});
+
 export default function SpoolCalculator() {
+  const [results, setResults] = useState(null);
   const { values, handleChange, handleBlur } = useFormik({
     initialValues: {
       material: null,
       gauge: 28,
       emptyMass: 20,
       currentMass: 50
-    }
+    },
+    validationSchema: FormSchema,
+    onSubmit: useCallback(
+      ({ material: rawMaterial, gauge, emptyMass, currentMass }) => {
+        const material = getMaterial(rawMaterial);
+        const wire = getWire(gauge);
+
+        if (material && wire) {
+          const wireMass = currentMass - emptyMass;
+          const wireVolume = wireMass / material.density;
+          const wireLength =
+            (wireVolume / (Math.PI * Math.pow(wire.diameter / 2, 2))) * 10;
+
+          setResults([
+            [
+              'Wire Volume',
+              <span key="volume">
+                {wireVolume.toFixed(2)} cm<sup>3</sup>
+              </span>
+            ],
+            ['Wire Length', `${wireLength.toFixed(2)} cm`]
+          ]);
+        }
+      },
+      [setResults]
+    )
   });
-
-  const results = [];
-  const material = getMaterial(values.material);
-  const wire = getWire(values.gauge);
-
-  if (material && wire) {
-    const wireMass = values.currentMass - values.emptyMass;
-    const wireVolume = wireMass / material.density;
-    const wireLength = wireVolume / (Math.PI * Math.pow(wire.diameter / 2, 2));
-
-    results.push(
-      ['Wire Volume', `${wireVolume.toFixed(2)} cm^3`],
-      ['Wire Length', `${wireLength.toFixed(2)} cm`]
-    );
-  }
 
   return (
     <Container fluid>
@@ -99,6 +127,11 @@ export default function SpoolCalculator() {
                   />
                   <InputGroup.Text>g</InputGroup.Text>
                 </InputGroup>
+              </Form.Group>
+              <Form.Group>
+                <Button className="mt-2" type="submit">
+                  Calculate
+                </Button>
               </Form.Group>
             </Form>
           </Card>
