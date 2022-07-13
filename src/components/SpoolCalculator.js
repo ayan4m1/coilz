@@ -17,15 +17,17 @@ import ResultsCard from 'components/ResultsCard';
 import { getMaterial, getWire, materials } from 'utils';
 
 const FormSchema = Yup.object().shape({
-  material: Yup.string().required(),
-  gauge: Yup.number().min(8).max(40),
-  emptyMass: Yup.number().min(0),
-  currentMass: Yup.number().min(0)
+  material: Yup.string().required('Material is required.').nullable(),
+  gauge: Yup.number()
+    .min(8, 'Gauge must be greater than 8.')
+    .max(40, 'Gauge must be less than 40.'),
+  emptyMass: Yup.number().min(0, 'Mass must be greater than zero.'),
+  currentMass: Yup.number().min(0, 'Mass must be greater than zero.')
 });
 
 export default function SpoolCalculator() {
   const [results, setResults] = useState(null);
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+  const { errors, values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
       material: null,
       gauge: 28,
@@ -73,6 +75,7 @@ export default function SpoolCalculator() {
               <Form.Group>
                 <Form.Label>Material</Form.Label>
                 <Form.Select
+                  isInvalid={Boolean(errors.material)}
                   name="material"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -85,11 +88,15 @@ export default function SpoolCalculator() {
                     </option>
                   ))}
                 </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  {errors.material}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Wire Gauge</Form.Label>
                 <InputGroup>
                   <Form.Control
+                    isInvalid={Boolean(errors.gauge)}
                     max="40"
                     min="8"
                     name="gauge"
@@ -101,11 +108,15 @@ export default function SpoolCalculator() {
                   />
                   <InputGroup.Text>AWG</InputGroup.Text>
                 </InputGroup>
+                <Form.Control.Feedback type="invalid">
+                  {errors.gauge}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Empty Spool Mass</Form.Label>
                 <InputGroup>
                   <Form.Control
+                    isInvalid={Boolean(errors.emptyMass)}
                     name="emptyMass"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -114,11 +125,15 @@ export default function SpoolCalculator() {
                   />
                   <InputGroup.Text>g</InputGroup.Text>
                 </InputGroup>
+                <Form.Control.Feedback type="invalid">
+                  {errors.emptyMass}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Current Spool Mass</Form.Label>
                 <InputGroup>
                   <Form.Control
+                    isInvalid={Boolean(errors.currentMass)}
                     name="currentMass"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -127,6 +142,9 @@ export default function SpoolCalculator() {
                   />
                   <InputGroup.Text>g</InputGroup.Text>
                 </InputGroup>
+                <Form.Control.Feedback type="invalid">
+                  {errors.currentMass}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Button className="mt-2" type="submit">

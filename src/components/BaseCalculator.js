@@ -1,21 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
-import { Card, Container, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { useEffect, useCallback, useState } from 'react';
+import {
+  Card,
+  Container,
+  Form,
+  Row,
+  Col,
+  InputGroup,
+  Button
+} from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
 
 const FormSchema = Yup.object().shape({
-  consumedPerDay: Yup.number().required(),
-  vgRatio: Yup.number().required().min(0).max(100),
-  vgVolume: Yup.number().required().positive(),
-  pgVolume: Yup.number().required().positive()
+  consumedPerDay: Yup.number().min(
+    0,
+    'Daily consumption must be greater than zero.'
+  ),
+  vgRatio: Yup.number()
+    .min(0, 'Percentage must be greater than zero.')
+    .max(100, 'Percentage must be less than 100.'),
+  vgVolume: Yup.number().positive('Volume must be greater than zero.'),
+  pgVolume: Yup.number().positive('Volume must be greater than zero.')
 });
 
 export default function BaseCalculator() {
-  const { handleChange, values, touched, errors } = useFormik({
+  const [results, setResults] = useState(null);
+  const { handleSubmit, handleChange, values, errors } = useFormik({
     initialValues: {
       consumedPerDay: localStorage.getItem('consumedPerDay') || 0,
       vgRatio: localStorage.getItem('vgRatio') || 80,
@@ -23,18 +37,25 @@ export default function BaseCalculator() {
       vgVolume: 0,
       pgVolume: 0
     },
-    validationSchema: FormSchema
+    validationSchema: FormSchema,
+    onSubmit: useCallback(
+      ({ consumedPerDay, vgRatio, vgVolume, pgVolume }) => {
+        const vgDays = vgVolume / (consumedPerDay * (vgRatio / 100));
+        const pgDays = pgVolume / (consumedPerDay * ((100 - vgRatio) / 100));
+
+        setResults([
+          ['VG', `${vgDays} days`],
+          ['PG', `${pgDays} days`]
+        ]);
+      },
+      [setResults]
+    )
   });
 
   useEffect(() => {
     localStorage.setItem('consumedPerDay', values.consumedPerDay);
     localStorage.setItem('vgRatio', values.vgRatio);
   }, [values]);
-
-  const vgDays =
-    values.vgVolume / (values.consumedPerDay * (values.vgRatio / 100));
-  const pgDays =
-    values.pgVolume / (values.consumedPerDay * ((100 - values.vgRatio) / 100));
 
   return (
     <Container fluid>
@@ -46,14 +67,12 @@ export default function BaseCalculator() {
         <Col sm={6} xs={12}>
           <Card body>
             <Card.Title>Inputs</Card.Title>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Daily Consumption</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    isInvalid={
-                      touched.consumedPerDay && Boolean(errors.consumedPerDay)
-                    }
+                    isInvalid={Boolean(errors.consumedPerDay)}
                     name="consumedPerDay"
                     onChange={handleChange}
                     type="number"
@@ -69,7 +88,7 @@ export default function BaseCalculator() {
                 <Form.Label>VG</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    isInvalid={touched.vgRatio && Boolean(errors.vgRatio)}
+                    isInvalid={Boolean(errors.vgRatio)}
                     max={100}
                     min={0}
                     name="vgRatio"
@@ -87,13 +106,14 @@ export default function BaseCalculator() {
                 <Form.Label>PG</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    isInvalid={touched.pgRatio && Boolean(errors.pgRatio)}
+                    disabled
+                    isInvalid={Boolean(errors.pgRatio)}
                     max={100}
                     min={0}
                     name="pgRatio"
                     onChange={handleChange}
                     type="number"
-                    value={100 - values.vgRatio}
+                    value={Math.min(100, Math.max(0, 100 - values.vgRatio))}
                   />
                   <InputGroup.Text>%</InputGroup.Text>
                 </InputGroup>
@@ -105,7 +125,7 @@ export default function BaseCalculator() {
                 <Form.Label>VG Volume</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    isInvalid={touched.vgVolume && Boolean(errors.vgVolume)}
+                    isInvalid={Boolean(errors.vgVolume)}
                     min={0}
                     name="vgVolume"
                     onChange={handleChange}
@@ -122,7 +142,7 @@ export default function BaseCalculator() {
                 <Form.Label>PG Volume</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    isInvalid={touched.pgVolume && Boolean(errors.pgVolume)}
+                    isInvalid={Boolean(errors.pgVolume)}
                     min={0}
                     name="pgVolume"
                     onChange={handleChange}
@@ -135,20 +155,16 @@ export default function BaseCalculator() {
                   {errors.pgVolume}
                 </Form.Control.Feedback>
               </Form.Group>
+              <Form.Group>
+                <Button className="my-2" type="submit">
+                  Calculate
+                </Button>
+              </Form.Group>
             </Form>
           </Card>
         </Col>
         <Col sm={6} xs={12}>
-          {!isNaN(vgDays) && !isNaN(pgDays) && (
-            <ResultsCard>
-              <p>
-                Your VG will last <strong>{Math.round(vgDays)}</strong> days.
-              </p>
-              <p>
-                Your PG will last <strong>{Math.round(pgDays)}</strong> days.
-              </p>
-            </ResultsCard>
-          )}
+          {results && <ResultsCard results={results} />}
         </Col>
       </Row>
     </Container>
