@@ -51,6 +51,12 @@ export default function Header() {
             tooltip="Customize coil materials."
           />
           <NavItem
+            icon="magic-wand-sparkles"
+            label="Mix"
+            to="/mix"
+            tooltip="Calculate weights for a recipe."
+          />
+          <NavItem
             icon="exclamation-triangle"
             label="Nicotine"
             to="/nicotine"

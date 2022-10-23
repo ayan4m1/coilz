@@ -17,6 +17,9 @@ const MaterialEditor = lazy(() =>
 const Settings = lazy(() =>
   import(/* webpackChunkName: "settings" */ 'components/Settings')
 );
+const MixCalculator = lazy(() =>
+  import(/* webpackChunkName: "mix" */ 'components/MixCalculator')
+);
 const BaseCalculator = lazy(() =>
   import(/* webpackChunkName: "base" */ 'components/BaseCalculator')
 );
@@ -47,6 +50,7 @@ ReactDOM.render(
           <Route element={<Home />} index />
           <Route element={<MaterialEditor />} path="/materials" />
           <Route element={<Settings />} path="/settings" />
+          <Route element={<MixCalculator />} path="/mix" />
           <Route element={<CoilCalculator />} path="/coils" />
           <Route element={<NicCalculator />} path="/nicotine" />
           <Route element={<ModCalculator />} path="/mod" />

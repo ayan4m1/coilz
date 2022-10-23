@@ -1,6 +1,7 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-prettier/recommended"],
   "defaultSeverity": "warning",
+  "customSyntax": "postcss-scss",
   "rules": {
     "at-rule-disallowed-list": null,
     "at-rule-empty-line-before": [

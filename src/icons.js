@@ -10,7 +10,13 @@ import {
   faHeart,
   faNetworkWired,
   faRuler,
-  faThermometerFull
+  faThermometerFull,
+  faMagicWandSparkles,
+  faUndo,
+  faPlus,
+  faTrash,
+  faExpand,
+  faCompress
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -24,5 +30,11 @@ library.add(
   faHeart,
   faNetworkWired,
   faThermometerFull,
-  faRuler
+  faRuler,
+  faMagicWandSparkles,
+  faUndo,
+  faPlus,
+  faTrash,
+  faExpand,
+  faCompress
 );
