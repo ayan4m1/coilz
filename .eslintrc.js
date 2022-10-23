@@ -7,20 +7,16 @@ module.exports = {
     es6: true,
     node: true
   },
-  plugins: ['import', 'react', 'prettier', 'jsx-a11y'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:import/errors',
-    'prettier'
+    'plugin:import/recommended',
+    'plugin:react-hooks/recommended'
   ],
   parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
     ecmaVersion: 12,
     requireConfigFile: false
   },
