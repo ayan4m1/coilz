@@ -8,7 +8,8 @@ import {
   InputGroup,
   Button,
   Row,
-  Col
+  Col,
+  ProgressBar
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -77,14 +78,56 @@ export default function CostCalculator() {
 
         const vgPct = vgRatio / 1e2;
         const vgCost = vgPct * totalVolume * (vgPrice / vgVolume);
-        const pgPct = 1 - vgPct;
-        const pgCost = pgPct * totalVolume * (pgPrice / pgVolume);
         const flavorPct = flavorPercent / 1e2;
         const flavorCost =
           flavorPct * totalVolume * (flavorPrice / flavorVolume);
+        const pgPct = 1 - vgPct - flavorPct;
+        const pgCost = pgPct * totalVolume * (pgPrice / pgVolume);
         const cost = nicotineCost + vgCost + pgCost + flavorCost;
 
         setResults([
+          [
+            'By Volume',
+            <ProgressBar key="mixing">
+              <ProgressBar
+                label="Nic"
+                now={nicotinePct * 100}
+                variant="danger"
+              />
+              <ProgressBar label="VG" now={vgPct * 100} variant="warning" />
+              <ProgressBar label="PG" now={pgPct * 100} variant="success" />
+              <ProgressBar
+                label="Flv"
+                now={flavorPct * 100}
+                variant="primary"
+              />
+            </ProgressBar>
+          ],
+          [
+            'By Cost',
+            <ProgressBar key="cost">
+              <ProgressBar
+                label="Nic"
+                now={(nicotineCost / cost) * 100}
+                variant="danger"
+              />
+              <ProgressBar
+                label="VG"
+                now={(vgCost / cost) * 100}
+                variant="warning"
+              />
+              <ProgressBar
+                label="PG"
+                now={(pgCost / cost) * 100}
+                variant="success"
+              />
+              <ProgressBar
+                label="Flv"
+                now={(flavorCost / cost) * 100}
+                variant="primary"
+              />
+            </ProgressBar>
+          ],
           ['Nic Cost', `$${nicotineCost.toFixed(2)}`],
           ['VG Cost', `$${vgCost.toFixed(2)}`],
           ['PG Cost', `$${pgCost.toFixed(2)}`],
