@@ -160,7 +160,7 @@ export default function MixCalculator() {
                           min="0"
                           name="nicBaseStrength"
                           onChange={handleChange}
-                          step="1"
+                          step="0.1"
                           type="number"
                           value={values.nicBaseStrength}
                         />
@@ -184,7 +184,7 @@ export default function MixCalculator() {
                         min="0"
                         name="nicBatchStrength"
                         onChange={handleChange}
-                        step="1"
+                        step="0.1"
                         type="number"
                         value={values.nicBatchStrength}
                       />
