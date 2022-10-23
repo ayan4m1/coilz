@@ -10,7 +10,7 @@ import {
   InputGroup,
   Button
 } from 'react-bootstrap';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';

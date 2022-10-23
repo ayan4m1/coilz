@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useState, useCallback } from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import {
   Container,
   Card,

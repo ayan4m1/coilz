@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import Header from 'components/Header';
 
