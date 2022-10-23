@@ -30,10 +30,10 @@ export default function MixCalculator() {
   });
   const [flavors, setFlavors] = useState([]);
   const [results, setResults] = useState(null);
-  const { values, handleSubmit, handleChange } = useFormik({
-    initialValues: settings,
-    onSubmit: useCallback(
-      ({
+  const { errors, values, handleSubmit, handleChange, setFieldError } =
+    useFormik({
+      initialValues: settings,
+      onSubmit: ({
         useNic,
         nicBaseStrength,
         nicBaseVg,
@@ -41,6 +41,9 @@ export default function MixCalculator() {
         batchVg,
         batchMl
       }) => {
+        setResults(null);
+        setFlavors([]);
+
         const items = [];
         const flavorItems = [];
 
@@ -55,6 +58,14 @@ export default function MixCalculator() {
         if (useNic) {
           const nicMg = nicBatchStrength * batchMl;
           const nicMl = nicMg / nicBaseStrength;
+
+          if (nicMl > batchMl) {
+            return setFieldError(
+              'batchVg',
+              'The desired nicotine strength is too high.'
+            );
+          }
+
           const nicBaseVgPct = nicBaseVg / 1e2;
           const nicBasePgPct = 1 - nicBaseVgPct;
           const nicDensity =
@@ -66,7 +77,12 @@ export default function MixCalculator() {
           batchVgMlNeeded -= nicBaseVgPct * nicMl;
           batchPgMlNeeded -= nicBasePgPct * nicMl;
 
-          // if batchVgPct < 0, then error
+          if (batchVgPct < 0 || batchPgPct < 0) {
+            return setFieldError(
+              'batchVg',
+              'The selected VG/PG ratio cannot be achieved for this mix.'
+            );
+          }
 
           items.push({
             name: `${nicBaseStrength}mg/mL Nicotine Base`,
@@ -76,11 +92,23 @@ export default function MixCalculator() {
           });
         }
 
+        if (batchVgMlNeeded < 0 || batchPgMlNeeded < 0) {
+          return setFieldError(
+            'batchVg',
+            'The selected VG/PG ratio cannot be achieved for this mix.'
+          );
+        }
+
         for (const flavor of flavors) {
           batchPgPct -= flavor.pct;
           batchPgMlNeeded -= flavor.pct * batchMl;
 
-          // if batchPgPct < 0, then error
+          if (batchPgPct < 0) {
+            return setFieldError(
+              'batchVg',
+              'The selected VG/PG ratio cannot be achieved for this mix.'
+            );
+          }
 
           flavorItems.push({
             name: `${flavor.vendor} ${flavor.flavor}`,
@@ -112,10 +140,8 @@ export default function MixCalculator() {
           batchVg,
           batchMl
         });
-      },
-      [setResults, setSettings, flavors]
-    )
-  });
+      }
+    });
   const handleFlavorAdd = useCallback(
     (flavor) => setFlavors((flvs) => [...flvs, flavor]),
     [setFlavors]
@@ -211,6 +237,12 @@ export default function MixCalculator() {
                     />
                   </Form.Group>
                   <Form.Group className="mt-2">
+                    {Boolean(errors.batchVg) && (
+                      <Card bg="warning" body className="my-2">
+                        <FontAwesomeIcon icon="exclamation-triangle" />
+                        {errors.batchVg}
+                      </Card>
+                    )}
                     <Button type="submit" variant="primary">
                       Calculate
                     </Button>
