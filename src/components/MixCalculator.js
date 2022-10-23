@@ -100,10 +100,12 @@ export default function MixCalculator() {
         }
 
         for (const flavor of flavors) {
-          batchPgPct -= flavor.pct;
-          batchPgMlNeeded -= flavor.pct * batchMl;
+          const flavorMl = flavor.pct * batchMl;
 
-          if (batchPgPct < 0) {
+          batchPgPct -= flavor.pct;
+          batchPgMlNeeded -= flavorMl;
+
+          if (batchPgPct < 0 || batchPgMlNeeded < 0) {
             return setFieldError(
               'batchVg',
               'The selected VG/PG ratio cannot be achieved for this mix.'
@@ -113,8 +115,8 @@ export default function MixCalculator() {
           flavorItems.push({
             name: `${flavor.vendor} ${flavor.flavor}`,
             pct: flavor.pct * 1e2,
-            volume: 0,
-            mass: 0
+            volume: flavorMl,
+            mass: flavorMl * densities.pg
           });
         }
 
