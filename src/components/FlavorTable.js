@@ -5,8 +5,10 @@ import { useRef, useCallback } from 'react';
 import { uniqueId } from 'lodash-es';
 
 import { Table, Form, Button } from 'react-bootstrap';
+import useDarkMode from 'hooks/useDarkMode';
 
 export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
+  const { value: darkMode } = useDarkMode();
   const vendorRef = useRef();
   const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
     initialValues: {
@@ -48,12 +50,12 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Table striped>
+      <Table className={darkMode ? 'text-light' : 'text-dark'}>
         <thead>
           <tr>
             <th>Vendor</th>
             <th style={{ width: '50%' }}>Flavor</th>
-            <th className="text-right">%</th>
+            <th className="text-end">%</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -63,7 +65,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
               <tr key={flavor.id}>
                 <td>{flavor.vendor}</td>
                 <td>{flavor.flavor}</td>
-                <td>{(flavor.pct * 1e2).toFixed(2)}</td>
+                <td className="text-end">{(flavor.pct * 1e2).toFixed(2)}</td>
                 <td>
                   <Button
                     onClick={() => handleRemoveClick(flavor.id)}
@@ -97,6 +99,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
             </td>
             <td>
               <Form.Control
+                className="text-end"
                 max="100"
                 min="0"
                 name="pct"

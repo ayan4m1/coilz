@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
+import useDarkMode from 'hooks/useDarkMode';
 import { useCallback, useState, Fragment } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
@@ -17,6 +18,7 @@ const densities = {
 };
 
 export default function MixCalculator() {
+  const { value: darkMode } = useDarkMode();
   const [resultsCollapsed, setResultsCollapsed] = useState(false);
   const [settings, setSettings] = useLocalStorageState('mixSettings', {
     defaultValue: {
@@ -24,6 +26,7 @@ export default function MixCalculator() {
       nicBaseStrength: 100,
       nicBaseVg: 50,
       nicBatchStrength: 3,
+      maxVg: false,
       batchVg: 50,
       batchMl: 30
     }
@@ -38,6 +41,7 @@ export default function MixCalculator() {
         nicBaseStrength,
         nicBaseVg,
         nicBatchStrength,
+        maxVg,
         batchVg,
         batchMl
       }) => {
@@ -47,17 +51,29 @@ export default function MixCalculator() {
         const items = [];
         const flavorItems = [];
 
-        let batchVgPct = batchVg / 1e2;
+        let totalPgPct = 0,
+          totalVgPct = 0,
+          totalMass = 0;
 
-        let batchPgPct = 1 - batchVgPct;
+        for (const flavor of flavors) {
+          const flavorMl = flavor.pct * batchMl;
+          const flavorGrams = flavorMl * densities.pg;
 
-        let batchVgMlNeeded = batchVgPct * batchMl;
+          totalPgPct += flavor.pct;
+          totalMass += flavorGrams;
 
-        let batchPgMlNeeded = batchPgPct * batchMl;
+          flavorItems.push({
+            name: `${flavor.vendor} ${flavor.flavor}`,
+            pct: flavor.pct * 1e2,
+            volume: flavorMl,
+            mass: flavorGrams
+          });
+        }
 
         if (useNic) {
           const nicMg = nicBatchStrength * batchMl;
           const nicMl = nicMg / nicBaseStrength;
+          const nicFactor = nicMl / batchMl;
 
           if (nicMl > batchMl) {
             return setFieldError(
@@ -72,17 +88,9 @@ export default function MixCalculator() {
             nicBaseVgPct * densities.vgNic + nicBasePgPct * densities.pgNic;
           const nicGrams = nicMl * nicDensity;
 
-          batchVgPct -= nicBaseVgPct * (nicMl / batchMl);
-          batchPgPct -= nicBasePgPct * (nicMl / batchMl);
-          batchVgMlNeeded -= nicBaseVgPct * nicMl;
-          batchPgMlNeeded -= nicBasePgPct * nicMl;
-
-          if (batchVgPct < 0 || batchPgPct < 0) {
-            return setFieldError(
-              'batchVg',
-              'The selected VG/PG ratio cannot be achieved for this mix.'
-            );
-          }
+          totalVgPct += nicBaseVgPct * nicFactor;
+          totalPgPct += nicBasePgPct * nicFactor;
+          totalMass += nicGrams;
 
           items.push({
             name: `${nicBaseStrength}mg/mL Nicotine Base`,
@@ -92,53 +100,61 @@ export default function MixCalculator() {
           });
         }
 
-        if (batchVgMlNeeded < 0 || batchPgMlNeeded < 0) {
+        const batchVgPct = maxVg
+          ? 1 - totalPgPct - totalVgPct
+          : batchVg / 1e2 - totalVgPct;
+        const batchPgPct = maxVg ? 0 : 1 - batchVg / 1e2 - totalPgPct;
+
+        if (totalVgPct > batchVgPct) {
           return setFieldError(
             'batchVg',
             'The selected VG/PG ratio cannot be achieved for this mix.'
           );
         }
 
-        for (const flavor of flavors) {
-          const flavorMl = flavor.pct * batchMl;
+        if (batchVgPct > 0) {
+          const vgMl = batchVgPct * batchMl;
+          const vgGrams = vgMl * densities.vg;
 
-          batchPgPct -= flavor.pct;
-          batchPgMlNeeded -= flavorMl;
+          totalMass += vgGrams;
 
-          if (batchPgPct < 0 || batchPgMlNeeded < 0) {
-            return setFieldError(
-              'batchVg',
-              'The selected VG/PG ratio cannot be achieved for this mix.'
-            );
-          }
+          items.push({
+            name: 'VG',
+            pct: batchVgPct * 1e2,
+            volume: vgMl,
+            mass: vgGrams
+          });
+        }
+        if (batchPgPct > 0) {
+          const pgMl = batchPgPct * batchMl;
+          const pgGrams = pgMl * densities.pg;
 
-          flavorItems.push({
-            name: `${flavor.vendor} ${flavor.flavor}`,
-            pct: flavor.pct * 1e2,
-            volume: flavorMl,
-            mass: flavorMl * densities.pg
+          totalMass += pgGrams;
+
+          items.push({
+            name: 'PG',
+            pct: batchPgPct * 1e2,
+            volume: pgMl,
+            mass: pgGrams
           });
         }
 
-        items.push({
-          name: 'VG',
-          pct: batchVgPct * 1e2,
-          volume: batchVgMlNeeded,
-          mass: batchVgMlNeeded * densities.vg
-        });
-        items.push({
-          name: 'PG',
-          pct: batchPgPct * 1e2,
-          volume: batchPgMlNeeded,
-          mass: batchPgMlNeeded * densities.pg
-        });
-
-        setResults([...items, ...flavorItems]);
+        setResults([
+          ...items,
+          ...flavorItems,
+          {
+            name: 'Total',
+            pct: 100,
+            volume: batchMl,
+            mass: totalMass
+          }
+        ]);
         setSettings({
           useNic,
           nicBaseStrength,
           nicBaseVg,
           nicBatchStrength,
+          maxVg,
           batchVg,
           batchMl
         });
@@ -158,14 +174,18 @@ export default function MixCalculator() {
   );
 
   return (
-    <Container fluid>
+    <Container bg={darkMode ? 'light' : 'dark'} fluid>
       <Helmet title="Mix Calculator" />
       <h1>
         <FontAwesomeIcon icon="magic-wand-sparkles" /> Mix Calculator
       </h1>
       <Row className="mb-2">
         <Col>
-          <Card body>
+          <Card
+            bg={darkMode ? 'dark' : 'light'}
+            body
+            className="mix-input-form"
+          >
             <Row>
               <Col sm={6} xs={12}>
                 <Form onSubmit={handleSubmit}>
@@ -219,13 +239,23 @@ export default function MixCalculator() {
                     </Form.Group>
                   )}
                   <Form.Group>
-                    <Form.Label>VG/PG Ratio</Form.Label>
-                    <SplitSlider
-                      initialValue={values.batchVg}
-                      name="batchVg"
+                    <Form.Label>Max VG</Form.Label>
+                    <Form.Check
+                      checked={values.maxVg}
+                      name="maxVg"
                       onChange={handleChange}
                     />
                   </Form.Group>
+                  {!values.maxVg && (
+                    <Form.Group>
+                      <Form.Label>VG/PG Ratio</Form.Label>
+                      <SplitSlider
+                        initialValue={values.batchVg}
+                        name="batchVg"
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  )}
                   <Form.Group>
                     <Form.Label>Size (mL)</Form.Label>
                     <Form.Control
@@ -265,7 +295,7 @@ export default function MixCalculator() {
       </Row>
       <Row>
         <Col>
-          <Card body>
+          <Card bg={darkMode ? 'dark' : 'light'} body>
             <Row>
               <Col xs={9}>
                 <h3>Results</h3>

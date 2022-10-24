@@ -16,7 +16,9 @@ import {
   faPlus,
   faTrash,
   faExpand,
-  faCompress
+  faCompress,
+  faSun,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -36,5 +38,7 @@ library.add(
   faPlus,
   faTrash,
   faExpand,
-  faCompress
+  faCompress,
+  faSun,
+  faMoon
 );

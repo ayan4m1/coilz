@@ -3,3 +3,34 @@
 
 // component styles
 @import "./components/SplitSlider";
+
+.light-mode {
+  background-color: $body-bg;
+  color: $dark;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode {
+  background-color: $gray-900;
+  color: $body-bg;
+}
+
+@media print {
+  body {
+    background-color: $white;
+    // stylelint-disable-next-line
+    color: $black !important;
+  }
+
+  .table.text-light,
+  .table.text-dark {
+    // stylelint-disable-next-line
+    color: $black !important;
+  }
+
+  .btn,
+  .navbar,
+  .mix-input-form {
+    display: none;
+  }
+}
