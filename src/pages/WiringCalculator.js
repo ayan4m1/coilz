@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import {
-  Container,
   Card,
   Form,
   Row,
@@ -14,7 +13,7 @@ import {
 } from 'react-bootstrap';
 
 import { wires } from 'utils';
-import ResultsCard from './ResultsCard';
+import ResultsCard from '../components/ResultsCard';
 
 const copperDensity = 8.96;
 const copperHeatCapacity = 0.385;
@@ -92,7 +91,7 @@ export default function WiringCalculator() {
   });
 
   return (
-    <Container fluid>
+    <Fragment>
       <Helmet title="Wiring Size Calculator" />
       <h1>
         <FontAwesomeIcon icon="network-wired" size="2x" /> Wiring Size
@@ -201,6 +200,6 @@ export default function WiringCalculator() {
           )}
         </Col>
       </Row>
-    </Container>
+    </Fragment>
   );
 }

@@ -1,15 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { useCallback, useState } from 'react';
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  InputGroup,
-  Button
-} from 'react-bootstrap';
+import { useCallback, useState, Fragment } from 'react';
+import { Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
@@ -62,7 +54,7 @@ export default function SpoolCalculator() {
   });
 
   return (
-    <Container fluid>
+    <Fragment>
       <Helmet title="Remaining Spool Calculator" />
       <h1>
         <FontAwesomeIcon icon="ruler" size="2x" /> Remaining Spool Calculator
@@ -158,6 +150,6 @@ export default function SpoolCalculator() {
           {results && <ResultsCard results={results} />}
         </Col>
       </Row>
-    </Container>
+    </Fragment>
   );
 }

@@ -1,15 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { useEffect, useCallback, useState } from 'react';
-import {
-  Card,
-  Container,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Button
-} from 'react-bootstrap';
+import { useEffect, useCallback, useState, Fragment } from 'react';
+import { Card, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
@@ -58,7 +50,7 @@ export default function BaseCalculator() {
   }, [values]);
 
   return (
-    <Container fluid>
+    <Fragment>
       <Helmet title="Base Lifetime Calculator" />
       <h1>
         <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime Calculator
@@ -167,6 +159,6 @@ export default function BaseCalculator() {
           {results && <ResultsCard results={results} />}
         </Col>
       </Row>
-    </Container>
+    </Fragment>
   );
 }

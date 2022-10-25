@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, Fragment } from 'react';
 import {
-  Container,
   Card,
   Form,
   InputGroup,
@@ -141,7 +140,7 @@ export default function CostCalculator() {
   });
 
   return (
-    <Container fluid>
+    <Fragment>
       <Helmet title="Cost Calculator" />
       <h1>
         <FontAwesomeIcon icon="dollar-sign" size="2x" /> Cost Calculator
@@ -351,6 +350,6 @@ export default function CostCalculator() {
           <ResultsCard results={results} />
         </Col>
       </Row>
-    </Container>
+    </Fragment>
   );
 }

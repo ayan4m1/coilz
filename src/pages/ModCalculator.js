@@ -26,7 +26,7 @@ import {
 } from 'recharts';
 import * as Yup from 'yup';
 
-import ResultsCard from './ResultsCard';
+import ResultsCard from '../components/ResultsCard';
 
 const batteries = [
   {

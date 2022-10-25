@@ -6,9 +6,9 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import useLocalStorageState from 'use-local-storage-state';
 
-import FlavorTable from './FlavorTable';
-import IngredientTable from './IngredientTable';
-import SplitSlider from './SplitSlider';
+import FlavorTable from '../components/FlavorTable';
+import IngredientTable from '../components/IngredientTable';
+import SplitSlider from '../components/SplitSlider';
 
 const densities = {
   vg: 1.26,

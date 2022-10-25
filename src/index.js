@@ -8,38 +8,36 @@ import './index.scss';
 import Layout from 'components/Layout';
 import SuspenseFallback from 'components/SuspenseFallback.js';
 
-const Home = lazy(() =>
-  import(/* webpackChunkName: "core" */ 'components/Home')
-);
+const Home = lazy(() => import(/* webpackChunkName: "core" */ 'pages/Home'));
 const MaterialEditor = lazy(() =>
-  import(/* webpackChunkName: "material" */ 'components/MaterialEditor')
+  import(/* webpackChunkName: "material" */ 'pages/MaterialEditor')
 );
 const Settings = lazy(() =>
-  import(/* webpackChunkName: "settings" */ 'components/Settings')
+  import(/* webpackChunkName: "settings" */ 'pages/Settings')
 );
 const MixCalculator = lazy(() =>
-  import(/* webpackChunkName: "mix" */ 'components/MixCalculator')
+  import(/* webpackChunkName: "mix" */ 'pages/MixCalculator')
 );
 const BaseCalculator = lazy(() =>
-  import(/* webpackChunkName: "base" */ 'components/BaseCalculator')
+  import(/* webpackChunkName: "base" */ 'pages/BaseCalculator')
 );
 const CoilCalculator = lazy(() =>
-  import(/* webpackChunkName: "coil" */ 'components/CoilCalculator')
+  import(/* webpackChunkName: "coil" */ 'pages/CoilCalculator')
 );
 const ModCalculator = lazy(() =>
-  import(/* webpackChunkName: "mod" */ 'components/ModCalculator')
+  import(/* webpackChunkName: "mod" */ 'pages/ModCalculator')
 );
 const NicCalculator = lazy(() =>
-  import(/* webpackChunkName: "nic" */ 'components/NicCalculator')
+  import(/* webpackChunkName: "nic" */ 'pages/NicCalculator')
 );
 const CostCalculator = lazy(() =>
-  import(/* webpackChunkName: "cost" */ 'components/CostCalculator')
+  import(/* webpackChunkName: "cost" */ 'pages/CostCalculator')
 );
 const WiringCalculator = lazy(() =>
-  import(/* webpackChunkName: "wiring" */ 'components/WiringCalculator')
+  import(/* webpackChunkName: "wiring" */ 'pages/WiringCalculator')
 );
 const SpoolCalculator = lazy(() =>
-  import(/* webpackChunkName: "spool" */ 'components/SpoolCalculator')
+  import(/* webpackChunkName: "spool" */ 'pages/SpoolCalculator')
 );
 
 ReactDOM.render(
