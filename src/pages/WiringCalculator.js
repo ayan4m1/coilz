@@ -11,9 +11,9 @@ import {
   Button
 } from 'react-bootstrap';
 
+import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
 import { wires } from 'utils';
-import ResultsCard from '../components/ResultsCard';
 
 const copperDensity = 8.96;
 const copperHeatCapacity = 0.385;

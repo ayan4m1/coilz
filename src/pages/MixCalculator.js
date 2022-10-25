@@ -4,11 +4,11 @@ import { useCallback, useState, Fragment } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import useLocalStorageState from 'use-local-storage-state';
 
-import FlavorTable from '../components/FlavorTable';
-import IngredientTable from '../components/IngredientTable';
-import SplitSlider from '../components/SplitSlider';
 import Card from 'components/Card';
 import Heading from 'components/Heading';
+import FlavorTable from 'components/FlavorTable';
+import IngredientTable from 'components/IngredientTable';
+import SplitSlider from 'components/SplitSlider';
 import useDarkMode from 'hooks/useDarkMode';
 
 const densities = {
