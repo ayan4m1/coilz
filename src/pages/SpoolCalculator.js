@@ -1,12 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
 import { Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
 import { getMaterial, getWire, materials } from 'utils';
+import Heading from 'components/Heading';
 
 const FormSchema = Yup.object().shape({
   material: Yup.string().required('Material is required.').nullable(),
@@ -55,10 +54,7 @@ export default function SpoolCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Remaining Spool Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="ruler" size="2x" /> Remaining Spool Calculator
-      </h1>
+      <Heading icon="ruler" title="Remaining Spool Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card body>

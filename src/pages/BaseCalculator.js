@@ -1,11 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useEffect, useCallback, useState, Fragment } from 'react';
 import { Card, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
+import Heading from 'components/Heading';
 
 const FormSchema = Yup.object().shape({
   consumedPerDay: Yup.number().min(
@@ -51,10 +50,7 @@ export default function BaseCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Base Lifetime Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="clock" size="2x" /> Base Lifetime Calculator
-      </h1>
+      <Heading icon="clock" title="Base Lifetime Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card body>

@@ -3,12 +3,12 @@ import { useFormik } from 'formik';
 import useDarkMode from 'hooks/useDarkMode';
 import { useCallback, useState, Fragment } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import useLocalStorageState from 'use-local-storage-state';
 
 import FlavorTable from '../components/FlavorTable';
 import IngredientTable from '../components/IngredientTable';
 import SplitSlider from '../components/SplitSlider';
+import Heading from 'components/Heading';
 
 const densities = {
   vg: 1.26,
@@ -175,10 +175,7 @@ export default function MixCalculator() {
 
   return (
     <Container bg={darkMode ? 'light' : 'dark'} fluid>
-      <Helmet title="Mix Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="magic-wand-sparkles" /> Mix Calculator
-      </h1>
+      <Heading icon="magic-wand-sparkles" title="Mix Calculator" />
       <Row className="mb-2">
         <Col>
           <Card

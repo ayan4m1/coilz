@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useEffect, useState, Fragment } from 'react';
 import {
@@ -11,10 +10,10 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
+import Heading from 'components/Heading';
 
 const nicotineStrengths = [48, 72, 100, 250];
 
@@ -74,11 +73,7 @@ export default function NicCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Nicotine Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="exclamation-triangle" size="2x" /> Nicotine
-        Calculator
-      </h1>
+      <Heading icon="exclamation-triangle" title="Nicotine Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card body>

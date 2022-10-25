@@ -1,11 +1,12 @@
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
+
+import Heading from 'components/Heading';
 
 export default function Home() {
   return (
     <Fragment>
-      <Helmet title="Home" />
-      <h1>Welcome to Coilz</h1>
+      <Heading title="Welcome to Coilz" />
+      <h2 className="mb-4">Your Vape Toolkit</h2>
     </Fragment>
   );
 }

@@ -1,9 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Fragment } from 'react';
+
+import Heading from 'components/Heading';
 
 export default function Settings() {
   return (
-    <h1>
-      <FontAwesomeIcon icon="cog" size="2x" /> Settings
-    </h1>
+    <Fragment>
+      <Heading icon="cog" title="Settings" />
+    </Fragment>
   );
 }

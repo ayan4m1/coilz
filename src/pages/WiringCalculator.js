@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useState, useCallback, Fragment } from 'react';
-import { Helmet } from 'react-helmet';
 import {
   Card,
   Form,
@@ -12,6 +11,7 @@ import {
   Button
 } from 'react-bootstrap';
 
+import Heading from 'components/Heading';
 import { wires } from 'utils';
 import ResultsCard from '../components/ResultsCard';
 
@@ -92,11 +92,7 @@ export default function WiringCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Wiring Size Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="network-wired" size="2x" /> Wiring Size
-        Calculator
-      </h1>
+      <Heading icon="network-wired" title="Wiring Size Calculator" />
       <Row>
         <Col md={6} xs={12}>
           <Card body>

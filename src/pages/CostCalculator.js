@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
 import {
@@ -10,10 +9,10 @@ import {
   Col,
   ProgressBar
 } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 
 import ResultsCard from 'components/ResultsCard';
+import Heading from 'components/Heading';
 
 const FormSchema = Yup.object().shape({
   totalVolume: Yup.number().required().positive(),
@@ -141,10 +140,7 @@ export default function CostCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Cost Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="dollar-sign" size="2x" /> Cost Calculator
-      </h1>
+      <Heading icon="dollar-sign" title="Cost Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card body>

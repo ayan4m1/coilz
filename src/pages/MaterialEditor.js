@@ -1,11 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Papa from 'papaparse';
 import { Fragment, useCallback, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
 import CurveEditor from 'components/CurveEditor';
 import { readFile } from 'utils';
-import { Helmet } from 'react-helmet';
+import Heading from 'components/Heading';
 
 export default function Materials() {
   const [csvData, setCsvData] = useState(null);
@@ -44,10 +43,7 @@ export default function Materials() {
 
   return (
     <Fragment>
-      <Helmet title="Material Editor" />
-      <h1>
-        <FontAwesomeIcon icon="thermometer-full" size="2x" /> Material Editor
-      </h1>
+      <Heading icon="thermometer-full" title="Material Editor" />
       <Form>
         <Form.Group>
           <input onChange={handleFileChange} type="file" />

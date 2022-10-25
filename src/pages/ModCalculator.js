@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { Fragment, useCallback, useState } from 'react';
@@ -12,7 +11,6 @@ import {
   Col,
   Button
 } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
 import {
   LineChart,
   ResponsiveContainer,
@@ -27,6 +25,7 @@ import {
 import * as Yup from 'yup';
 
 import ResultsCard from '../components/ResultsCard';
+import Heading from 'components/Heading';
 
 const batteries = [
   {
@@ -249,10 +248,7 @@ export default function ModCalculator() {
 
   return (
     <Fragment>
-      <Helmet title="Mod Calculator" />
-      <h1>
-        <FontAwesomeIcon icon="bomb" size="2x" /> Mod Calculator
-      </h1>
+      <Heading icon="bomb" title="Mod Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card body>
