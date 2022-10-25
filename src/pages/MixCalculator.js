@@ -1,14 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
-import useDarkMode from 'hooks/useDarkMode';
 import { useCallback, useState, Fragment } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import useLocalStorageState from 'use-local-storage-state';
 
 import FlavorTable from '../components/FlavorTable';
 import IngredientTable from '../components/IngredientTable';
 import SplitSlider from '../components/SplitSlider';
+import Card from 'components/Card';
 import Heading from 'components/Heading';
+import useDarkMode from 'hooks/useDarkMode';
 
 const densities = {
   vg: 1.26,
@@ -174,7 +175,7 @@ export default function MixCalculator() {
   );
 
   return (
-    <Container bg={darkMode ? 'light' : 'dark'} fluid>
+    <Fragment>
       <Heading icon="magic-wand-sparkles" title="Mix Calculator" />
       <Row className="mb-2">
         <Col>
@@ -292,7 +293,7 @@ export default function MixCalculator() {
       </Row>
       <Row>
         <Col>
-          <Card bg={darkMode ? 'dark' : 'light'} body>
+          <Card>
             <Row>
               <Col xs={9}>
                 <h3>Results</h3>
@@ -315,6 +316,6 @@ export default function MixCalculator() {
           </Card>
         </Col>
       </Row>
-    </Container>
+    </Fragment>
   );
 }
