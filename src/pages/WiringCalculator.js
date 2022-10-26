@@ -1,16 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useState, useCallback, Fragment } from 'react';
-import {
-  Card,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Alert,
-  Button
-} from 'react-bootstrap';
+import { Form, Row, Col, InputGroup, Alert, Button } from 'react-bootstrap';
 
+import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
 import { wires } from 'utils';
@@ -95,8 +88,8 @@ export default function WiringCalculator() {
       <Heading icon="network-wired" title="Wiring Size Calculator" />
       <Row>
         <Col md={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inputs</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Wire Length</Form.Label>
@@ -106,6 +99,7 @@ export default function WiringCalculator() {
                     min="0"
                     name="wireLength"
                     onChange={handleChange}
+                    step="0.01"
                     type="number"
                     value={values.wireLength}
                   />
@@ -123,6 +117,7 @@ export default function WiringCalculator() {
                     min="0"
                     name="maxVoltageDrop"
                     onChange={handleChange}
+                    step="0.01"
                     type="number"
                     value={values.maxVoltageDrop}
                   />
@@ -140,6 +135,7 @@ export default function WiringCalculator() {
                     min="0"
                     name="maxTempRise"
                     onChange={handleChange}
+                    step="0.01"
                     type="number"
                     value={values.maxTempRise}
                   />
@@ -157,6 +153,7 @@ export default function WiringCalculator() {
                     min="0"
                     name="maxCurrent"
                     onChange={handleChange}
+                    step="0.01"
                     type="number"
                     value={values.maxCurrent}
                   />

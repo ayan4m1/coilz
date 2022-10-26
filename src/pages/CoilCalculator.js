@@ -1,10 +1,11 @@
 import { useFormik } from 'formik';
 import { Fragment, useCallback, useState } from 'react';
-import { Form, Card, Button, Row, Col, InputGroup } from 'react-bootstrap';
+import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 
-import { materials } from 'utils';
-import ResultsCard from 'components/ResultsCard';
+import Card from 'components/Card';
 import Heading from 'components/Heading';
+import ResultsCard from 'components/ResultsCard';
+import { materials } from 'utils';
 
 const awg2mm = (n) => 0.127 * Math.pow(92, (36 - n) / 39);
 // const crossSectionalArea = (d) => (Math.PI / 4) * Math.pow(d, 2);
@@ -164,8 +165,8 @@ export default function CoilCalculator() {
       <Heading icon="calculator" title="Coil Calculator" />
       <Row>
         <Col sm={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inputs</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Coil Type</Form.Label>

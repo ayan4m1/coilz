@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Fragment, useCallback, useState } from 'react';
 import {
   Alert,
-  Card,
   Form,
   Badge,
   InputGroup,
@@ -24,6 +23,7 @@ import {
 } from 'recharts';
 import * as Yup from 'yup';
 
+import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
 
@@ -251,8 +251,8 @@ export default function ModCalculator() {
       <Heading icon="bomb" title="Mod Calculator" />
       <Row>
         <Col sm={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inptus</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Mod Type</Form.Label>
@@ -395,8 +395,8 @@ export default function ModCalculator() {
         </Col>
         <Col xs={12}>
           {Boolean(chartData) && (
-            <Card body className="my-4">
-              <Card.Title>Chart</Card.Title>
+            <Card className="my-4">
+              <h3>Chart</h3>
               <ResponsiveContainer height={400} width="100%">
                 <LineChart data={chartData.points} margin={{ bottom: 10 }}>
                   <CartesianGrid />

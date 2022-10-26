@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
+
+import Card from 'components/Card';
 
 export default function ResultsCard({ title = 'Outputs', results, children }) {
   if (!results?.length && !children) {
@@ -7,8 +9,8 @@ export default function ResultsCard({ title = 'Outputs', results, children }) {
   }
 
   return (
-    <Card body>
-      <Card.Title>{title}</Card.Title>
+    <Card>
+      <h3>{title}</h3>
       <Container fluid>
         {results?.length > 0 &&
           results.map(([name, content]) => (

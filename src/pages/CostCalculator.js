@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
 import {
-  Card,
   Form,
   InputGroup,
   Button,
@@ -11,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import * as Yup from 'yup';
 
+import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
 
@@ -143,8 +143,8 @@ export default function CostCalculator() {
       <Heading icon="dollar-sign" title="Cost Calculator" />
       <Row>
         <Col sm={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inputs</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Desired Volume</Form.Label>

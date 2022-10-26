@@ -1,19 +1,12 @@
 import { useFormik } from 'formik';
 import { useEffect, useState, Fragment } from 'react';
-import {
-  Card,
-  Form,
-  Table,
-  Tabs,
-  Tab,
-  InputGroup,
-  Row,
-  Col
-} from 'react-bootstrap';
+import { Form, Table, Tabs, Tab, InputGroup, Row, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 
+import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
+import useDarkMode from 'hooks/useDarkMode';
 
 const nicotineStrengths = [48, 72, 100, 250];
 
@@ -26,6 +19,8 @@ const FormSchema = Yup.object().shape({
 });
 
 export default function NicCalculator() {
+  const { value: darkMode } = useDarkMode();
+
   const [mode, setMode] = useState('lifetime');
   const [units, setUnits] = useState('metric');
 
@@ -76,8 +71,8 @@ export default function NicCalculator() {
       <Heading icon="exclamation-triangle" title="Nicotine Calculator" />
       <Row>
         <Col sm={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inputs</h3>
             <Form>
               <Form.Group>
                 <Form.Label>Daily Consumption</Form.Label>
@@ -189,7 +184,7 @@ export default function NicCalculator() {
               </p>
             )}
             {mode === 'target' && (
-              <Table>
+              <Table className={darkMode ? 'text-light' : 'text-dark'}>
                 <thead>
                   <tr>
                     <th>Strength (mg/mL)</th>

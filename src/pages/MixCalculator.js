@@ -9,7 +9,6 @@ import Heading from 'components/Heading';
 import FlavorTable from 'components/FlavorTable';
 import IngredientTable from 'components/IngredientTable';
 import SplitSlider from 'components/SplitSlider';
-import useDarkMode from 'hooks/useDarkMode';
 
 const densities = {
   vg: 1.26,
@@ -19,7 +18,6 @@ const densities = {
 };
 
 export default function MixCalculator() {
-  const { value: darkMode } = useDarkMode();
   const [resultsCollapsed, setResultsCollapsed] = useState(false);
   const [settings, setSettings] = useLocalStorageState('mixSettings', {
     defaultValue: {
@@ -179,11 +177,7 @@ export default function MixCalculator() {
       <Heading icon="magic-wand-sparkles" title="Mix Calculator" />
       <Row className="mb-2">
         <Col>
-          <Card
-            bg={darkMode ? 'dark' : 'light'}
-            body
-            className="mix-input-form"
-          >
+          <Card className="mix-input-form">
             <Row>
               <Col sm={6} xs={12}>
                 <Form onSubmit={handleSubmit}>

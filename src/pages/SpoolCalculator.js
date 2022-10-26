@@ -1,11 +1,12 @@
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
-import { Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
+import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 
+import Card from 'components/Card';
+import Heading from 'components/Heading';
 import ResultsCard from 'components/ResultsCard';
 import { getMaterial, getWire, materials } from 'utils';
-import Heading from 'components/Heading';
 
 const FormSchema = Yup.object().shape({
   material: Yup.string().required('Material is required.').nullable(),
@@ -57,8 +58,8 @@ export default function SpoolCalculator() {
       <Heading icon="ruler" title="Remaining Spool Calculator" />
       <Row>
         <Col sm={6} xs={12}>
-          <Card body>
-            <Card.Title>Inputs</Card.Title>
+          <Card>
+            <h3>Inputs</h3>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Material</Form.Label>
