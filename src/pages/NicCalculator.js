@@ -1,3 +1,4 @@
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { useEffect, useState, Fragment } from 'react';
 import { Form, Table, Tabs, Tab, InputGroup, Row, Col } from 'react-bootstrap';
@@ -68,7 +69,7 @@ export default function NicCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="exclamation-triangle" title="Nicotine Calculator" />
+      <Heading icon={faExclamationTriangle} title="Nicotine Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

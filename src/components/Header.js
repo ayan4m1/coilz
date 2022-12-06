@@ -1,3 +1,17 @@
+import {
+  faBomb,
+  faCalculator,
+  faClock,
+  faDollarSign,
+  faExclamationTriangle,
+  faFire,
+  faHeart,
+  faMagicWandSparkles,
+  faNetworkWired,
+  faRuler,
+  faThermometerFull
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
@@ -8,7 +22,6 @@ import {
   Tooltip,
   Container
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import useDarkMode from 'hooks/useDarkMode';
 
@@ -33,7 +46,7 @@ const NavItem = ({ to, icon, label, tooltip }) =>
 
 NavItem.propTypes = {
   to: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.object.isRequired,
   label: PropTypes.string,
   tooltip: PropTypes.string
 };
@@ -50,61 +63,61 @@ export default function Header() {
     >
       <Container>
         <Navbar.Brand>
-          <NavItem icon="fire" to="/" />
+          <NavItem icon={faFire} to="/" />
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav>
             <NavItem
-              icon="calculator"
+              icon={faCalculator}
               label="Coils"
               to="/coils"
               tooltip="Calculate coil resistance and heat flux."
             />
             <NavItem
-              icon="thermometer-full"
+              icon={faThermometerFull}
               label="Materials"
               to="/materials"
               tooltip="Customize coil materials."
             />
             <NavItem
-              icon="magic-wand-sparkles"
+              icon={faMagicWandSparkles}
               label="Mix"
               to="/mix"
               tooltip="Calculate weights for a recipe."
             />
             <NavItem
-              icon="exclamation-triangle"
+              icon={faExclamationTriangle}
               label="Nicotine"
               to="/nicotine"
               tooltip="Calculate how long your nicotine supply will last."
             />
             <NavItem
-              icon="clock"
+              icon={faClock}
               label="Base"
               to="/base"
               tooltip="Calculate how long your base supply will last."
             />
             <NavItem
-              icon="dollar-sign"
+              icon={faDollarSign}
               label="Cost"
               to="/cost"
               tooltip="Calculate the cost of your e-liquid from its components."
             />
             <NavItem
-              icon="bomb"
+              icon={faBomb}
               label="Mod"
               to="/mod"
               tooltip="Calculate amp limit for mechanical and regulated mods."
             />
             <NavItem
-              icon="network-wired"
+              icon={faNetworkWired}
               label="Wiring"
               to="/wiring"
               tooltip="Calculate wire gauge from length and current."
             />
             <NavItem
-              icon="ruler"
+              icon={faRuler}
               label="Spool"
               to="/spool"
               tooltip="Calculate the remaining length of a wire spool."
@@ -116,7 +129,7 @@ export default function Header() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <FontAwesomeIcon icon="heart" /> Donate
+              <FontAwesomeIcon icon={faHeart} /> Donate
             </Nav.Link>
             <Nav.Item className="d-flex align-items-center">
               <Form.Check checked={darkMode} onChange={toggle} type="switch" />

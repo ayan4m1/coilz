@@ -1,3 +1,7 @@
+import {
+  faExclamationTriangle,
+  faNetworkWired
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useState, useCallback, Fragment } from 'react';
@@ -85,7 +89,7 @@ export default function WiringCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="network-wired" title="Wiring Size Calculator" />
+      <Heading icon={faNetworkWired} title="Wiring Size Calculator" />
       <Row>
         <Col md={6} xs={12}>
           <Card>
@@ -175,7 +179,7 @@ export default function WiringCalculator() {
           {Boolean(results) && (
             <ResultsCard>
               <Alert variant="warning">
-                <FontAwesomeIcon icon="exclamation-triangle" /> Temperature and
+                <FontAwesomeIcon icon={faExclamationTriangle} /> Temperature and
                 voltage drop estimates are <em>best-case assumptions</em>.
               </Alert>
               <p>

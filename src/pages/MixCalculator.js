@@ -1,3 +1,7 @@
+import {
+  faExclamationTriangle,
+  faMagicWandSparkles
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
@@ -174,7 +178,7 @@ export default function MixCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="magic-wand-sparkles" title="Mix Calculator" />
+      <Heading icon={faMagicWandSparkles} title="Mix Calculator" />
       <Row className="mb-2">
         <Col>
           <Card className="mix-input-form">
@@ -263,7 +267,7 @@ export default function MixCalculator() {
                   <Form.Group className="mt-2">
                     {Boolean(errors.batchVg) && (
                       <Card bg="warning" body className="my-2">
-                        <FontAwesomeIcon icon="exclamation-triangle" />
+                        <FontAwesomeIcon icon={faExclamationTriangle} />
                         {errors.batchVg}
                       </Card>
                     )}

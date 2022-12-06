@@ -1,10 +1,11 @@
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useRef, useCallback } from 'react';
 import { uniqueId } from 'lodash-es';
-
 import { Table, Form, Button } from 'react-bootstrap';
+
 import useDarkMode from 'hooks/useDarkMode';
 
 export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
@@ -72,7 +73,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
                     type="button"
                     variant="danger"
                   >
-                    <FontAwesomeIcon icon="trash" size="sm" />
+                    <FontAwesomeIcon icon={faTrash} size="sm" />
                   </Button>
                 </td>
               </tr>
@@ -111,7 +112,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
             </td>
             <td>
               <Button type="submit" variant="success">
-                <FontAwesomeIcon icon="plus" />
+                <FontAwesomeIcon icon={faPlus} />
               </Button>
             </td>
           </tr>

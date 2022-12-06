@@ -15,6 +15,6 @@ export default function Heading({ icon, title }) {
 }
 
 Heading.propTypes = {
-  icon: PropTypes.string,
+  icon: PropTypes.object,
   title: PropTypes.string.isRequired
 };

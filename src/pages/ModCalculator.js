@@ -26,6 +26,7 @@ import * as Yup from 'yup';
 import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
+import { faBomb } from '@fortawesome/free-solid-svg-icons';
 
 const batteries = [
   {
@@ -248,7 +249,7 @@ export default function ModCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="bomb" title="Mod Calculator" />
+      <Heading icon={faBomb} title="Mod Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

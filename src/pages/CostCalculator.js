@@ -1,3 +1,4 @@
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
 import {
@@ -140,7 +141,7 @@ export default function CostCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="dollar-sign" title="Cost Calculator" />
+      <Heading icon={faDollarSign} title="Cost Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

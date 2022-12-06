@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-import './icons.js';
 import './index.scss';
 
 import Layout from 'components/Layout';

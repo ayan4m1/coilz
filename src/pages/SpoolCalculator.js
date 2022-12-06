@@ -1,3 +1,4 @@
+import { faRuler } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
@@ -55,7 +56,7 @@ export default function SpoolCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="ruler" title="Remaining Spool Calculator" />
+      <Heading icon={faRuler} title="Remaining Spool Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

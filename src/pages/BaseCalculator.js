@@ -1,3 +1,4 @@
+import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { useEffect, useCallback, useState, Fragment } from 'react';
 import { Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
@@ -51,7 +52,7 @@ export default function BaseCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="clock" title="Base Lifetime Calculator" />
+      <Heading icon={faClock} title="Base Lifetime Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

@@ -1,3 +1,4 @@
+import { faCalculator } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { Fragment, useCallback, useState } from 'react';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
@@ -162,7 +163,7 @@ export default function CoilCalculator() {
 
   return (
     <Fragment>
-      <Heading icon="calculator" title="Coil Calculator" />
+      <Heading icon={faCalculator} title="Coil Calculator" />
       <Row>
         <Col sm={6} xs={12}>
           <Card>

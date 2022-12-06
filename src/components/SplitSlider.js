@@ -1,7 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUndo } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useRef, useState, useCallback } from 'react';
 import { InputGroup, ProgressBar, Button, Form } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function SplitSlider({
   tickInterval,
@@ -126,7 +127,7 @@ export default function SplitSlider({
       <Form.Control name="right" onChange={handleChange} value={rightValue} />
       <InputGroup.Text>
         <Button onClick={handleReset}>
-          <FontAwesomeIcon icon="undo" size="sm" />
+          <FontAwesomeIcon icon={faUndo} size="sm" />
         </Button>
       </InputGroup.Text>
     </InputGroup>

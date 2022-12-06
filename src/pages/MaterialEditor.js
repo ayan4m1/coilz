@@ -1,3 +1,4 @@
+import { faThermometerFull } from '@fortawesome/free-solid-svg-icons';
 import Papa from 'papaparse';
 import { Fragment, useCallback, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
@@ -43,7 +44,7 @@ export default function Materials() {
 
   return (
     <Fragment>
-      <Heading icon="thermometer-full" title="Material Editor" />
+      <Heading icon={faThermometerFull} title="Material Editor" />
       <Form>
         <Form.Group>
           <input onChange={handleFileChange} type="file" />
