@@ -9,7 +9,9 @@ import {
   faMagicWandSparkles,
   faNetworkWired,
   faRuler,
-  faThermometerFull
+  faThermometerFull,
+  faSun,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
@@ -136,7 +138,7 @@ export default function Header() {
               <FontAwesomeIcon
                 color={darkMode ? 'black' : 'white'}
                 fixedWidth
-                icon={darkMode ? 'sun' : 'moon'}
+                icon={darkMode ? faSun : faMoon}
                 size="lg"
               />
             </Nav.Item>
