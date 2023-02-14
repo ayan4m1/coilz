@@ -123,8 +123,18 @@ export default function SplitSlider({
           />
         </ProgressBar>
       </div>
-      <Form.Control name="left" onChange={handleChange} value={leftValue} />
-      <Form.Control name="right" onChange={handleChange} value={rightValue} />
+      <Form.Control
+        className="text-center"
+        name="left"
+        onChange={handleChange}
+        value={leftValue}
+      />
+      <Form.Control
+        className="text-center"
+        name="right"
+        onChange={handleChange}
+        value={rightValue}
+      />
       <InputGroup.Text>
         <Button onClick={handleReset}>
           <FontAwesomeIcon icon={faUndo} size="sm" />

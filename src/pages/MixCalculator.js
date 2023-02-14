@@ -1,5 +1,7 @@
 import {
+  faCompress,
   faExclamationTriangle,
+  faExpand,
   faMagicWandSparkles
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -289,31 +291,33 @@ export default function MixCalculator() {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Card>
-            <Row>
-              <Col xs={9}>
-                <h3>Results</h3>
-              </Col>
-              <Col className="d-flex justify-content-end" xs={3}>
-                <Button
-                  onClick={handleCollapseToggle}
-                  type="button"
-                  variant="primary"
-                >
-                  <FontAwesomeIcon
-                    icon={resultsCollapsed ? 'expand' : 'compress'}
-                  />
-                </Button>
-              </Col>
-              <Col xs={resultsCollapsed ? 6 : 12}>
-                <IngredientTable items={results} />
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-      </Row>
+      {Boolean(results) && (
+        <Row>
+          <Col>
+            <Card>
+              <Row>
+                <Col xs={9}>
+                  <h3>Results</h3>
+                </Col>
+                <Col className="d-flex justify-content-end" xs={3}>
+                  <Button
+                    onClick={handleCollapseToggle}
+                    type="button"
+                    variant="primary"
+                  >
+                    <FontAwesomeIcon
+                      icon={resultsCollapsed ? faExpand : faCompress}
+                    />
+                  </Button>
+                </Col>
+                <Col xs={resultsCollapsed ? 6 : 12}>
+                  <IngredientTable items={results} />
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        </Row>
+      )}
     </Fragment>
   );
 }
