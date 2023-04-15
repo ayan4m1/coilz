@@ -50,6 +50,11 @@ const batteries = [
     currentLimit: 30
   },
   {
+    name: 'Molicel P45B',
+    capacity: 4500,
+    currentLimit: 45
+  },
+  {
     name: 'Sony VTC5',
     capacity: 2600,
     currentLimit: 20
