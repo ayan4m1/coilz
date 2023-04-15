@@ -317,6 +317,7 @@ export default function ModCalculator() {
                 <Form.Control
                   max="6"
                   min="1"
+                  name="series"
                   onChange={handleChange}
                   step="1"
                   type="number"
