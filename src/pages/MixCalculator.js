@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import { useCallback, useState, Fragment } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, ProgressBar, Row } from 'react-bootstrap';
 import useLocalStorageState from 'use-local-storage-state';
 
 import Card from 'components/Card';
@@ -310,6 +310,50 @@ export default function MixCalculator() {
                     />
                   </Button>
                 </Col>
+              </Row>
+              <Row className="my-2">
+                <Col xs={resultsCollapsed ? 6 : 12}>
+                  <ProgressBar>
+                    <ProgressBar
+                      key="VG"
+                      label="VG"
+                      now={results.find((result) => result.name === 'VG').pct}
+                      variant="success"
+                    />
+                    <ProgressBar
+                      key="PG"
+                      label="PG"
+                      now={results.find((result) => result.name === 'PG').pct}
+                      variant="warning"
+                    />
+                    <ProgressBar
+                      key="Nic"
+                      label="Nic"
+                      now={
+                        results.find((result) =>
+                          result.name.endsWith('Nicotine Base')
+                        ).pct
+                      }
+                      variant="danger"
+                    />
+                    <ProgressBar
+                      key="Flavor"
+                      label="Flavor"
+                      now={results
+                        .filter(
+                          (result) =>
+                            result.name !== 'VG' &&
+                            result.name !== 'PG' &&
+                            result.name !== 'Total' &&
+                            !result.name.endsWith('Nicotine Base')
+                        )
+                        .reduce((total, result) => total + result.pct, 0)}
+                      variant="primary"
+                    />
+                  </ProgressBar>
+                </Col>
+              </Row>
+              <Row>
                 <Col xs={resultsCollapsed ? 6 : 12}>
                   <IngredientTable items={results} />
                 </Col>
