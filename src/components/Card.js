@@ -3,11 +3,11 @@ import { Card as BsCard } from 'react-bootstrap';
 
 import useDarkMode from 'hooks/useDarkMode';
 
-export default function Card({ children }) {
+export default function Card({ children, ...props }) {
   const { value: darkMode } = useDarkMode();
 
   return (
-    <BsCard bg={darkMode ? 'dark' : 'light'} body>
+    <BsCard bg={darkMode ? 'dark' : 'light'} body {...props}>
       {children}
     </BsCard>
   );
