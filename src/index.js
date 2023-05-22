@@ -1,6 +1,6 @@
-import ReactDOM from 'react-dom';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './index.scss';
 
@@ -39,7 +39,9 @@ const SpoolCalculator = lazy(() =>
   import(/* webpackChunkName: "spool" */ 'pages/SpoolCalculator')
 );
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'));
+
+root.render(
   <Router>
     <Layout>
       <Suspense fallback={<SuspenseFallback />}>
@@ -58,6 +60,5 @@ ReactDOM.render(
         </Routes>
       </Suspense>
     </Layout>
-  </Router>,
-  document.getElementById('root')
+  </Router>
 );
