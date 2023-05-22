@@ -15,6 +15,10 @@
   color: $body-bg;
 }
 
+.show-print {
+  display: none !important;
+}
+
 @media print {
   body {
     background-color: $white;
@@ -30,7 +34,11 @@
 
   .btn,
   .navbar,
-  .mix-input-form {
-    display: none;
+  .hide-print {
+    display: none !important;
+  }
+
+  .show-print {
+    display: inherit !important;
   }
 }

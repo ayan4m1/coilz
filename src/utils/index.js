@@ -15,6 +15,25 @@ export const readFile = async (file) =>
     reader.readAsText(file);
   });
 
+export const defaultPreset = {
+  id: 'default',
+  name: 'Default',
+  useNic: true,
+  nicBaseStrength: 100,
+  nicBaseVg: 50,
+  nicBatchStrength: 3,
+  maxVg: false,
+  batchVg: 50,
+  batchMl: 30
+};
+
+export const densities = {
+  vg: 1.26,
+  pg: 1.04,
+  vgNic: 1.235,
+  pgNic: 1.035
+};
+
 export const materials = [
   {
     id: 'ka1',

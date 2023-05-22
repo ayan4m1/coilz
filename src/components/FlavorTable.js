@@ -51,6 +51,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <h4>Flavoring</h4>
       <Table className={darkMode ? 'text-light' : 'text-dark'}>
         <thead>
           <tr>
@@ -70,10 +71,11 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
                 <td>
                   <Button
                     onClick={() => handleRemoveClick(flavor.id)}
+                    title="Remove"
                     type="button"
                     variant="danger"
                   >
-                    <FontAwesomeIcon icon={faTrash} size="sm" />
+                    <FontAwesomeIcon icon={faTrash} />
                   </Button>
                 </td>
               </tr>

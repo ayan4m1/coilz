@@ -2,10 +2,10 @@ import useDarkMode from 'hooks/useDarkMode';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
-export default function IngredientTable({ items }) {
+export default function MixIngredients({ results }) {
   const { value: darkMode } = useDarkMode();
 
-  if (!items) {
+  if (!results) {
     return null;
   }
 
@@ -26,8 +26,8 @@ export default function IngredientTable({ items }) {
         </tr>
       </thead>
       <tbody>
-        {items.length ? (
-          items.map((result) => (
+        {results.length ? (
+          results.map((result) => (
             <tr key={result.name}>
               <td>{result.name}</td>
               <td className="text-end">{result.pct.toFixed(2)}</td>
@@ -45,6 +45,6 @@ export default function IngredientTable({ items }) {
   );
 }
 
-IngredientTable.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object)
+MixIngredients.propTypes = {
+  results: PropTypes.arrayOf(PropTypes.object).isRequired
 };
