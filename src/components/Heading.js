@@ -7,7 +7,7 @@ export default function Heading({ icon, title }) {
   return (
     <Fragment>
       <Helmet title={title} />
-      <h1>
+      <h1 className="mb-4">
         {Boolean(icon) && <FontAwesomeIcon icon={icon} size="2x" />} {title}
       </h1>
     </Fragment>
