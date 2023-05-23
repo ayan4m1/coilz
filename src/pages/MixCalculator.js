@@ -146,7 +146,7 @@ export default function MixCalculator() {
         });
       }
 
-      setResults([
+      const result = [
         ...items,
         ...flavorItems,
         {
@@ -155,7 +155,9 @@ export default function MixCalculator() {
           volume: batchMl,
           mass: totalMass
         }
-      ]);
+      ];
+
+      setResults(result);
     }
   });
   const handleFlavorAdd = useCallback(
@@ -174,6 +176,14 @@ export default function MixCalculator() {
         updatePreset({
           ...currentPreset,
           [attributes.name.value]: checked
+        });
+      } else if (
+        attributes?.name?.value &&
+        attributes?.type?.value === 'number'
+      ) {
+        updatePreset({
+          ...currentPreset,
+          [attributes.name.value]: parseFloat(value)
         });
       } else if (attributes?.name?.value) {
         updatePreset({
