@@ -15,6 +15,15 @@ export const readFile = async (file) =>
     reader.readAsText(file);
   });
 
+export const vendors = {
+  FLV: 'Flavorah',
+  TFA: 'The Flavor Apprentice',
+  CAP: 'Capella',
+  FW: 'Flavor West',
+  RF: 'Real Flavors',
+  WF: 'Wonder Flavours'
+};
+
 export const defaultPreset = {
   id: 'default',
   name: 'Default',

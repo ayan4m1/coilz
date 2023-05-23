@@ -3,10 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
 import { useRef, useCallback } from 'react';
-import { uniqueId } from 'lodash-es';
 import { Table, Form, Button } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import { v4 } from 'uuid';
 
 import useDarkMode from 'hooks/useDarkMode';
+import { vendors } from 'utils';
+
+const vendorArray = Object.entries(vendors).map(([key, value]) => ({
+  id: key,
+  label: `${value} (${key})`,
+  value: value
+}));
 
 export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
   const { value: darkMode } = useDarkMode();
@@ -20,7 +28,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
     onSubmit: ({ vendor, flavor, pct }) => {
       if (onAddFlavor) {
         onAddFlavor({
-          id: uniqueId(),
+          id: v4(),
           vendor,
           flavor,
           pct: pct / 1e2
@@ -28,6 +36,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
       }
 
       if (vendorRef?.current) {
+        vendorRef.current.value = '';
         vendorRef.current.focus();
       }
 
@@ -56,7 +65,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
         <thead>
           <tr>
             <th>Vendor</th>
-            <th style={{ width: '50%' }}>Flavor</th>
+            <th style={{ width: '40%' }}>Flavor</th>
             <th className="text-end">%</th>
             <th>Action</th>
           </tr>
@@ -65,13 +74,15 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
           {Boolean(flavors.length) &&
             flavors.map((flavor) => (
               <tr key={flavor.id}>
-                <td>{flavor.vendor}</td>
-                <td>{flavor.flavor}</td>
-                <td className="text-end">{(flavor.pct * 1e2).toFixed(2)}</td>
-                <td>
+                <td className="align-middle">{flavor.vendor}</td>
+                <td className="align-middle">{flavor.flavor}</td>
+                <td className="align-middle text-end">
+                  {(flavor.pct * 1e2).toFixed(2)}
+                </td>
+                <td className="text-center">
                   <Button
                     onClick={() => handleRemoveClick(flavor.id)}
-                    title="Remove"
+                    title="Remove Flavor"
                     type="button"
                     variant="danger"
                   >
@@ -84,12 +95,22 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
         <tfoot>
           <tr>
             <td>
-              <Form.Control
+              <Typeahead
+                defaultInputValue={values.customVendor}
+                id="vendor"
                 name="vendor"
-                onChange={handleChange}
+                onChange={(selected) =>
+                  setFieldValue('vendor', selected[0]?.id)
+                }
+                onInputChange={(text) => setFieldValue('vendor', text)}
+                options={vendorArray}
                 ref={vendorRef}
+                selected={
+                  vendorArray.find((vnd) => vnd.id === values.vendor)
+                    ? [vendorArray.find((vnd) => vnd.id === values.vendor)]
+                    : []
+                }
                 type="text"
-                value={values.vendor}
               />
             </td>
             <td>
@@ -112,8 +133,8 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
                 value={values.pct}
               />
             </td>
-            <td>
-              <Button type="submit" variant="success">
+            <td className="text-center">
+              <Button title="Add Flavor" type="submit" variant="success">
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
             </td>

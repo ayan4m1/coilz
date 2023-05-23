@@ -42,7 +42,6 @@ export default function MixCalculator() {
       batchMl
     }) => {
       setResults(null);
-      setFlavors([]);
 
       const items = [];
       const flavorItems = [];
@@ -88,8 +87,20 @@ export default function MixCalculator() {
         totalPgPct += nicBasePgPct * nicFactor;
         totalMass += nicGrams;
 
+        let baseDescription = '';
+
+        if (nicBaseVgPct === 0) {
+          baseDescription = 'PG';
+        } else if (nicBasePgPct === 0) {
+          baseDescription = 'VG';
+        } else {
+          baseDescription = `${Math.round(nicBaseVgPct * 1e2)}/${Math.round(
+            nicBasePgPct * 1e2
+          )}`;
+        }
+
         items.push({
-          name: `${nicBaseStrength}mg/mL Nicotine Base`,
+          name: `${nicBaseStrength}mg/mL ${baseDescription} Nicotine Base`,
           pct: (nicMl / batchMl) * 1e2,
           volume: nicMl,
           mass: nicGrams
@@ -159,10 +170,17 @@ export default function MixCalculator() {
     (event) => {
       const { attributes, value, checked } = event.target;
 
-      updatePreset({
-        ...currentPreset,
-        [attributes.name.value]: !checked ? false : value
-      });
+      if (attributes?.name?.value && attributes?.type?.value === 'checkbox') {
+        updatePreset({
+          ...currentPreset,
+          [attributes.name.value]: checked
+        });
+      } else if (attributes?.name?.value) {
+        updatePreset({
+          ...currentPreset,
+          [attributes.name.value]: value
+        });
+      }
 
       return handleChange(event);
     },
