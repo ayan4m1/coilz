@@ -20,9 +20,11 @@ export default function Home() {
   return (
     <Fragment>
       <Heading title="Welcome to Coilz" />
-      <h2 className="mb-4">Your Vape Toolkit</h2>
+      <h2 className={`mb-4 text-${darkMode ? 'light' : 'dark'}`}>
+        Your Vape Toolkit
+      </h2>
       <Card>
-        <h3>Features</h3>
+        <h3 className={`text-${darkMode ? 'light' : 'dark'}`}>Features</h3>
         <ListGroup>
           <ListGroupItem>Calculate coil resistance</ListGroupItem>
           <ListGroupItem>Define custom coil materials</ListGroupItem>
