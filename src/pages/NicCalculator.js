@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import Card from 'components/Card';
 import ResultsCard from 'components/ResultsCard';
 import Heading from 'components/Heading';
-import useDarkMode from 'hooks/useDarkMode';
+import { useThemeContext } from 'hooks/useThemeContext';
 
 const nicotineStrengths = [48, 72, 100, 250];
 
@@ -20,7 +20,7 @@ const FormSchema = Yup.object().shape({
 });
 
 export default function NicCalculator() {
-  const { value: darkMode } = useDarkMode();
+  const { value: theme } = useThemeContext();
 
   const [mode, setMode] = useState('lifetime');
   const [units, setUnits] = useState('metric');
@@ -185,7 +185,7 @@ export default function NicCalculator() {
               </p>
             )}
             {mode === 'target' && (
-              <Table className={darkMode ? 'text-light' : 'text-dark'}>
+              <Table data-bs-theme={theme}>
                 <thead>
                   <tr>
                     <th>Strength (mg/mL)</th>

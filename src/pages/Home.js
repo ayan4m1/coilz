@@ -4,13 +4,13 @@ import { ListGroup } from 'react-bootstrap';
 
 import Card from 'components/Card';
 import Heading from 'components/Heading';
-import useDarkMode from 'hooks/useDarkMode';
+import { useThemeContext } from 'hooks/useThemeContext';
 
 export default function Home() {
-  const { value: darkMode } = useDarkMode();
+  const { value: theme } = useThemeContext();
 
   const ListGroupItem = ({ children }) => (
-    <ListGroup.Item variant={darkMode ? 'dark' : ''}>{children}</ListGroup.Item>
+    <ListGroup.Item variant={theme}>{children}</ListGroup.Item>
   );
 
   ListGroupItem.propTypes = {
@@ -20,11 +20,11 @@ export default function Home() {
   return (
     <Fragment>
       <Heading title="Welcome to Coilz" />
-      <h2 className={`mb-4 text-${darkMode ? 'light' : 'dark'}`}>
+      <h2 className="mb-4" data-bs-theme={theme}>
         Your Vape Toolkit
       </h2>
       <Card>
-        <h3 className={`text-${darkMode ? 'light' : 'dark'}`}>Features</h3>
+        <h3 data-bs-theme={theme}>Features</h3>
         <ListGroup>
           <ListGroupItem>Calculate coil resistance</ListGroupItem>
           <ListGroupItem>Define custom coil materials</ListGroupItem>

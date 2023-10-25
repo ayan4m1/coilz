@@ -6,6 +6,7 @@ import './index.scss';
 
 import Layout from 'components/Layout';
 import SuspenseFallback from 'components/SuspenseFallback.js';
+import ThemeProvider from 'components/ThemeProvider';
 
 const Home = lazy(() => import(/* webpackChunkName: "core" */ 'pages/Home'));
 const MaterialEditor = lazy(() =>
@@ -43,22 +44,24 @@ const root = createRoot(document.getElementById('root'));
 
 root.render(
   <Router>
-    <Layout>
-      <Suspense fallback={<SuspenseFallback />}>
-        <Routes>
-          <Route element={<Home />} index />
-          <Route element={<MaterialEditor />} path="/materials" />
-          <Route element={<Settings />} path="/settings" />
-          <Route element={<MixCalculator />} path="/mix" />
-          <Route element={<CoilCalculator />} path="/coils" />
-          <Route element={<NicCalculator />} path="/nicotine" />
-          <Route element={<ModCalculator />} path="/mod" />
-          <Route element={<BaseCalculator />} path="/base" />
-          <Route element={<CostCalculator />} path="/cost" />
-          <Route element={<WiringCalculator />} path="/wiring" />
-          <Route element={<SpoolCalculator />} path="/spool" />
-        </Routes>
-      </Suspense>
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        <Suspense fallback={<SuspenseFallback />}>
+          <Routes>
+            <Route element={<Home />} index />
+            <Route element={<MaterialEditor />} path="/materials" />
+            <Route element={<Settings />} path="/settings" />
+            <Route element={<MixCalculator />} path="/mix" />
+            <Route element={<CoilCalculator />} path="/coils" />
+            <Route element={<NicCalculator />} path="/nicotine" />
+            <Route element={<ModCalculator />} path="/mod" />
+            <Route element={<BaseCalculator />} path="/base" />
+            <Route element={<CostCalculator />} path="/cost" />
+            <Route element={<WiringCalculator />} path="/wiring" />
+            <Route element={<SpoolCalculator />} path="/spool" />
+          </Routes>
+        </Suspense>
+      </Layout>
+    </ThemeProvider>
   </Router>
 );

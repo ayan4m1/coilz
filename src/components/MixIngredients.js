@@ -1,16 +1,17 @@
-import useDarkMode from 'hooks/useDarkMode';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
+import { useThemeContext } from 'hooks/useThemeContext';
+
 export default function MixIngredients({ results }) {
-  const { value: darkMode } = useDarkMode();
+  const { value: theme } = useThemeContext();
 
   if (!results) {
     return null;
   }
 
   return (
-    <Table className={darkMode ? 'text-light' : 'text-dark'}>
+    <Table data-bs-theme={theme}>
       <thead>
         <tr>
           <th>Ingredient</th>

@@ -7,7 +7,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { v4 } from 'uuid';
 
-import useDarkMode from 'hooks/useDarkMode';
+import { useThemeContext } from 'hooks/useThemeContext';
 import { vendors } from 'utils';
 
 const vendorArray = Object.entries(vendors).map(([key, value]) => ({
@@ -17,7 +17,7 @@ const vendorArray = Object.entries(vendors).map(([key, value]) => ({
 }));
 
 export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
-  const { value: darkMode } = useDarkMode();
+  const { value: theme } = useThemeContext();
   const vendorRef = useRef();
   const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
     initialValues: {
@@ -61,7 +61,7 @@ export default function FlavorTable({ flavors, onAddFlavor, onRemoveFlavor }) {
   return (
     <Form onSubmit={handleSubmit}>
       <h4>Flavoring</h4>
-      <Table className={darkMode ? 'text-light' : 'text-dark'}>
+      <Table data-bs-theme={theme}>
         <thead>
           <tr>
             <th>Vendor</th>

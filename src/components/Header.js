@@ -25,7 +25,7 @@ import {
   Container
 } from 'react-bootstrap';
 
-import useDarkMode from 'hooks/useDarkMode';
+import { useThemeContext } from 'hooks/useThemeContext';
 
 const NavItem = ({ to, icon, label, tooltip }) =>
   tooltip ? (
@@ -54,15 +54,10 @@ NavItem.propTypes = {
 };
 
 export default function Header() {
-  const { value: darkMode, toggle } = useDarkMode();
+  const { value: theme, toggle } = useThemeContext();
 
   return (
-    <Navbar
-      bg={darkMode ? 'light' : 'dark'}
-      className="mb-4"
-      expand="lg"
-      variant={darkMode ? 'light' : 'dark'}
-    >
+    <Navbar bg={theme} className="mb-4" expand="lg" variant={theme}>
       <Container>
         <Navbar.Brand>
           <NavItem icon={faFire} to="/" />
@@ -134,11 +129,15 @@ export default function Header() {
               <FontAwesomeIcon icon={faHeart} /> Donate
             </Nav.Link>
             <Nav.Item className="d-flex align-items-center">
-              <Form.Check checked={darkMode} onChange={toggle} type="switch" />
+              <Form.Check
+                checked={theme === 'dark'}
+                onChange={toggle}
+                type="switch"
+              />
               <FontAwesomeIcon
-                color={darkMode ? 'black' : 'white'}
+                color={theme === 'light' ? 'black' : 'white'}
                 fixedWidth
-                icon={darkMode ? faSun : faMoon}
+                icon={theme === 'light' ? faSun : faMoon}
                 size="lg"
               />
             </Nav.Item>
