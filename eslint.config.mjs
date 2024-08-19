@@ -1,20 +1,21 @@
 import globals from 'globals';
-import reactRecommended from 'eslint-plugin-react/configs/recommended.js';
-import reactHooks from 'eslint-plugin-react-hooks';
+import reactPlugin from 'eslint-plugin-react';
+import babelParser from '@babel/eslint-parser';
 import prettierPlugin from 'eslint-plugin-prettier';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
 
 export default [
   {
     plugins: {
-      reactRecommended,
-      reactHooks,
+      react: reactPlugin,
+      reactHooks: reactHooksPlugin,
       prettierPlugin
     },
     languageOptions: {
       globals: {
         ...globals.browser
       },
-      parser: '@babel/eslint-parser'
+      parser: babelParser
     },
     rules: {
       'react/jsx-uses-react': 0,
