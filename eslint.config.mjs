@@ -3,8 +3,11 @@ import reactPlugin from 'eslint-plugin-react';
 import babelParser from '@babel/eslint-parser';
 import prettierPlugin from 'eslint-plugin-prettier';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import importPlugin from 'eslint-plugin-import-x';
 
 export default [
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.react,
   {
     plugins: {
       react: reactPlugin,
@@ -15,7 +18,10 @@ export default [
       globals: {
         ...globals.browser
       },
-      parser: babelParser
+      parser: babelParser,
+      parserOptions: {
+        requireConfigFile: false
+      }
     },
     rules: {
       'react/jsx-uses-react': 0,
@@ -25,6 +31,11 @@ export default [
     settings: {
       react: {
         version: 'detect'
+      },
+      'import-x/resolver': {
+        node: {
+          paths: ['./src/']
+        }
       }
     }
   }

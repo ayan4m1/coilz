@@ -127,13 +127,9 @@ export default function CoilCalculator() {
           matchedMaterial.resistivity / crossSectionArea;
         const resistance = (resistivityPerUnitLength * coilLength) / 1e3;
 
-        // eslint-disable-next-line
         console.dir(coreDiameter);
-        // eslint-disable-next-line
         console.dir(innerDiameter);
-        // eslint-disable-next-line
         console.dir(outerDiameter);
-        // eslint-disable-next-line
         console.dir(coilLength);
 
         setResults([

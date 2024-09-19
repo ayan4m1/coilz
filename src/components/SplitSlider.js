@@ -31,8 +31,6 @@ export default function SplitSlider({
       const newValue =
         targetName === 'left' ? intValue : Math.max(0, 100 - intValue);
 
-      // eslint-disable-next-line
-      console.dir(newValue);
       if (newValue !== value) {
         setValue(newValue);
         onChange({

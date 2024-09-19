@@ -40,7 +40,6 @@ export default function useMixPresets() {
     [setPresets]
   );
   const duplicateCurrentPreset = useCallback(() => {
-    // eslint-disable-next-line no-alert
     const name = prompt('Enter a name for the new preset', currentPreset?.name);
 
     if (!name?.trim?.()) {
@@ -57,7 +56,6 @@ export default function useMixPresets() {
     setPresetId(id);
   }, [addPreset, presets, setPresetId, currentPreset]);
   const removeCurrentPreset = useCallback(() => {
-    // eslint-disable-next-line no-alert
     if (!confirm('Are you sure you want to remove this preset?')) {
       return;
     }
@@ -68,7 +66,6 @@ export default function useMixPresets() {
     }
   }, [removePreset, presetId, currentPreset, setPresetId, presets]);
   const renameCurrentPreset = useCallback(() => {
-    // eslint-disable-next-line no-alert
     const name = prompt('Enter the new preset name', currentPreset?.name);
 
     if (!name?.trim?.()) {
