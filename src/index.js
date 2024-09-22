@@ -8,37 +8,18 @@ import Layout from 'components/Layout';
 import SuspenseFallback from 'components/SuspenseFallback.js';
 import ThemeProvider from 'components/ThemeProvider';
 
-const Home = lazy(() => import(/* webpackChunkName: "core" */ 'pages/Home'));
-const MaterialEditor = lazy(
-  () => import(/* webpackChunkName: "material" */ 'pages/MaterialEditor')
-);
-const Settings = lazy(
-  () => import(/* webpackChunkName: "settings" */ 'pages/Settings')
-);
-const MixCalculator = lazy(
-  () => import(/* webpackChunkName: "mix" */ 'pages/MixCalculator')
-);
-const BaseCalculator = lazy(
-  () => import(/* webpackChunkName: "base" */ 'pages/BaseCalculator')
-);
-const CoilCalculator = lazy(
-  () => import(/* webpackChunkName: "coil" */ 'pages/CoilCalculator')
-);
-const ModCalculator = lazy(
-  () => import(/* webpackChunkName: "mod" */ 'pages/ModCalculator')
-);
-const NicCalculator = lazy(
-  () => import(/* webpackChunkName: "nic" */ 'pages/NicCalculator')
-);
-const CostCalculator = lazy(
-  () => import(/* webpackChunkName: "cost" */ 'pages/CostCalculator')
-);
-const WiringCalculator = lazy(
-  () => import(/* webpackChunkName: "wiring" */ 'pages/WiringCalculator')
-);
-const SpoolCalculator = lazy(
-  () => import(/* webpackChunkName: "spool" */ 'pages/SpoolCalculator')
-);
+const Home = lazy(() => import('pages/Home'));
+const MaterialEditor = lazy(() => import('pages/MaterialEditor'));
+const Settings = lazy(() => import('pages/Settings'));
+const MixCalculator = lazy(() => import('pages/MixCalculator'));
+const BaseCalculator = lazy(() => import('pages/BaseCalculator'));
+const CoilCalculator = lazy(() => import('pages/CoilCalculator'));
+const ModCalculator = lazy(() => import('pages/ModCalculator'));
+const NicCalculator = lazy(() => import('pages/NicCalculator'));
+const CostCalculator = lazy(() => import('pages/CostCalculator'));
+const WiringCalculator = lazy(() => import('pages/WiringCalculator'));
+const SpoolCalculator = lazy(() => import('pages/SpoolCalculator'));
+const PowerCalculator = lazy(() => import('pages/PowerCalculator'));
 
 const root = createRoot(document.getElementById('root'));
 
@@ -59,6 +40,7 @@ root.render(
             <Route element={<CostCalculator />} path="/cost" />
             <Route element={<WiringCalculator />} path="/wiring" />
             <Route element={<SpoolCalculator />} path="/spool" />
+            <Route element={<PowerCalculator />} path="/power" />
           </Routes>
         </Suspense>
       </Layout>
