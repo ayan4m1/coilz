@@ -19,7 +19,7 @@ const NicCalculator = lazy(() => import('pages/NicCalculator'));
 const CostCalculator = lazy(() => import('pages/CostCalculator'));
 const WiringCalculator = lazy(() => import('pages/WiringCalculator'));
 const SpoolCalculator = lazy(() => import('pages/SpoolCalculator'));
-const PowerCalculator = lazy(() => import('pages/PowerCalculator'));
+// const PowerCalculator = lazy(() => import('pages/PowerCalculator'));
 
 const root = createRoot(document.getElementById('root'));
 
@@ -40,7 +40,7 @@ root.render(
             <Route element={<CostCalculator />} path="/cost" />
             <Route element={<WiringCalculator />} path="/wiring" />
             <Route element={<SpoolCalculator />} path="/spool" />
-            <Route element={<PowerCalculator />} path="/power" />
+            {/* <Route element={<PowerCalculator />} path="/power" /> */}
           </Routes>
         </Suspense>
       </Layout>
