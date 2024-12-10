@@ -1,9 +1,11 @@
 import { resolve } from 'path';
+import autoprefixer from 'autoprefixer';
 import HtmlPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CnameWebpackPlugin from 'cname-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
+import postcssFlexbugsFixes from 'postcss-flexbugs-fixes';
 import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
@@ -15,25 +17,31 @@ const plugins = [
     domain: 'coilz.andrewdelisa.com'
   }),
   new CleanPlugin(),
-  new StylelintPlugin({
-    configFile: '.stylelintrc',
-    context: 'src',
-    files: '**/*.scss',
-    failOnError: true,
-    quiet: false,
-    customSyntax: 'postcss-scss'
-  }),
+
   new MiniCSSExtractPlugin({
     filename: '[name].css'
   }),
   new HtmlPlugin({
     template: './src/index.html'
-  }),
-  new ESLintPlugin({
-    configType: 'flat',
-    eslintPath: 'eslint/use-at-your-own-risk'
   })
 ];
+
+if (dev) {
+  plugins.push(
+    new StylelintPlugin({
+      configFile: '.stylelintrc',
+      context: 'src',
+      files: '**/*.scss',
+      failOnError: true,
+      quiet: false,
+      customSyntax: 'postcss-scss'
+    }),
+    new ESLintPlugin({
+      configType: 'flat',
+      eslintPath: 'eslint/use-at-your-own-risk'
+    })
+  );
+}
 
 export default {
   mode: dev ? 'development' : 'production',
@@ -54,22 +62,26 @@ export default {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          dev ? 'style-loader' : MiniCSSExtractPlugin.loader,
+          MiniCSSExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
                 ident: 'postcss',
-                plugins: [
-                  require('autoprefixer'),
-                  require('postcss-flexbugs-fixes')
-                ],
+                plugins: [autoprefixer, postcssFlexbugsFixes],
                 sourceMap: dev
               }
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                quietDeps: true
+              }
+            }
+          }
         ]
       },
       {
@@ -98,13 +110,6 @@ export default {
     }
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          ecma: 12
-        }
-      }),
-      new CssMinimizerPlugin()
-    ]
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
   }
 };
