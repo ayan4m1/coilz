@@ -5,9 +5,9 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 import './index.scss';
 
 import Layout from 'components/Layout';
-import SuspenseFallback from 'components/SuspenseFallback.js';
-import ThemeProvider from 'components/ThemeProvider';
 import ErrorBoundary from 'components/ErrorBoundary';
+import ThemeProvider from 'components/ThemeProvider';
+import SuspenseFallback from 'components/SuspenseFallback.js';
 
 const createRouteForPage = (pathOrIndex, pageName) => {
   const result = {};
