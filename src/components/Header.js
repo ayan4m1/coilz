@@ -32,7 +32,7 @@ const NavItem = ({ to, icon, label, tooltip }) =>
     <OverlayTrigger
       overlay={(props) => <Tooltip {...props}>{tooltip}</Tooltip>}
       placement="bottom"
-      trigger="hover"
+      trigger="focus hover"
     >
       <Nav.Link as={Link} to={to}>
         <FontAwesomeIcon icon={icon} />

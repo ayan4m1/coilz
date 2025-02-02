@@ -16,7 +16,7 @@ export default function Heading({ icon, title }) {
           <FontAwesomeIcon
             color={theme === 'light' ? 'black' : 'white'}
             icon={icon}
-            size="2x"
+            size="lg"
           />
         )}{' '}
         {title}
