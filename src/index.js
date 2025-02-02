@@ -7,6 +7,7 @@ import './index.scss';
 import Layout from 'components/Layout';
 import SuspenseFallback from 'components/SuspenseFallback.js';
 import ThemeProvider from 'components/ThemeProvider';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 const createRouteForPage = (pathOrIndex, pageName) => {
   const result = {};
@@ -27,6 +28,7 @@ const router = createHashRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorBoundary />,
     children: [
       createRouteForPage(true, 'Home'),
       createRouteForPage('materials', 'MaterialEditor'),
