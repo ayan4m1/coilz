@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useThemeContext } from 'hooks/useThemeContext';
 
@@ -10,7 +9,7 @@ export default function Heading({ icon, title }) {
 
   return (
     <Fragment>
-      <Helmet title={title} />
+      <title>Coilz - {title}</title>
       <h1 className={`mb-4 text-${theme === 'light' ? 'dark' : 'light'}`}>
         {Boolean(icon) && (
           <FontAwesomeIcon
