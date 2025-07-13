@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-import { type Configuration } from 'webpack';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
 import autoprefixer from 'autoprefixer';
 import HtmlPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
@@ -9,17 +9,22 @@ import StylelintPlugin from 'stylelint-webpack-plugin';
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { type Configuration, type WebpackPluginInstance } from 'webpack';
 import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
 
 import 'webpack-dev-server';
 
 const dev = process.env.NODE_ENV === 'development';
 
-const plugins = [
+const plugins: WebpackPluginInstance[] = [
   new CleanPlugin(),
-  new HtmlPlugin({ template: './src/index.html' }),
+  new HtmlPlugin({
+    template: './src/index.html'
+  }),
   new MiniCssExtractPlugin(),
-  new CnameWebpackPlugin({ domain: 'mk8d.andrewdelisa.com' })
+  new CnameWebpackPlugin({
+    domain: 'coilz.andrewdelisa.com'
+  })
 ];
 
 if (dev) {
@@ -32,18 +37,23 @@ if (dev) {
       quiet: false,
       customSyntax: 'postcss-scss'
     }),
-    new ESLintPlugin({ configType: 'flat' })
+    new ESLintPlugin({
+      configType: 'flat'
+    })
   );
 }
 
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'eval-cheap-module-source-map' : false,
-  entry: './src/index.tsx',
-  devServer: { open: true, historyApiFallback: true },
+  entry: './src/index.js',
+  devServer: {
+    open: true,
+    historyApiFallback: true
+  },
   module: {
     rules: [
-      { test: /\.tsx?$/, use: ['ts-loader'], exclude: /node_modules/ },
+      { test: /\.jsx?$/, use: ['babel-loader'], exclude: /node_modules/ },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
@@ -68,36 +78,21 @@ const config: Configuration = {
       {
         test: /\.html$/,
         use: [{ loader: 'html-loader', options: { minimize: true } }]
-      },
-      {
-        test: /\.csv$/,
-        loader: 'csv-loader',
-        options: { dynamicTyping: true, header: true, skipEmptyLines: true }
       }
     ]
   },
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: resolve(dirname(fileURLToPath(import.meta.url)), 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].js'
   },
   plugins,
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.json', '.csv'],
+    extensions: ['.js', '.ts', '.tsx', '.json'],
     modules: ['node_modules', 'src']
   },
   optimization: {
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
-        },
-        data: { test: /[\\/]data[\\/].*csv$/, name: 'data', chunks: 'all' }
-      }
-    }
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
   },
   ignoreWarnings: [/import rules are/]
 };
