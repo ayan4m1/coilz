@@ -2,8 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "esnext"
+    "module": "esnext",
+    "moduleResolution": "node"
   }
 }
