@@ -7,7 +7,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { v4 } from 'uuid';
 
-import { useThemeContext } from 'hooks/useThemeContext';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 import { vendors } from 'utils';
 
 const vendorArray = Object.entries(vendors).map(([key, value]) => ({

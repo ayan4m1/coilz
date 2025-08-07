@@ -11,9 +11,9 @@ import {
 } from 'react-bootstrap';
 import * as Yup from 'yup';
 
-import Card from 'components/Card';
-import ResultsCard from 'components/ResultsCard';
-import Heading from 'components/Heading';
+import Card from 'components/Card.js';
+import ResultsCard from 'components/ResultsCard.js';
+import Heading from 'components/Heading.js';
 
 const FormSchema = Yup.object().shape({
   totalVolume: Yup.number().required().positive(),

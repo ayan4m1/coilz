@@ -30,6 +30,6 @@ export default [
       'import-x/resolver': { node: { paths: ['./src/'] } }
     }
   },
-  { files: ['webpack.config.ts'], languageOptions: { globals: globals.node } },
+  { files: ['webpack.config.*'], languageOptions: { globals: globals.node } },
   prettierPlugin
 ];

@@ -1,17 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
+import { formatISO } from 'date-fns';
 import {
   faExpand,
   faCompress,
   faPrint
 } from '@fortawesome/free-solid-svg-icons';
-import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 import { Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Card from 'components/Card';
-import MixProgressBar from 'components/MixProgressBar';
-import MixIngredients from 'components/MixIngredients';
-import { formatISO } from 'date-fns';
+import Card from 'components/Card.js';
+import MixProgressBar from 'components/MixProgressBar.js';
+import MixIngredients from 'components/MixIngredients.js';
 
 export default function MixResults({ results }) {
   const [resultsCollapsed, setResultsCollapsed] = useState(false);

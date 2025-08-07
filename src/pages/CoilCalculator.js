@@ -3,9 +3,9 @@ import { useFormik } from 'formik';
 import { Fragment, useCallback, useState } from 'react';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 
-import Card from 'components/Card';
-import Heading from 'components/Heading';
-import ResultsCard from 'components/ResultsCard';
+import Card from 'components/Card.js';
+import Heading from 'components/Heading.js';
+import ResultsCard from 'components/ResultsCard.js';
 import { materials } from 'utils';
 
 const awg2mm = (n) => 0.127 * Math.pow(92, (36 - n) / 39);

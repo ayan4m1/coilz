@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useThemeContext } from 'hooks/useThemeContext';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 
 export default function Heading({ icon, title }) {
   const { value: theme } = useThemeContext();

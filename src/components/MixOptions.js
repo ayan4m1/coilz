@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 
-import Card from 'components/Card';
-import SplitSlider from 'components/SplitSlider';
+import Card from 'components/Card.js';
+import SplitSlider from 'components/SplitSlider.js';
 
 export default function MixOptions({
   onSubmit,

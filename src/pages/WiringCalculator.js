@@ -7,9 +7,9 @@ import { useFormik } from 'formik';
 import { useState, useCallback, Fragment } from 'react';
 import { Form, Row, Col, InputGroup, Alert, Button } from 'react-bootstrap';
 
-import Card from 'components/Card';
-import ResultsCard from 'components/ResultsCard';
-import Heading from 'components/Heading';
+import Card from 'components/Card.js';
+import ResultsCard from 'components/ResultsCard.js';
+import Heading from 'components/Heading.js';
 import { wires } from 'utils';
 
 const copperDensity = 8.96;

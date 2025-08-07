@@ -3,12 +3,12 @@ import { useFormik } from 'formik';
 import { useCallback, useState, Fragment, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import Card from 'components/Card';
-import Heading from 'components/Heading';
-import FlavorTable from 'components/FlavorTable';
-import MixResults from 'components/MixResults';
-import MixOptions from 'components/MixOptions';
-import useMixPresets from 'hooks/useMixPresets';
+import Card from 'components/Card.js';
+import Heading from 'components/Heading.js';
+import FlavorTable from 'components/FlavorTable.js';
+import MixResults from 'components/MixResults.js';
+import MixOptions from 'components/MixOptions.js';
+import useMixPresets from 'hooks/useMixPresets.js';
 import { densities } from 'utils';
 
 export default function MixCalculator() {

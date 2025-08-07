@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-import Card from 'components/Card';
-import Heading from 'components/Heading';
-import { useThemeContext } from 'hooks/useThemeContext';
+import Card from 'components/Card.js';
+import Heading from 'components/Heading.js';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 
 export default function Home() {
   const { value: theme } = useThemeContext();

@@ -1,7 +1,7 @@
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Fragment } from 'react';
 
-import Heading from 'components/Heading';
+import Heading from 'components/Heading.js';
 
 export default function Settings() {
   return (

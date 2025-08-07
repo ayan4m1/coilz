@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ThemeContext } from 'hooks/useThemeContext';
+import { ThemeContext } from 'hooks/useThemeContext.js';
 
 export default function DarkModeProvider({ children }) {
   const [value, setValue] = useLocalStorageState('theme', {

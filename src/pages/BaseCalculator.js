@@ -4,9 +4,9 @@ import { useEffect, useCallback, useState, Fragment } from 'react';
 import { Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 
-import Card from 'components/Card';
-import ResultsCard from 'components/ResultsCard';
-import Heading from 'components/Heading';
+import Card from 'components/Card.js';
+import ResultsCard from 'components/ResultsCard.js';
+import Heading from 'components/Heading.js';
 
 const FormSchema = Yup.object().shape({
   consumedPerDay: Yup.number().min(

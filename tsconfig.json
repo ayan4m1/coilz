@@ -2,7 +2,6 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2024"
+    "moduleResolution": "nodenext"
   }
 }

@@ -4,9 +4,9 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import './index.scss';
 
-import Layout from 'components/Layout';
-import ErrorBoundary from 'components/ErrorBoundary';
-import ThemeProvider from 'components/ThemeProvider';
+import Layout from 'components/Layout.js';
+import ErrorBoundary from 'components/ErrorBoundary.js';
+import ThemeProvider from 'components/ThemeProvider.js';
 import SuspenseFallback from 'components/SuspenseFallback.js';
 
 const createRouteForPage = (pathOrIndex, pageName) => {
@@ -19,7 +19,7 @@ const createRouteForPage = (pathOrIndex, pageName) => {
   }
 
   result.lazy = async () => ({
-    Component: (await import(`pages/${pageName}`)).default
+    Component: (await import(`pages/${pageName}.js`)).default
   });
 
   return result;

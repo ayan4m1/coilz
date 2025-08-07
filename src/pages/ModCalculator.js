@@ -21,12 +21,12 @@ import {
   ReferenceLine,
   Text
 } from 'recharts';
+import { faBomb } from '@fortawesome/free-solid-svg-icons';
 import * as Yup from 'yup';
 
-import Card from 'components/Card';
-import ResultsCard from 'components/ResultsCard';
-import Heading from 'components/Heading';
-import { faBomb } from '@fortawesome/free-solid-svg-icons';
+import Card from 'components/Card.js';
+import ResultsCard from 'components/ResultsCard.js';
+import Heading from 'components/Heading.js';
 
 const batteries = [
   {

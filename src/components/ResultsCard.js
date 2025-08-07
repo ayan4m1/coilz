@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Row, Col, Container } from 'react-bootstrap';
 
-import Card from 'components/Card';
+import Card from 'components/Card.js';
 
 export default function ResultsCard({ title = 'Outputs', results, children }) {
   if (!results?.length && !children) {

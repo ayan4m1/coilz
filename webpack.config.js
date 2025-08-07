@@ -9,14 +9,15 @@ import StylelintPlugin from 'stylelint-webpack-plugin';
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import { type Configuration, type WebpackPluginInstance } from 'webpack';
+// import { type Configuration, type WebpackPluginInstance } from 'webpack';
 import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin';
 
 import 'webpack-dev-server';
 
 const dev = process.env.NODE_ENV === 'development';
 
-const plugins: WebpackPluginInstance[] = [
+// const plugins: WebpackPluginInstance[] = [
+const plugins = [
   new CleanPlugin(),
   new HtmlPlugin({
     template: './src/index.html'
@@ -43,7 +44,8 @@ if (dev) {
   );
 }
 
-const config: Configuration = {
+// const config: Configuration = {
+const config = {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'eval-cheap-module-source-map' : false,
   entry: './src/index.js',

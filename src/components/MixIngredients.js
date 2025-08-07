@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
-import { useThemeContext } from 'hooks/useThemeContext';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 
 export default function MixIngredients({ results }) {
   const { value: theme } = useThemeContext();

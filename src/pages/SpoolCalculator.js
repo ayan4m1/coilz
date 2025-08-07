@@ -4,9 +4,9 @@ import { useCallback, useState, Fragment } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 
-import Card from 'components/Card';
-import Heading from 'components/Heading';
-import ResultsCard from 'components/ResultsCard';
+import Card from 'components/Card.js';
+import Heading from 'components/Heading.js';
+import ResultsCard from 'components/ResultsCard.js';
 import { getMaterial, getWire, materials } from 'utils';
 
 const FormSchema = Yup.object().shape({

@@ -4,10 +4,10 @@ import { useEffect, useState, Fragment } from 'react';
 import { Form, Table, Tabs, Tab, InputGroup, Row, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 
-import Card from 'components/Card';
-import ResultsCard from 'components/ResultsCard';
-import Heading from 'components/Heading';
-import { useThemeContext } from 'hooks/useThemeContext';
+import Card from 'components/Card.js';
+import Heading from 'components/Heading.js';
+import ResultsCard from 'components/ResultsCard.js';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 
 const nicotineStrengths = [48, 72, 100, 250];
 

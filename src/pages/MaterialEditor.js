@@ -3,9 +3,9 @@ import Papa from 'papaparse';
 import { Fragment, useCallback, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-import CurveEditor from 'components/CurveEditor';
+import Heading from 'components/Heading.js';
+import CurveEditor from 'components/CurveEditor.js';
 import { readFile } from 'utils';
-import Heading from 'components/Heading';
 
 export default function Materials() {
   const [csvData, setCsvData] = useState(null);

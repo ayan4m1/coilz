@@ -25,7 +25,7 @@ import {
   Container
 } from 'react-bootstrap';
 
-import { useThemeContext } from 'hooks/useThemeContext';
+import { useThemeContext } from 'hooks/useThemeContext.js';
 
 const NavItem = ({ to, icon, label, tooltip }) =>
   tooltip ? (
