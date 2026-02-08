@@ -29,7 +29,7 @@ export default function MixResults({ results }) {
       <Row>
         <Col xs={9}>
           <h3>Results</h3>
-          <p className="show-print">Created {formatISO(Date.now())}</p>
+          <p className="show-print">Created {formatISO(new Date())}</p>
         </Col>
         <Col className="d-flex justify-content-end" xs={3}>
           <ButtonGroup>

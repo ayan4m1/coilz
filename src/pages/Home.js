@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
@@ -9,14 +8,6 @@ import { useThemeContext } from 'hooks/useThemeContext.js';
 export default function Home() {
   const { value: theme } = useThemeContext();
 
-  const ListGroupItem = ({ children }) => (
-    <ListGroup.Item variant={theme}>{children}</ListGroup.Item>
-  );
-
-  ListGroupItem.propTypes = {
-    children: PropTypes.node.isRequired
-  };
-
   return (
     <Fragment>
       <Heading title="Welcome to Coilz" />
@@ -26,22 +17,30 @@ export default function Home() {
       <Card>
         <h3 data-bs-theme={theme}>Features</h3>
         <ListGroup>
-          <ListGroupItem>Calculate coil resistance</ListGroupItem>
-          <ListGroupItem>Define custom coil materials</ListGroupItem>
-          <ListGroupItem>Find nicotine/base supply lifetime</ListGroupItem>
-          <ListGroupItem>Determine cost to produce e-liquid</ListGroupItem>
-          <ListGroupItem>
+          <ListGroup.Item variant={theme}>
+            Calculate coil resistance
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
+            Define custom coil materials
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
+            Find nicotine/base supply lifetime
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
+            Determine cost to produce e-liquid
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
             Find best gauge of wire for a given load
-          </ListGroupItem>
-          <ListGroupItem>
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
             Get nicotine volume for target supply lifetime
-          </ListGroupItem>
-          <ListGroupItem>
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
             Determine amount of wire remaining on spool
-          </ListGroupItem>
-          <ListGroupItem>
+          </ListGroup.Item>
+          <ListGroup.Item variant={theme}>
             View amp safety chart for regulated and mechanical mods
-          </ListGroupItem>
+          </ListGroup.Item>
         </ListGroup>
       </Card>
     </Fragment>
